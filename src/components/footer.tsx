@@ -14,9 +14,7 @@ import { Button } from "./ui/button";
 
 const Footer = () => {
   const handleBackToTop = () => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -40,19 +38,17 @@ const Footer = () => {
           </p>
 
           <div className="flex gap-8 text-orange-500">
-            <FaFacebook className="cursor-pointer hover:text-orange-400 transition-colors size-8" />
-            <FaYoutube className="cursor-pointer hover:text-orange-400 transition-colors size-8" />
-            <FaInstagram className="cursor-pointer hover:text-orange-400 transition-colors size-8" />
-            <FaLinkedin className="cursor-pointer hover:text-orange-400 transition-colors size-8" />
+            <FaFacebook className="cursor-pointer hover:text-orange-400 size-8" />
+            <FaYoutube className="cursor-pointer hover:text-orange-400 size-8" />
+            <FaInstagram className="cursor-pointer hover:text-orange-400 size-8" />
+            <FaLinkedin className="cursor-pointer hover:text-orange-400 size-8" />
           </div>
         </div>
 
         {/* Categories */}
         <div>
-          <h3 className="text-orange-500 font-semibold mb-4">
-            Categories
-          </h3>
-          <div className="grid grid-cols-2 gap-y-3 text-sm text-gray-300">
+          <h3 className="text-orange-500 font-semibold mb-4">Categories</h3>
+          <div className="grid grid-cols-2 gap-y-4 text-sm text-gray-300">
             {[
               "Top Stories",
               "Entertainment",
@@ -63,7 +59,7 @@ const Footer = () => {
             ].map((item) => (
               <span
                 key={item}
-                className="hover:text-orange-400 cursor-pointer transition-colors"
+                className="hover:text-orange-400 cursor-pointer"
               >
                 {item}
               </span>
@@ -77,7 +73,7 @@ const Footer = () => {
             Reach out to Us
           </h3>
 
-          <div className="flex flex-col gap-3 text-sm text-gray-300">
+          <div className="flex flex-col gap-4 text-sm text-gray-300">
             <div className="flex items-center gap-2">
               <MapPinIcon size={16} />
               <span>23 Main Street, 12345</span>
@@ -96,43 +92,57 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* App Download */}
-      <div className="mt-12 border border-[#F3CB04] rounded-lg px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex items-center gap-4">
-           <Image
-            src="/footerLogo.png"
-            alt="The People Wire"
-            width={60}
-            height={30}
-            priority
-          />
-          <div>
-            <p className="font-semibold text-2xl">Download <span className="text-[#F3CB04]">Our App</span> Now!</p>
-            <p className="text-sm text-gray-400">
-              Get all things membership, straight to your inbox.
-            </p>
+      {/* App Download ROW (tile left, button right) */}
+      <div className="mt-12 flex flex-col lg:flex-row items-center justify-between gap-6 ">
+        {/* App Download Tile */}
+        <div className="border border-[#F3CB04] rounded-lg px-6 py-4 flex flex-col md:flex-row items-center gap-6 w-full lg:w-auto">
+          <div className="flex items-center gap-4">
+            <Image
+              src="/footerLogo.png"
+              alt="The People Wire"
+              width={60}
+              height={30}
+              priority
+            />
+            <div>
+              <p className="font-semibold text-xl">
+                Download <span className="text-[#F3CB04]">Our App</span> Now!
+              </p>
+              <p className="text-sm text-gray-400">
+                Get all things membership, straight to your inbox.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex gap-4">
+            <Image
+              src="/appstore.png"
+              alt="Download on App Store"
+              width={140}
+              height={42}
+            />
+            <Image
+              src="/PlayStore.png"
+              alt="Get it on Google Play"
+              width={140}
+              height={42}
+            />
           </div>
         </div>
 
-        <div className="flex gap-4">
-          <Image
-            src="/appstore.png"
-            alt="Download on App Store"
-            width={140}
-            height={42}
-          />
-          <Image
-            src="/PlayStore.png"
-            alt="Get it on Google Play"
-            width={140}
-            height={42}
-          />
-        </div>
+        {/* Back To Top (OUTSIDE TILE) */}
+        <Button
+          onClick={handleBackToTop}
+          className="bg-[#F25C05] hover:bg-orange-600 text-white flex gap-2 whitespace-nowrap mt-15"
+        >
+          Back To Top <ArrowUpIcon size={16} />
+        </Button>
       </div>
 
-      {/* Bottom */}
-      <Separator className="my-8 bg-gray-800" />
+      {/* Orange separator line */}
+      <Separator className="my-8 bg-[#F25C05]" />
 
+      {/* Bottom */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-gray-400">
         <div className="flex items-center gap-1">
           <CopyrightIcon size={12} />
@@ -140,20 +150,13 @@ const Footer = () => {
         </div>
 
         <div className="flex gap-6">
-          <span className="hover:text-orange-400 cursor-pointer transition-colors">
+          <span className="hover:text-orange-400 cursor-pointer">
             Privacy & Policy
           </span>
-          <span className="hover:text-orange-400 cursor-pointer transition-colors">
+          <span className="hover:text-orange-400 cursor-pointer">
             Disclaimer
           </span>
         </div>
-
-        <Button
-          onClick={handleBackToTop}
-          className="bg-orange-500 hover:bg-orange-600 text-black flex gap-2"
-        >
-          Back To Top <ArrowUpIcon size={16} />
-        </Button>
       </div>
     </footer>
   );
