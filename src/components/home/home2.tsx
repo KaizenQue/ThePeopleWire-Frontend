@@ -114,7 +114,7 @@ export default function Home4() {
         {/* HEADER */}
         <div className="mb-6 md:mb-8 flex items-center justify-between">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-            Business
+            Latest
           </h2>
 
           <div className="flex gap-3">
