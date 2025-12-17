@@ -1,8 +1,9 @@
 "use client";
-import "./home3.css"
+
+import "./home3.css";
 import Image from "next/image";
 import { useRef, useState } from "react";
- 
+
 type Article = {
   id: number;
   title: string;
@@ -12,7 +13,7 @@ type Article = {
   authorAvatar: string;
   date: string;
 };
- 
+
 const articles: Article[] = [
   {
     id: 1,
@@ -66,83 +67,73 @@ const articles: Article[] = [
   },
   {
     id: 6,
-    title: "Hidden Cities of Europe",
+    title: "The Art of Slow Living",
     image: "/1.png",
     excerpt:
-      "A visual journey through Europe’s most underrated urban landscapes.",
+      "Why slowing down might be the most powerful productivity hack.",
     author: "Amal Neerad",
     authorAvatar: "/2.png",
-    date: "December 11, 2025",
+    date: "December 13, 2025",
   },
   {
     id: 7,
-    title: "Hidden Cities of Europe",
+    title: "Designing for Humans",
     image: "/1.png",
     excerpt:
-      "A visual journey through Europe’s most underrated urban landscapes.",
+      "Great design starts with empathy, not pixels.",
     author: "Amal Neerad",
     authorAvatar: "/2.png",
-    date: "December 11, 2025",
+    date: "December 14, 2025",
   },
   {
     id: 8,
-    title: "Hidden Cities of Europe",
+    title: "Inside Digital Newsrooms",
     image: "/1.png",
     excerpt:
-      "A visual journey through Europe’s most underrated urban landscapes.",
+      "How modern newsrooms operate in a 24/7 digital world.",
     author: "Amal Neerad",
     authorAvatar: "/2.png",
-    date: "December 11, 2025",
+    date: "December 15, 2025",
   },
   {
     id: 9,
-    title: "Hidden Cities of Europe",
+    title: "The Power of Visual Storytelling",
     image: "/1.png",
     excerpt:
-      "A visual journey through Europe’s most underrated urban landscapes.",
+      "Images don’t just support stories — they are the story.",
     author: "Amal Neerad",
     authorAvatar: "/2.png",
-    date: "December 11, 2025",
+    date: "December 16, 2025",
   },
   {
     id: 10,
-    title: "Hidden Cities of Europe",
+    title: "Where Journalism Meets Tech",
     image: "/1.png",
     excerpt:
-      "A visual journey through Europe’s most underrated urban landscapes.",
+      "AI, automation, and the future of storytelling.",
     author: "Amal Neerad",
     authorAvatar: "/2.png",
-    date: "December 11, 2025",
-  },
-  {
-    id: 11,
-    title: "Hidden Cities of Europe",
-    image: "/1.png",
-    excerpt:
-      "A visual journey through Europe’s most underrated urban landscapes.",
-    author: "Amal Neerad",
-    authorAvatar: "/2.png",
-    date: "December 11, 2025",
+    date: "December 17, 2025",
   },
 ];
- 
+
 export default function Home3() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeId, setActiveId] = useState<number | null>(null);
   const [activeArrow, setActiveArrow] =
     useState<"left" | "right" | null>(null);
- 
+
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
- 
+
     scrollRef.current.scrollBy({
       left: dir === "left" ? -340 : 340,
       behavior: "smooth",
     });
- 
+
     setActiveArrow(dir);
   };
- 
+
   return (
     <section className="w-full bg-white py-10">
       <div className="mx-auto max-w-8xl px-8">
@@ -151,7 +142,8 @@ export default function Home3() {
           <h2 className="text-3xl font-bold text-gray-900">
             International
           </h2>
- 
+
+          {/* 🔁 RESTORED BUTTONS */}
           <div className="flex gap-3">
             <button
               onClick={() => scroll("left")}
@@ -164,7 +156,7 @@ export default function Home3() {
             >
               ←
             </button>
- 
+
             <button
               onClick={() => scroll("right")}
               className={`flex h-9 w-9 items-center justify-center rounded-md border
@@ -178,15 +170,15 @@ export default function Home3() {
             </button>
           </div>
         </div>
- 
+
         {/* Cards */}
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-scroll no-scrollbar"
+          className="flex gap-6 overflow-x-scroll no-scrollbar py-4"
         >
           {articles.map((article) => {
             const isActive = activeId === article.id;
- 
+
             return (
               <article
                 key={article.id}
@@ -195,53 +187,64 @@ export default function Home3() {
                 }
                 className={`
                   relative flex-shrink-0 cursor-pointer
-                  rounded-2xl overflow-hidden shadow-lg
-                  transition-all duration-500 ease-out
-                  ${isActive ? "w-[340px]" : "w-[260px]"}
-                  h-[420px]
+                  w-[260px] h-[420px]
+                  rounded-2xl overflow-hidden
+                  transform transition-all duration-300 ease-out
+                  ${
+                    isActive
+                      ? "scale-[1.02] -translate-y-2 shadow-2xl"
+                      : "scale-100 shadow-lg hover:-translate-y-1 hover:scale-[1.01]"
+                  }
                 `}
               >
-                {/* Image */}
                 <Image
                   src={article.image}
                   alt={article.title}
                   fill
                   className="object-cover"
                 />
- 
-                {/* Overlay */}
+
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
- 
-                {/* Content */}
-                <div className="relative z-10 flex h-full flex-col justify-between px-10 py-50 text-white">
-                  <h3 className="text-lg font-semibold leading-snug">
-                    {article.title}
-                  </h3>
-                   <h3 className="text-xs font-normal py-30 leading-snug">
-                    {article.date}
-                  </h3>
- 
-                  {isActive && (
+
+                <div className="relative z-10 flex h-full flex-col justify-between px-6 py-6 text-white">
+                  {!isActive && (
                     <>
-                      <p className="mt-3 text-sm text-gray-200 line-clamp-4">
-                        {article.excerpt}
-                      </p>
-                     
- 
-                      <div className="mt-4 flex items-center gap-2 text-sm">
-                        <Image
-                          src={article.authorAvatar}
-                          alt={article.author}
-                          width={24}
-                          height={24}
-                          className="rounded-full"
-                        />
-                        <span>{article.author}</span>
-                      </div>
- 
-                      <p className="mt-1 text-xs text-gray-300">
+                      <h3 className="text-lg font-semibold">
+                        {article.title}
+                      </h3>
+                      <p className="text-xs text-gray-300">
                         {article.date}
                       </p>
+                    </>
+                  )}
+
+                  {isActive && (
+                    <>
+                      <div>
+                        <h3 className="text-lg font-semibold">
+                          {article.title}
+                        </h3>
+                        <p className="mt-3 text-sm text-gray-200">
+                          {article.excerpt}
+                        </p>
+                      </div>
+
+                      <div>
+                        <div className="mt-4 flex items-center gap-2 text-sm">
+                          <Image
+                            src={article.authorAvatar}
+                            alt={article.author}
+                            width={24}
+                            height={24}
+                            className="rounded-full"
+                          />
+                          <span>{article.author}</span>
+                        </div>
+
+                        <p className="mt-1 text-xs text-gray-300">
+                          {article.date}
+                        </p>
+                      </div>
                     </>
                   )}
                 </div>
@@ -250,10 +253,6 @@ export default function Home3() {
           })}
         </div>
       </div>
- 
-   
     </section>
   );
 }
- 
- 
