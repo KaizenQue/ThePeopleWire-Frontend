@@ -135,12 +135,12 @@ export default function Home3() {
   };
 
   return (
-    <section className="w-full bg-white py-10 pl-30">
+    <section className="w-full bg-white py-10 lg:pl-30">
       <div className="mx-auto max-w-8xl px-8">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-3xl font-bold text-gray-900">
-            International
+            Science & Tech
           </h2>
 
           <div className="flex gap-3">
