@@ -45,8 +45,8 @@ const AppNavbar = () => {
                     className={cn(
                       "text-sm font-medium transition-colors",
                       active
-                        ? "text-orange-600 bg-orange-100 px-5 py-2 rounded-lg"
-                        : "text-gray-600 hover:text-orange-600"
+                        ? "text-[#F25C05] bg-[#FEEFE6] px-5 py-2 rounded-lg"
+                        : "text-[#515151] hover:text-[#F25C05]"
                     )}
                   >
                     {link.name}
@@ -102,8 +102,8 @@ const AppNavbar = () => {
                   className={cn(
                     "text-lg font-medium",
                     active
-                      ? "text-orange-600 bg-orange-100 px-8 py-3 rounded-xl"
-                      : "text-gray-700"
+                      ? "text-[#F25C05] bg-[#FEEFE6] px-8 py-3 rounded-xl"
+                      : "text-[#515151]"
                   )}
                 >
                   {link.name}
@@ -117,7 +117,7 @@ const AppNavbar = () => {
             <div className="rounded-2xl bg-black p-6 text-white">
               <div className="flex items-center gap-4">
                 <Image
-                  src="/app-icon.png"
+                  src="/footerLogo.png"
                   alt="App Icon"
                   width={56}
                   height={56}
