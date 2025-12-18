@@ -1,8 +1,9 @@
 "use client";
 
-import "./home6.css";
+import "./home2.css";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { ChevronRight, ChevronLeft,ArrowUpRight  } from "lucide-react";
 
 type Article = {
   id: number;
@@ -45,56 +46,27 @@ const articles: Article[] = [
     authorAvatar: "/profile_41.png",
     date: "December 03, 2025",
   },
-    {
-    id: 4,
-    title: "It’s All Home Water: Oregon Steelhead",
-    image: "/home41.png",
-    excerpt:
-      "Cursor is one of the most popular AI code editors out there. It’s essentially a fork of VS Code, but with various AI features built into it. This means you get the same familiar interface as VS Code, but with added tools to help you write, fix, and improve code faster.",
-    author: "Amal Neerad",
-    authorAvatar: "/profile_41.png",
-    date: "December 03, 2025",
-  },
-    {
-    id: 5,
-    title: "It’s All Home Water: Oregon Steelhead",
-    image: "/home41.png",
-    excerpt:
-      "Cursor is one of the most popular AI code editors out there. It’s essentially a fork of VS Code, but with various AI features built into it. This means you get the same familiar interface as VS Code, but with added tools to help you write, fix, and improve code faster.",
-    author: "Amal Neerad",
-    authorAvatar: "/profile_41.png",
-    date: "December 03, 2025",
-  },
-    {
-    id: 6,
-    title: "It’s All Home Water: Oregon Steelhead",
-    image: "/home41.png",
-    excerpt:
-      "Cursor is one of the most popular AI code editors out there. It’s essentially a fork of VS Code, but with various AI features built into it. This means you get the same familiar interface as VS Code, but with added tools to help you write, fix, and improve code faster.",
-    author: "Amal Neerad",
-    authorAvatar: "/profile_41.png",
-    date: "December 03, 2025",
-  },
-    {
-    id: 7,
-    title: "It’s All Home Water: Oregon Steelhead",
-    image: "/home41.png",
-    excerpt:
-      "Cursor is one of the most popular AI code editors out there. It’s essentially a fork of VS Code, but with various AI features built into it. This means you get the same familiar interface as VS Code, but with added tools to help you write, fix, and improve code faster.",
-    author: "Amal Neerad",
-    authorAvatar: "/profile_41.png",
-    date: "December 03, 2025",
-  },
 ];
 
-
-
-export default function Home6() {
+export default function Home4() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeId, setActiveId] = useState<number | null>(null);
   const [activeArrow, setActiveArrow] =
     useState<"left" | "right" | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
 
+  // 🔒 ADDITIVE FIX (nothing removed)
+  const [lockHover, setLockHover] = useState(false);
+
+  /* ---------------- DESKTOP DETECTION ---------------- */
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  /* ---------------- SCROLL ---------------- */
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
 
@@ -114,7 +86,7 @@ export default function Home6() {
         {/* HEADER */}
         <div className="mb-6 md:mb-8 flex items-center justify-between">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-            Entertainment
+            Science & Tech
           </h2>
 
           <div className="flex gap-3">
@@ -127,7 +99,7 @@ export default function Home6() {
                     : "border-gray-300 hover:bg-gray-100"
                 }`}
             >
-              ←
+              <ChevronLeft size={16} />
             </button>
 
             <button
@@ -139,7 +111,7 @@ export default function Home6() {
                     : "border-gray-300 hover:bg-gray-100"
                 }`}
             >
-              →
+              <ChevronRight size={16} />
             </button>
           </div>
         </div>
@@ -155,9 +127,17 @@ export default function Home6() {
             return (
               <article
                 key={article.id}
-                onClick={() =>
-                  setActiveId(isActive ? null : article.id)
-                }
+                onClick={() => {
+                  if (!isDesktop) {
+                    setActiveId(isActive ? null : article.id);
+                  }
+                }}
+                onMouseEnter={() => {
+                  if (isDesktop) setActiveId(article.id);
+                }}
+                onMouseLeave={() => {
+                  if (isDesktop && !lockHover) setActiveId(null);
+                }}
                 className={`
                   flex-shrink-0 cursor-pointer
                   w-[90vw] md:w-[536px]
@@ -166,7 +146,7 @@ export default function Home6() {
                   transform transition-all duration-300 ease-out
                   ${
                     isActive
-                      ? "scale-100 bg-[#FFF7F0] "
+                      ? "scale-100 bg-[#FFF7F0]"
                       : "scale-[0.98] md:scale-[0.96] bg-white shadow-md hover:scale-[0.99] md:hover:scale-[0.98]"
                   }
                 `}
@@ -195,7 +175,7 @@ export default function Home6() {
                           />
                           <span
                             style={{ fontFamily: "var(--font-dm-sans)" }}
-                            className="text-[12px] md:text-[14px] font-normal tracking-[-0.28px] text-black"
+                            className="text-[12px] md:text-[14px] tracking-[-0.28px] text-black"
                           >
                             By {article.author}
                           </span>
@@ -211,7 +191,7 @@ export default function Home6() {
 
                       <span
                         style={{ fontFamily: "var(--font-dm-sans)" }}
-                        className="mt-4 text-[13px] md:text-[15px] font-medium tracking-[-0.5px] text-[#727272]"
+                        className="mt-4 text-[13px] md:text-[15px] tracking-[-0.5px] text-[#727272]"
                       >
                         {article.date}
                       </span>
@@ -253,12 +233,24 @@ export default function Home6() {
                         {article.date}
                       </span>
 
+                      {/* ✅ READ MORE – CLICK FIX ONLY */}
                       <button
-                        onClick={(e) => e.stopPropagation()}
+                        onMouseEnter={() => setLockHover(true)}
+                        onMouseLeave={() => setLockHover(false)}
+                        onClick={(e) => {
+                          console.log("Read More clicked");
+                          e.stopPropagation();
+                          // navigation logic here
+                        }}
                         style={{ fontFamily: "var(--font-albert-sans)" }}
-                        className="flex items-center gap-2 rounded-lg border border-[#F25C05] px-3 md:px-4 py-2 text-[14px] md:text-[16px] font-semibold tracking-[-0.5px] text-[#F25C05] hover:bg-orange-50"
+                        className="flex items-center gap-2 rounded-lg border border-[#F25C05]
+  px-3 md:px-4 py-2 text-[14px] md:text-[16px]
+  font-semibold tracking-[-0.5px] text-[#F25C05]
+  hover:bg-orange-50
+  transition-transform duration-150 ease-out
+  active:scale-95"
                       >
-                        Read More ↗
+                        Read More  <ArrowUpRight size={16} />
                       </button>
                     </div>
                   </div>
@@ -271,4 +263,3 @@ export default function Home6() {
     </section>
   );
 }
-

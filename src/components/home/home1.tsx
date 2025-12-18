@@ -1,5 +1,5 @@
 import React from "react";
-
+ 
 type Story = {
   id: number;
   title: string;
@@ -10,9 +10,9 @@ type Story = {
   prf_img:string;
   date:string;
 };
-
+ 
 /* ------------------ DATA ------------------ */
-
+ 
 const featuredStory = {
   title:
     "12 AI Code Generators Tested: Features, Pricing & Honest Reviews for 2025",
@@ -23,7 +23,7 @@ const featuredStory = {
   date: "December 03, 2025",
   readTime: "21 min read",
 };
-
+ 
 const smallStories: Story[] = [
   {
     id: 1,
@@ -44,7 +44,7 @@ const smallStories: Story[] = [
     readTime: "5 Min Read",
     prf_img:"johnkenndy.svg",
         date:"Jan 21 2025",
-
+ 
   },
   {
     id: 3,
@@ -55,12 +55,12 @@ const smallStories: Story[] = [
     readTime: "5 Min Read",
     prf_img:"johnkenndy.svg",
         date:"Jan 21, 2025",
-
+ 
   },
 ];
-
+ 
 /* ------------------ COMPONENTS ------------------ */
-
+ 
 const SmallStoryCard: React.FC<{ story: Story }> = ({ story }) => (
   <div className="bg-[#F5F5F5] rounded-2xl overflow-hidden">
     <div className="relative">
@@ -73,12 +73,12 @@ const SmallStoryCard: React.FC<{ story: Story }> = ({ story }) => (
         {story.category}
       </span>
     </div>
-
+ 
     <div className="p-4">
       <h4 className="text-sm font-semibold leading-snug mb-3">
         {story.title}
       </h4>
-
+ 
  <div
   className="
     flex flex-col gap-2
@@ -99,7 +99,7 @@ const SmallStoryCard: React.FC<{ story: Story }> = ({ story }) => (
         "
       />
     )}
-
+ 
     <span
       style={{ fontFamily: "var(--font-dm-sans)" }}
       className="
@@ -110,7 +110,7 @@ const SmallStoryCard: React.FC<{ story: Story }> = ({ story }) => (
       {story.author}
     </span>
   </div>
-
+ 
   {/* Meta */}
   <div className="flex items-center gap-1 flex-shrink-0">
     <span
@@ -119,9 +119,9 @@ const SmallStoryCard: React.FC<{ story: Story }> = ({ story }) => (
     >
       {story.date}
     </span>
-
+ 
     <span className="text-[10px] text-black/60">|</span>
-
+ 
     <span
       style={{ fontFamily: "var(--font-dm-sans)" }}
       className="text-[10px] font-normal leading-normal tracking-[-0.2px] text-black capitalize"
@@ -130,14 +130,14 @@ const SmallStoryCard: React.FC<{ story: Story }> = ({ story }) => (
     </span>
   </div>
 </div>
-
-
+ 
+ 
     </div>
   </div>
 );
-
+ 
 /* ------------------ MAIN ------------------ */
-
+ 
 const Home1: React.FC = () => {
   return (
     <>
@@ -149,7 +149,7 @@ const Home1: React.FC = () => {
   <h2 className="text-2xl sm:text-3xl font-bold text-black mb-6 sm:mb-8">
     Top Stories
   </h2>
-
+ 
   <div className="flex flex-col gap-6 sm:gap-8">
     {/* FEATURED */}
     <div className="bg-[#F5F5F5] rounded-2xl overflow-hidden">
@@ -166,12 +166,12 @@ const Home1: React.FC = () => {
           {featuredStory.category}
         </span>
       </div>
-
+ 
       <div className="p-4 sm:p-5 md:p-6">
         <h3 className="text-lg sm:text-xl font-bold text-[#262626] mb-3 sm:mb-4">
           {featuredStory.title}
         </h3>
-
+ 
         <div
           style={{ fontFamily: "var(--font-dm-sans)" }}
           className="flex items-center justify-between text-xs sm:text-sm text-[#727272]"
@@ -181,7 +181,7 @@ const Home1: React.FC = () => {
         </div>
       </div>
     </div>
-
+ 
     {/* CTA */}
     <div className="bg-black rounded-2xl p-5 sm:p-6 md:p-7">
       <div className="flex gap-4">
@@ -195,12 +195,12 @@ const Home1: React.FC = () => {
   style={{ fontFamily: "var(--font-albert-sans)" }}
   className="mb-2  text-[24px] font-bold leading-normal tracking-[-0.48px] text-white"
 >
-  Download <span className="text-[#F3CB04]"> Our App </span> 
+  Download <span className="text-[#F3CB04]"> Our App </span>
   <br />
   <span className="text-white">for more Updates!</span>
 </h3>
-
-
+ 
+ 
     <p
   style={{ fontFamily: "var(--font-dm-sans)" }}
   className="text-[15px] font-normal leading-normal text-[#CCC]"
@@ -209,17 +209,17 @@ const Home1: React.FC = () => {
   <br />
   straight to your inbox.
 </p>
-
+ 
 </div>
 <div>
-
+ 
 </div>
  
-    
+   
       </div>
-
-
-
+ 
+ 
+ 
       <div className="flex gap-3 mt-5 sm:mt-6 items-center justify-center">
         <img
           src="/appstore.png"
@@ -231,7 +231,7 @@ const Home1: React.FC = () => {
         />
       </div>
     </div>
-
+ 
     {/* SMALL STORIES */}
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {smallStories.map((story) => (
@@ -240,8 +240,8 @@ const Home1: React.FC = () => {
     </div>
   </div>
 </section>
-
-
+ 
+ 
       {/* ================= DESKTOP ONLY (UNCHANGED LOGIC) ================= */}
       <div className="hidden lg:block">
         <section
@@ -249,7 +249,7 @@ const Home1: React.FC = () => {
           style={{ fontFamily: "var(--font-albert-sans)" }}
         >
           <h2 className="text-3xl font-bold text-black mb-8">Top Stories</h2>
-
+ 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* FEATURED */}
             <div className="lg:col-span-6 lg:row-span-2 bg-[#F5F5F5] rounded-2xl overflow-hidden">
@@ -266,12 +266,12 @@ const Home1: React.FC = () => {
                   {featuredStory.category}
                 </span>
               </div>
-
+ 
               <div className="p-6">
                 <h3 className="text-[35px] font-bold text-[#262626] mb-6">
                   {featuredStory.title}
                 </h3>
-
+ 
                 <div
                   style={{ fontFamily: "var(--font-dm-sans)" }}
                   className="flex items-center justify-between text-[14px] text-[#727272]"
@@ -285,7 +285,7 @@ const Home1: React.FC = () => {
                       By {featuredStory.author}
                     </span>
                   </div>
-
+ 
                   <div className="flex gap-3">
                     <span>{featuredStory.date}</span>
                     <span>{featuredStory.readTime}</span>
@@ -293,7 +293,7 @@ const Home1: React.FC = () => {
                 </div>
               </div>
             </div>
-
+ 
             <div className="lg:col-span-3">
               <SmallStoryCard story={smallStories[0]} />
             </div>
@@ -310,7 +310,7 @@ const Home1: React.FC = () => {
       alt=""
       className="w-[clamp(36px,3vw,44px)] h-[clamp(36px,3vw,44px)] mb-3 object-contain"
     />
-
+ 
     <h3
       style={{
         fontFamily: "var(--font-albert-sans)",
@@ -322,7 +322,7 @@ const Home1: React.FC = () => {
       <br />
       <span className="text-white">for more Updates!</span>
     </h3>
-
+ 
     <p
       style={{ fontFamily: "var(--font-albert-sans)" }}
       className="text-[clamp(13px,1.15vw,16px)] leading-[1.45] text-white"
@@ -332,7 +332,7 @@ const Home1: React.FC = () => {
       straight to your inbox.
     </p>
   </div>
-
+ 
   {/* STORE BUTTONS */}
   <div className="
     flex flex-col sm:flex-row
@@ -352,10 +352,10 @@ const Home1: React.FC = () => {
     />
   </div>
 </div>
-
-
-
-
+ 
+ 
+ 
+ 
             {smallStories.slice(1).map((story) => (
               <div key={story.id} className="lg:col-span-3">
                 <SmallStoryCard story={story} />
@@ -367,6 +367,8 @@ const Home1: React.FC = () => {
     </>
   );
 };
-
-
+ 
+ 
 export default Home1;
+ 
+ 

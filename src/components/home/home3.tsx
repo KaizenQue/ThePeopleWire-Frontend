@@ -2,7 +2,8 @@
 
 import "./home3.css";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { ChevronRight, ChevronLeft,ArrowUpRight  } from "lucide-react";
 
 type Article = {
   id: number;
@@ -116,12 +117,20 @@ const articles: Article[] = [
     date: "December 17, 2025",
   },
 ];
-
 export default function Home3() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeId, setActiveId] = useState<number | null>(null);
   const [activeArrow, setActiveArrow] =
     useState<"left" | "right" | null>(null);
+
+  /* ✅ DESKTOP DETECTION (additive) */
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return;
@@ -153,7 +162,7 @@ export default function Home3() {
                     : "border-gray-300 hover:bg-gray-100"
                 }`}
             >
-              ←
+              <ChevronLeft size={16} />
             </button>
 
             <button
@@ -165,7 +174,7 @@ export default function Home3() {
                     : "border-gray-300 hover:bg-gray-100"
                 }`}
             >
-              →
+              <ChevronRight size={16} />
             </button>
           </div>
         </div>
@@ -181,9 +190,17 @@ export default function Home3() {
             return (
               <article
                 key={article.id}
-                onClick={() =>
-                  setActiveId(isActive ? null : article.id)
-                }
+                onClick={() => {
+                  if (!isDesktop) {
+                    setActiveId(isActive ? null : article.id);
+                  }
+                }}
+                onMouseEnter={() => {
+                  if (isDesktop) setActiveId(article.id);
+                }}
+                onMouseLeave={() => {
+                  if (isDesktop) setActiveId(null);
+                }}
                 className={`
                   relative flex-shrink-0 cursor-pointer
                   w-[260px] h-[420px]
@@ -209,10 +226,9 @@ export default function Home3() {
 
                 {/* Content */}
                 <div className="relative z-10 flex h-full flex-col justify-between p-6 text-white">
-                  {/* ===== DEFAULT (RIGHT CARD LOOK) ===== */}
                   {!isActive && (
                     <>
-                      <div className="flex items-center gap-2 text-xs opacity-90 py-30">
+                      <div className="flex items-center gap-2 text-xs opacity-90">
                         <Image
                           src={article.authorAvatar}
                           alt={article.author}
@@ -235,7 +251,6 @@ export default function Home3() {
                     </>
                   )}
 
-                  {/* ===== ACTIVE (LEFT CARD LOOK) ===== */}
                   {isActive && (
                     <>
                       <div>
@@ -264,11 +279,18 @@ export default function Home3() {
                           {article.date}
                         </p>
 
+                        {/* ✅ Read More — desktop hover + mobile click feedback */}
                         <button
                           onClick={(e) => e.stopPropagation()}
-                          className="flex w-full items-center justify-center gap-2 rounded-md border border-orange-500 px-4 py-2 text-sm font-medium text-orange-500 hover:bg-orange-500 hover:text-white transition"
+                          className="flex w-full items-center justify-center gap-2
+                            rounded-md border border-orange-500 px-4 py-2
+                            text-sm font-medium text-orange-500
+                            hover:bg-orange-500 hover:text-white
+                            transition-all duration-150 ease-out
+                            active:scale-95
+                            lg:hover:scale-[0.97]"
                         >
-                          Read More ↗
+                          Read More  <ArrowUpRight size={16} />
                         </button>
                       </div>
                     </>
