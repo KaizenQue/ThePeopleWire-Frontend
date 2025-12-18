@@ -1,5 +1,6 @@
 "use client";
 
+import { link } from "fs";
 import React, { useEffect, useState } from "react";
 
 /* ------------------ TYPES ------------------ */
@@ -11,6 +12,7 @@ type ApiArticle = {
   category?: string[];
   author?: string[];
   publish_datetime: string;
+  link: string;
 };
 
 type Story = {
@@ -22,6 +24,7 @@ type Story = {
   readTime: string;
   prf_img: string;
   date: string;
+  link: string,
 };
 
 /* ------------------ COMPONENTS ------------------ */
@@ -40,9 +43,20 @@ const SmallStoryCard: React.FC<{ story: Story }> = ({ story }) => (
     </div>
 
     <div className="p-4">
-      <h4 className="text-sm font-semibold leading-snug mb-3">
-        {story.title}
-      </h4>
+     <h4
+  className="text-sm font-semibold leading-snug mb-3"
+  onClick={(e) => e.stopPropagation()}
+>
+  <a
+    href={story.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:underline"
+  >
+    {story.title}
+  </a>
+</h4>
+
 
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-[#727272] tracking-[-0.28px]">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
@@ -107,21 +121,24 @@ const Home1: React.FC = () => {
           authorImage: "/profile.png",
           date: new Date(first.publish_datetime).toDateString(),
           readTime: "5 Min Read",
+          link: first.link, 
         });
 
         /* SMALL STORIES */
         const mappedSmallStories: Story[] = articles.slice(1, 4).map(
-          (item, index) => ({
-            id: index + 1,
-            title: item.title,
-            image: item.image_url || "/placeholder.jpg",
-            category: item.category?.[0] || "Top",
-            author: item.author?.[0] || "Unknown",
-            readTime: "5 Min Read",
-            prf_img: "",
-            date: new Date(item.publish_datetime).toDateString(),
-          })
-        );
+  (item, index) => ({
+    id: index + 1,
+    title: item.title,
+    image: item.image_url || "/placeholder.jpg",
+    category: item.category?.[0] || "Top",
+    author: item.author?.[0] || "Unknown",
+    readTime: "5 Min Read",
+    prf_img: "",
+    date: new Date(item.publish_datetime).toDateString(),
+    link: item.link, // ✅ IMPORTANT
+  })
+);
+
 
         setSmallStories(mappedSmallStories);
       } catch (err) {
@@ -160,9 +177,20 @@ const Home1: React.FC = () => {
             </div>
 
             <div className="p-4 sm:p-5 md:p-6">
-              <h3 className="text-lg sm:text-xl font-bold text-[#262626] mb-3 sm:mb-4">
-                {featuredStory.title}
-              </h3>
+             <h3
+  className="text-[35px] font-bold text-[#262626] mb-6"
+  onClick={(e) => e.stopPropagation()}
+>
+  <a
+    href={featuredStory.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:underline"
+  >
+    {featuredStory.title}
+  </a>
+</h3>
+
 
               <div className="flex items-center justify-between text-xs sm:text-sm text-[#727272]">
                 <span>By {featuredStory.author}</span>
@@ -302,8 +330,8 @@ const Home1: React.FC = () => {
               </div>
 
               <div className="p-6">
-                <h3 className="text-[35px] font-bold text-[#262626] mb-6">
-                  {featuredStory.title}
+              <h3 className="text-[35px] font-bold text-[#262626] mb-6">
+                    <a href={featuredStory.link} target="_blank" rel="noopener noreferrer"> {featuredStory.title}</a>
                 </h3>
 
                 <div className="flex items-center justify-between text-[14px] text-[#727272]">
