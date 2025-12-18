@@ -166,11 +166,9 @@ readTime: timeLatest(first.publish_datetime),
     image: item.image_url || "/placeholder.jpg",
     category: item.category?.[0] || "Top",
     author: item.author?.[0] || "Unknown",
-    readTime: "5 Min Read",
     prf_img: "",
     date: new Date(item.publish_datetime).toDateString(),
     readTime: timeLatest(first.publish_datetime),
-
     link: item.link, // ✅ IMPORTANT
   })
 );
