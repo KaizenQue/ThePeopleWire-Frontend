@@ -1,4 +1,17 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+
+/* ------------------ TYPES ------------------ */
+
+type ApiArticle = {
+  id: string;
+  title: string;
+  image_url: string | null;
+  category?: string[];
+  author?: string[];
+  publish_datetime: string;
+};
 
 type Story = {
   id: number;
@@ -10,52 +23,6 @@ type Story = {
   prf_img: string;
   date: string;
 };
-
-/* ------------------ DATA ------------------ */
-
-const featuredStory = {
-  title:
-    "12 AI Code Generators Tested: Features, Pricing & Honest Reviews for 2025",
-  image: "home1tileimg1.png",
-  category: "Social media",
-  author: "Amal Neerad",
-  authorImage: "amalneerad.png",
-  date: "December 03, 2025",
-  readTime: "21 min read",
-};
-
-const smallStories: Story[] = [
-  {
-    id: 1,
-    title: "Cursor AI Review (2025): Features, Workflow, and Why I Use It",
-    image: "home1tileimg2.png",
-    category: "Social media",
-    author: "John Kennedy",
-    readTime: "5 Min Read",
-    prf_img: "johnkenndy.svg",
-    date: "Jan 21 2025",
-  },
-  {
-    id: 2,
-    title: "Cursor AI Review (2025): Features, Workflow, and Why I Use It",
-    image: "home1tileimg3.png",
-    category: "Social media",
-    author: "John Kennedy",
-    readTime: "5 Min Read",
-    prf_img: "johnkenndy.svg",
-    date: "Jan 21 2025",
-  },
-  {
-    id: 3,
-    title: "Cursor AI Review (2025): Features, Workflow, and Why I Use It",
-    image: "home1tileimg4.png",
-    category: "Social media",
-    author: "John Kennedy",
-    readTime: "5 Min Read",
-    prf_img: "johnkenndy.svg",
-    date: "Jan 21 2025",
-  },
-];
 
 /* ------------------ COMPONENTS ------------------ */
 
@@ -73,54 +40,39 @@ const SmallStoryCard: React.FC<{ story: Story }> = ({ story }) => (
     </div>
 
     <div className="p-4">
-      <h4 className="text-sm font-semibold leading-snug mb-3">{story.title}</h4>
+      <h4 className="text-sm font-semibold leading-snug mb-3">
+        {story.title}
+      </h4>
 
-      <div
-        className="
-          flex flex-col gap-2
-          sm:flex-row sm:items-center sm:justify-between
-          text-[#727272] tracking-[-0.28px]
-        "
-      >
-        {/* Author */}
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-[#727272] tracking-[-0.28px]">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           {story.prf_img && (
             <img
               src={story.prf_img}
               alt={story.author}
-              className="
-                w-5 h-5
-                sm:w-6 sm:h-6
-                rounded-full object-cover flex-shrink-0
-              "
+              className="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover"
             />
           )}
 
           <span
             style={{ fontFamily: "var(--font-dm-sans)" }}
-            className="
-              text-[10px] font-normal leading-[12px] text-[#231F18]
-              truncate
-            "
+            className="text-[10px] font-normal leading-[12px] text-[#231F18] truncate"
           >
             {story.author}
           </span>
         </div>
 
-        {/* Meta */}
-        <div className="flex items-center gap-1 flex-shrink-0">
+        <div className="flex items-center gap-1">
           <span
             style={{ fontFamily: "var(--font-dm-sans)" }}
-            className="text-[10px] font-normal leading-normal tracking-[-0.2px] text-black"
+            className="text-[10px] font-normal text-black"
           >
             {story.date}
           </span>
-
           <span className="text-[10px] text-black/60">|</span>
-
           <span
             style={{ fontFamily: "var(--font-dm-sans)" }}
-            className="text-[10px] font-normal leading-normal tracking-[-0.2px] text-black capitalize"
+            className="text-[10px] font-normal text-black"
           >
             {story.readTime}
           </span>
@@ -133,6 +85,55 @@ const SmallStoryCard: React.FC<{ story: Story }> = ({ story }) => (
 /* ------------------ MAIN ------------------ */
 
 const Home1: React.FC = () => {
+  const [featuredStory, setFeaturedStory] = useState<any>(null);
+  const [smallStories, setSmallStories] = useState<Story[]>([]);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await fetch("/api/news");
+        const json = await res.json();
+        const articles: ApiArticle[] = json.data || [];
+
+        if (!articles.length) return;
+
+        /* FEATURED STORY */
+        const first = articles[0];
+        setFeaturedStory({
+          title: first.title,
+          image: first.image_url || "/placeholder.jpg",
+          category: first.category?.[0] || "Top",
+          author: first.author?.[0] || "Unknown",
+          authorImage: "/profile.png",
+          date: new Date(first.publish_datetime).toDateString(),
+          readTime: "5 Min Read",
+        });
+
+        /* SMALL STORIES */
+        const mappedSmallStories: Story[] = articles.slice(1, 4).map(
+          (item, index) => ({
+            id: index + 1,
+            title: item.title,
+            image: item.image_url || "/placeholder.jpg",
+            category: item.category?.[0] || "Top",
+            author: item.author?.[0] || "Unknown",
+            readTime: "5 Min Read",
+            prf_img: "",
+            date: new Date(item.publish_datetime).toDateString(),
+          })
+        );
+
+        setSmallStories(mappedSmallStories);
+      } catch (err) {
+        console.error("Failed to fetch news", err);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
+  if (!featuredStory) return null;
+
   return (
     <>
       {/* ================= MOBILE + TABLET ================= */}
@@ -153,10 +154,7 @@ const Home1: React.FC = () => {
                 alt={featuredStory.title}
                 className="w-full h-[220px] sm:h-[260px] md:h-[300px] object-cover"
               />
-              <span
-                style={{ fontFamily: "var(--font-dm-sans)" }}
-                className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-orange-500 text-[11px] sm:text-[12px] font-semibold text-white px-3 py-1 rounded-full"
-              >
+              <span className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-orange-500 text-[11px] sm:text-[12px] font-semibold text-white px-3 py-1 rounded-full">
                 {featuredStory.category}
               </span>
             </div>
@@ -166,17 +164,15 @@ const Home1: React.FC = () => {
                 {featuredStory.title}
               </h3>
 
-              <div
-                style={{ fontFamily: "var(--font-dm-sans)" }}
-                className="flex items-center justify-between text-xs sm:text-sm text-[#727272]"
-              >
+              <div className="flex items-center justify-between text-xs sm:text-sm text-[#727272]">
                 <span>By {featuredStory.author}</span>
                 <span>{featuredStory.readTime}</span>
               </div>
             </div>
           </div>
 
-          {/* CTA - UPDATED FOR TABLET */}
+          {/* CTA — UNCHANGED */}
+ {/* CTA - UPDATED FOR TABLET */}
           <div className="bg-black rounded-2xl p-5 sm:p-6 md:p-7 md:flex md:justify-around">
             <div className="flex gap-4 items-start">
               <img
@@ -274,7 +270,6 @@ const Home1: React.FC = () => {
 </div>
 
           </div>
-
           {/* SMALL STORIES */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {smallStories.map((story) => (
@@ -284,7 +279,7 @@ const Home1: React.FC = () => {
         </div>
       </section>
 
-      {/* ================= DESKTOP ONLY ================= */}
+      {/* ================= DESKTOP ================= */}
       <div className="hidden lg:block">
         <section
           className="w-full px-8 lg:px-32 py-12"
@@ -301,10 +296,7 @@ const Home1: React.FC = () => {
                   alt={featuredStory.title}
                   className="w-full h-[360px] object-cover"
                 />
-                <span
-                  style={{ fontFamily: "var(--font-dm-sans)" }}
-                  className="absolute top-4 left-4 bg-orange-500 text-[12px] font-semibold text-white px-3 py-1 rounded-full"
-                >
+                <span className="absolute top-4 left-4 bg-orange-500 text-[12px] font-semibold text-white px-3 py-1 rounded-full">
                   {featuredStory.category}
                 </span>
               </div>
@@ -314,21 +306,8 @@ const Home1: React.FC = () => {
                   {featuredStory.title}
                 </h3>
 
-                <div
-                  style={{ fontFamily: "var(--font-dm-sans)" }}
-                  className="flex items-center justify-between text-[14px] text-[#727272]"
-                >
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={featuredStory.authorImage}
-                      className="w-6 h-6 rounded-full"
-                      alt={featuredStory.author}
-                    />
-                    <span className="text-black">
-                      By {featuredStory.author}
-                    </span>
-                  </div>
-
+                <div className="flex items-center justify-between text-[14px] text-[#727272]">
+                  <span>By {featuredStory.author}</span>
                   <div className="flex gap-3">
                     <span>{featuredStory.date}</span>
                     <span>{featuredStory.readTime}</span>
@@ -336,12 +315,14 @@ const Home1: React.FC = () => {
                 </div>
               </div>
             </div>
+{smallStories.slice(0, 1).map((story) => (
+  <div key={story.id} className="lg:col-span-3">
+    <SmallStoryCard story={story} />
+  </div>
+))}
 
-            <div className="lg:col-span-3">
-              <SmallStoryCard story={smallStories[0]} />
-            </div>
 
-            <div
+   <div
               className="
                 lg:col-span-3
                 bg-black rounded-2xl
@@ -435,12 +416,13 @@ const Home1: React.FC = () => {
 </div>
 
             </div>
+            {smallStories.slice(1, 3).map((story) => (
+  <div key={story.id} className="lg:col-span-3">
+    <SmallStoryCard story={story} />
+  </div>
+))}
 
-            {smallStories.slice(1).map((story) => (
-              <div key={story.id} className="lg:col-span-3">
-                <SmallStoryCard story={story} />
-              </div>
-            ))}
+  
           </div>
         </section>
       </div>

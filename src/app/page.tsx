@@ -8,6 +8,7 @@ import Home4 from "@/components/home/home4";
 import Home5 from "@/components/home/home5";
 import Home6 from "@/components/home/home6";
 import Home8 from "@/components/home/home8";
+import LatestNews from "@/components/LatestNews";
 
 export default function Home() {
  return (
@@ -20,6 +21,7 @@ export default function Home() {
     <Home5/>
     <Home6/>
     <Home8/>
+    {/* <LatestNews/> */}
     <Footer />
   </main>
  );
