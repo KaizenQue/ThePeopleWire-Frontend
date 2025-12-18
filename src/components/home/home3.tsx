@@ -23,7 +23,7 @@ const articles: Article[] = [
     excerpt:
       "Cursor is one of the most popular AI code editors out there. It’s essentially a fork of VS Code, but with various AI features built into it. This means you get the same familiar interface as VS Code, but with added tools to help you write, fix, and improve code faster.",
     author: "Amal Neerad",
-    authorAvatar: "/2.png",
+    authorAvatar: "/author.png",
     date: "December 03, 2025",
   },
   {
@@ -33,7 +33,7 @@ const articles: Article[] = [
     excerpt:
       "A deep dive into contemporary design trends shaping the future of architecture worldwide.",
     author: "Amal Neerad",
-    authorAvatar: "/2.png",
+    authorAvatar: "/author.png",
     date: "December 05, 2025",
   },
   {
@@ -43,7 +43,7 @@ const articles: Article[] = [
     excerpt:
       "Powerful portraits and stories capturing emotion, culture, and human resilience.",
     author: "Amal Neerad",
-    authorAvatar: "/2.png",
+    authorAvatar: "/author.png",
     date: "December 07, 2025",
   },
   {
@@ -53,7 +53,7 @@ const articles: Article[] = [
     excerpt:
       "Exploring destinations that rarely make it to travel brochures but leave lasting impressions.",
     author: "Amal Neerad",
-    authorAvatar: "/2.png",
+    authorAvatar: "/author.png",
     date: "December 09, 2025",
   },
   {
@@ -63,7 +63,7 @@ const articles: Article[] = [
     excerpt:
       "A visual journey through Europe’s most underrated urban landscapes.",
     author: "Amal Neerad",
-    authorAvatar: "/2.png",
+    authorAvatar: "/author.png",
     date: "December 11, 2025",
   },
   {
@@ -73,7 +73,7 @@ const articles: Article[] = [
     excerpt:
       "Why slowing down might be the most powerful productivity hack.",
     author: "Amal Neerad",
-    authorAvatar: "/2.png",
+    authorAvatar: "/author.png",
     date: "December 13, 2025",
   },
   {
@@ -83,7 +83,7 @@ const articles: Article[] = [
     excerpt:
       "Great design starts with empathy, not pixels.",
     author: "Amal Neerad",
-    authorAvatar: "/2.png",
+    authorAvatar: "/author.png",
     date: "December 14, 2025",
   },
   {
@@ -93,7 +93,7 @@ const articles: Article[] = [
     excerpt:
       "How modern newsrooms operate in a 24/7 digital world.",
     author: "Amal Neerad",
-    authorAvatar: "/2.png",
+    authorAvatar: "/author.png",
     date: "December 15, 2025",
   },
   {
@@ -103,7 +103,7 @@ const articles: Article[] = [
     excerpt:
       "Images don’t just support stories — they are the story.",
     author: "Amal Neerad",
-    authorAvatar: "/2.png",
+    authorAvatar: "/author.png",
     date: "December 16, 2025",
   },
   {
@@ -113,7 +113,7 @@ const articles: Article[] = [
     excerpt:
       "AI, automation, and the future of storytelling.",
     author: "Amal Neerad",
-    authorAvatar: "/2.png",
+    authorAvatar: "/author.png",
     date: "December 17, 2025",
   },
 ];
@@ -228,19 +228,20 @@ export default function Home3() {
                 <div className="relative z-10 flex h-full flex-col justify-between p-6 text-white">
                   {!isActive && (
                     <>
-                      <div className="flex items-center gap-2 text-xs opacity-90">
+                      <div className="flex items-center gap-2 text-xs opacity-90 mt-40">
                         <Image
-                          src={article.authorAvatar}
-                          alt={article.author}
-                          width={18}
-                          height={18}
-                          className="rounded-full"
-                        />
+  src={article.authorAvatar}
+  alt={article.author}
+  width={18}
+  height={18}
+  className="w-[26px] h-[26px] rounded-full object-cover"
+/>
+
                         <span>By {article.author}</span>
                       </div>
 
                       <div>
-                        <h3 className="mt-2 text-lg font-semibold leading-snug">
+                        <h3 className="mt-2 text-lg font-semibold leading-snug mb-28">
                           {article.title}
                         </h3>
 
@@ -255,13 +256,13 @@ export default function Home3() {
                     <>
                       <div>
                         <div className="mb-4 flex items-center gap-2 text-xs">
-                          <Image
-                            src={article.authorAvatar}
-                            alt={article.author}
-                            width={18}
-                            height={18}
-                            className="rounded-full"
-                          />
+                               <Image
+  src={article.authorAvatar}
+  alt={article.author}
+  width={18}
+  height={18}
+  className="w-[30px] h-[30px] rounded-full object-cover"
+/>
                           <span>By {article.author}</span>
                         </div>
 
