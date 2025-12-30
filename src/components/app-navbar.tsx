@@ -8,8 +8,13 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "About Us", href: "/AboutUs" },
-  { name: "Contact Us", href: "/ContactUs" },
+  { name: "Top Stories", href: "/top-stories" },
+  { name: "Latest", href: "/latest" },
+  { name: "International", href: "/international" },
+  { name: "Business", href: "/business" },
+  { name: "Entertainment", href: "/entertainment" },
+  { name: "Science & Tech", href: "/science-tech" },
+  { name: "Sports", href: "/sports" },
 ];
 
 const AppNavbar = () => {
@@ -19,46 +24,51 @@ const AppNavbar = () => {
   return (
     <>
       {/* ================= HEADER ================= */}
-      <header className="w-full bg-white shadow-sm relative z-50">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="relative flex h-16 items-center">
+      <header className="w-full bg-white shadow-sm sticky top-0 z-50">
+        <div className="mx-auto max-w-[1440px] px-4 ">
+          <div className="flex h-16 items-center">
 
             {/* Logo — Left */}
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center shrink-0">
               <Image
                 src="/icon.svg"
                 alt="The People Wire"
-                width={110}
-                height={32}
+                width={105}
+                height={30}
                 priority
               />
             </Link>
 
-            {/* ================= CENTER NAV (Desktop & Tablet) ================= */}
-            <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-12">
-              {navLinks.map((link) => {
-                const active = pathname === link.href;
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className={cn(
-                      "text-sm font-medium transition-colors",
-                      active
-                        ? "text-[#F25C05] bg-[#FEEFE6] px-5 py-2 rounded-lg"
-                        : "text-[#515151] hover:text-[#F25C05]"
-                    )}
-                  >
-                    {link.name}
-                  </Link>
-                );
-              })}
+            {/* ================= DESKTOP NAV (LG+) ================= */}
+            <nav className="hidden lg:flex flex-1 justify-center">
+              <ul className="flex items-center whitespace-nowrap
+                gap-4 xl:gap-6 2xl:gap-8">
+                {navLinks.map((link) => {
+                  const active = pathname === link.href;
+                  return (
+                    <li key={link.name}>
+                      <Link
+                        href={link.href}
+                        className={cn(
+                          "px-2 py-2 rounded-md transition-colors font-medium",
+                          "text-[13px] xl:text-sm 2xl:text-[15px]",
+                          active
+                            ? "text-[#F25C05] bg-[#FEEFE6]"
+                            : "text-[#515151] hover:text-[#F25C05]"
+                        )}
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
             </nav>
 
-            {/* ================= Mobile Hamburger — Right ================= */}
+            {/* ================= MOBILE + TABLET HAMBURGER ================= */}
             <button
               onClick={() => setMenuOpen(true)}
-              className="ml-auto md:hidden flex flex-col gap-1.5"
+              className="ml-auto lg:hidden flex flex-col gap-1.5"
               aria-label="Open menu"
             >
               <span className="h-1 w-8 rounded bg-orange-500" />
@@ -69,7 +79,7 @@ const AppNavbar = () => {
         </div>
       </header>
 
-      {/* ================= MOBILE FULLSCREEN MENU ================= */}
+      {/* ================= MOBILE + TABLET MENU ================= */}
       {menuOpen && (
         <div className="fixed inset-0 z-50 bg-white flex flex-col">
 
@@ -90,8 +100,8 @@ const AppNavbar = () => {
             </button>
           </div>
 
-          {/* Centered Nav Items */}
-          <div className="flex flex-1 flex-col items-center justify-center gap-10">
+          {/* Nav Items */}
+          <div className="flex flex-1 flex-col items-center justify-center gap-8">
             {navLinks.map((link) => {
               const active = pathname === link.href;
               return (
@@ -112,7 +122,7 @@ const AppNavbar = () => {
             })}
           </div>
 
-          {/* Bottom Download Card */}
+          {/* Bottom App Card */}
           <div className="px-4 pb-6">
             <div className="rounded-2xl bg-black p-6 text-white">
               <div className="flex items-center gap-4">
@@ -123,24 +133,24 @@ const AppNavbar = () => {
                   height={56}
                 />
                 <div>
-                  <h3 className="text-xl font-semibold">
-                    Download <span className="text-yellow-400">Our App</span>
+                  <h3 className="text-xl font-semibold text-[#F3CB04]">
+                    App Launching Soon... 
                   </h3>
                   <p className="text-sm text-gray-300 mt-1">
-                    Get all things membership, straight to your inbox.
+                    Your Next-Gen News Destination
                   </p>
                 </div>
               </div>
 
               <div className="mt-6 flex gap-4">
                 <Image
-                  src="/appstore.png"
+                  src="/App-Store-CommingSoon.png"
                   alt="Download on App Store"
                   width={150}
                   height={48}
                 />
                 <Image
-                  src="/playstore.png"
+                  src="/Play-Store-CommingSoon.png"
                   alt="Get it on Google Play"
                   width={150}
                   height={48}

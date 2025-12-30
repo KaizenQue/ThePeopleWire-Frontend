@@ -3,7 +3,7 @@
 import "./home3.css";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
-import { ChevronRight, ChevronLeft,ArrowUpRight  } from "lucide-react";
+import { ChevronRight, ChevronLeft, ArrowUpRight } from "lucide-react";
 
 type Article = {
   id: number;
@@ -29,10 +29,10 @@ type ApiArticle = {
 const articles: Article[] = [
   {
     id: 1,
-    title: "It’s All Home Water: Oregon Steelhead",
+    title: "It's All Home Water: Oregon Steelhead",
     image: "/1.png",
     excerpt:
-      "Cursor is one of the most popular AI code editors out there. It’s essentially a fork of VS Code, but with various AI features built into it. This means you get the same familiar interface as VS Code, but with added tools to help you write, fix, and improve code faster.",
+      "Cursor is one of the most popular AI code editors out there. It's essentially a fork of VS Code, but with various AI features built into it. This means you get the same familiar interface as VS Code, but with added tools to help you write, fix, and improve code faster.",
     author: "Amal Neerad",
     authorAvatar: "/author.png",
     date: "December 03, 2025",
@@ -72,7 +72,7 @@ const articles: Article[] = [
     title: "Hidden Cities of Europe",
     image: "/1.png",
     excerpt:
-      "A visual journey through Europe’s most underrated urban landscapes.",
+      "A visual journey through Europe's most underrated urban landscapes.",
     author: "Amal Neerad",
     authorAvatar: "/author.png",
     date: "December 11, 2025",
@@ -81,8 +81,7 @@ const articles: Article[] = [
     id: 6,
     title: "The Art of Slow Living",
     image: "/2.png",
-    excerpt:
-      "Why slowing down might be the most powerful productivity hack.",
+    excerpt: "Why slowing down might be the most powerful productivity hack.",
     author: "Amal Neerad",
     authorAvatar: "/author.png",
     date: "December 13, 2025",
@@ -91,8 +90,7 @@ const articles: Article[] = [
     id: 7,
     title: "Designing for Humans",
     image: "/3.png",
-    excerpt:
-      "Great design starts with empathy, not pixels.",
+    excerpt: "Great design starts with empathy, not pixels.",
     author: "Amal Neerad",
     authorAvatar: "/author.png",
     date: "December 14, 2025",
@@ -101,8 +99,7 @@ const articles: Article[] = [
     id: 8,
     title: "Inside Digital Newsrooms",
     image: "/4.png",
-    excerpt:
-      "How modern newsrooms operate in a 24/7 digital world.",
+    excerpt: "How modern newsrooms operate in a 24/7 digital world.",
     author: "Amal Neerad",
     authorAvatar: "/author.png",
     date: "December 15, 2025",
@@ -111,8 +108,7 @@ const articles: Article[] = [
     id: 9,
     title: "The Power of Visual Storytelling",
     image: "/1.png",
-    excerpt:
-      "Images don’t just support stories — they are the story.",
+    excerpt: "Images don't just support stories — they are the story.",
     author: "Amal Neerad",
     authorAvatar: "/author.png",
     date: "December 16, 2025",
@@ -121,8 +117,7 @@ const articles: Article[] = [
     id: 10,
     title: "Where Journalism Meets Tech",
     image: "/2.png",
-    excerpt:
-      "AI, automation, and the future of storytelling.",
+    excerpt: "AI, automation, and the future of storytelling.",
     author: "Amal Neerad",
     authorAvatar: "/author.png",
     date: "December 17, 2025",
@@ -131,8 +126,7 @@ const articles: Article[] = [
 export default function Home3() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [activeArrow, setActiveArrow] =
-    useState<"left" | "right" | null>(null);
+  const [activeArrow, setActiveArrow] = useState<"left" | "right" | null>(null);
   const [apiArticles, setApiArticles] = useState<ApiArticle[]>([]);
 
   /* ✅ DESKTOP DETECTION (additive) */
@@ -159,7 +153,7 @@ export default function Home3() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const res = await fetch("/api/news?category=science&category=technology&country=india&limit=8");
+        const res = await fetch("/api/news?category=science&country=india&limit=8");
         const json = await res.json();
         const fetchedArticles: ApiArticle[] = json.data || [];
 
@@ -175,10 +169,10 @@ export default function Home3() {
               category: item.category,
               author: item.author,
               publish_datetime: new Date(item.publish_datetime).toDateString(),
-              link: item.link,
+              summary: item.summary || item.title, // ✅ Added summary fallback
+              link: item.link, // ✅ Keep the original link
             } as ApiArticle)
         );
-
 
         setApiArticles(mappedArticles);
       } catch (err) {
@@ -194,9 +188,7 @@ export default function Home3() {
       <div className="mx-auto max-w-8xl px-8">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
-          <h2 className="text-3xl font-bold text-gray-900">
-            Science & Tech
-          </h2>
+          <h2 className="text-3xl font-bold text-gray-900">Science & Tech</h2>
 
           <div className="flex gap-3">
             <button
@@ -275,14 +267,18 @@ export default function Home3() {
                     <>
                       <div className="flex items-center gap-2 text-xs opacity-90 mt-40">
                         <Image
-                          src={/*article.authorAvatar*/ "/author.png"}
-                          alt={article.author ? article.author.join(", ") : "Unknown"}
+                          src={"/author.png"}
+                          alt={
+                            article.author
+                              ? article.author.join(", ")
+                              : "Unknown"
+                          }
                           width={18}
                           height={18}
                           className="w-[26px] h-[26px] rounded-full object-cover"
                         />
 
-                        <span>By {article.author}</span>
+                        <span>By {article.author || "Unknown"}</span>
                       </div>
 
                       <div>
@@ -301,14 +297,18 @@ export default function Home3() {
                     <>
                       <div>
                         <div className="mb-4 flex items-center gap-2 text-xs">
-                            <Image
-                              src={/*article.authorAvatar*/ "/author.png"}
-                              alt={article.author ? article.author.join(", ") : "Unknown"}
-                              width={18}
-                              height={18}
-                              className="w-[30px] h-[30px] rounded-full object-cover"
-                            />
-                          <span>By {article.author}</span>
+                          <Image
+                            src={"/author.png"}
+                            alt={
+                              article.author
+                                ? article.author.join(", ")
+                                : "Unknown"
+                            }
+                            width={18}
+                            height={18}
+                            className="w-[30px] h-[30px] rounded-full object-cover"
+                          />
+                          <span>By {article.author || "Unknown"}</span>
                         </div>
 
                         <h3 className="text-lg font-semibold leading-snug">
@@ -316,7 +316,7 @@ export default function Home3() {
                         </h3>
 
                         <p className="mt-3 text-sm text-gray-200">
-                          {article.summary}
+                          {article.summary || article.title}
                         </p>
                       </div>
 
@@ -325,12 +325,18 @@ export default function Home3() {
                           {article.publish_datetime}
                         </p>
 
-                        {/* ✅ Read More — desktop hover + mobile click feedback */}
-                       <a
-                          href="/mock-article"
+                        {/* ✅ Read More — USING ACTUAL LINK FROM API */}
+                        <a
+                          href={article.link} // ✅ Changed to actual API link
                           target="_blank"
                           rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
+                          onClick={(e) => {
+                            console.log(
+                              "Read More clicked, navigating to:",
+                              article.link
+                            );
+                            e.stopPropagation();
+                          }}
                           className="
                             inline-flex w-full items-center justify-center gap-2
                             rounded-md border border-orange-500 px-4 py-2
