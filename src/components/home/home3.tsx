@@ -3,7 +3,7 @@
 import "./home3.css";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
-import { ChevronRight, ChevronLeft, ArrowUpRight, X, Calendar, User, Tag, Clock } from "lucide-react";
+import { ChevronRight, ChevronLeft, ArrowUpRight, X, Calendar, User, Tag, Clock, ExternalLink } from "lucide-react";
 
 type Article = {
   id: number;
@@ -390,15 +390,10 @@ export default function Home3() {
                     {!isActive && (
                       <>
                         <div className="flex items-center gap-2 text-xs opacity-90 mt-40">
-                          <Image
-                            src={"/author.png"}
-                            alt={authorName || "Unknown"}
-                            width={18}
-                            height={18}
-                            className="w-[26px] h-[26px] rounded-full object-cover"
-                          />
-
-                          <span>By {authorName || "Unknown"}</span>
+                          <div className="flex items-center gap-1">
+                            <Tag size={12} className="text-white" />
+                            <span>Source: {getSourceName(article)}</span>
+                          </div>
                         </div>
 
                         <div>
@@ -479,62 +474,57 @@ export default function Home3() {
         </div>
       </section>
 
-      {/* ARTICLE MODAL */}
+      {/* ARTICLE MODAL - UPDATED LAYOUT */}
       {showArticleModal && selectedArticle && (
         <div className="fixed inset-0 z-50 flex items-start justify-center p-0 bg-black/70 overflow-y-auto">
           <div className="relative w-full max-w-5xl my-4 md:my-8 bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[90vh]">
-            {/* Professional Header with Article Title and Metadata */}
+            {/* Professional Header with Article Title and Metadata - Reduced height */}
             <div className="sticky top-0 z-10 bg-white border-b">
-              <div className="p-6 md:p-8">
-                {/* Article Title - Larger and prominent */}
-                <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+              <div className="p-4 md:p-6">
+                {/* Article Title - Reduced size */}
+                <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 leading-tight">
                   {selectedArticle.title}
                 </h1>
                 
-                {/* Metadata Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                {/* Compact Metadata Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <User size={14} className="text-gray-500" />
+                    <div className="flex items-center gap-1 mb-1">
+                      <User size={12} className="text-gray-500" />
                       <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Author</span>
                     </div>
-                    <p className="text-sm font-semibold text-gray-800">
+                    <p className="text-sm font-semibold text-gray-800 truncate">
                       {getAuthorName(selectedArticle) || "Unknown"}
                     </p>
                   </div>
 
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <Calendar size={14} className="text-gray-500" />
+                    <div className="flex items-center gap-1 mb-1">
+                      <Calendar size={12} className="text-gray-500" />
                       <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Published</span>
                     </div>
                     <p className="text-sm font-semibold text-gray-800">
                       {formatDate(selectedArticle.publish_datetime)}
                     </p>
-                    {formatTime(selectedArticle.publish_datetime) && (
-                      <p className="text-xs text-gray-500 mt-0.5">
-                        {formatTime(selectedArticle.publish_datetime)}
-                      </p>
-                    )}
                   </div>
 
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <Tag size={14} className="text-gray-500" />
+                    <div className="flex items-center gap-1 mb-1">
+                      <Tag size={12} className="text-gray-500" />
                       <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Source</span>
                     </div>
-                    <p className="text-sm font-semibold text-gray-800">
+                    <p className="text-sm font-semibold text-gray-800 truncate">
                       {getSourceName(selectedArticle)}
                     </p>
                   </div>
 
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <Clock size={14} className="text-gray-500" />
-                      <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Reading Time</span>
+                    <div className="flex items-center gap-1 mb-1">
+                      <Clock size={12} className="text-gray-500" />
+                      <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Reading</span>
                     </div>
                     <p className="text-sm font-semibold text-gray-800">
-                      {calculateReadingTime(selectedArticle.content)} min read
+                      {calculateReadingTime(selectedArticle.content)} min
                     </p>
                   </div>
                 </div>
@@ -543,61 +533,30 @@ export default function Home3() {
               {/* Close Button in top-right corner */}
               <button
                 onClick={closeArticleModal}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors"
+                className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-gray-100 transition-colors"
                 aria-label="Close modal"
               >
-                <X size={20} className="text-gray-700" />
+                <X size={18} className="text-gray-700" />
               </button>
             </div>
 
             {/* Article Content - Scrollable area */}
             <div className="flex-1 overflow-y-auto">
-              <div className="p-6 md:p-8 lg:p-10">
-                {/* Toggle between article content and iframe */}
-                {/* <div className="mb-6">
-                  <div className="flex border-b">
-                    <button
-                      onClick={() => setShowIframe(false)}
-                      className={`px-4 py-3 font-medium text-sm transition-colors ${
-                        !showIframe 
-                          ? 'border-b-2 border-orange-500 text-orange-600' 
-                          : 'text-gray-500 hover:text-gray-700'
-                      }`}
-                    >
-                      Article Content
-                    </button>
-                    <button
-                      onClick={() => openIframe(selectedArticle.link)}
-                      className={`px-4 py-3 font-medium text-sm transition-colors ${
-                        showIframe 
-                          ? 'border-b-2 border-orange-500 text-orange-600' 
-                          : 'text-gray-500 hover:text-gray-700'
-                      }`}
-                    >
-                      View Original Source
-                    </button>
-                  </div>
-                </div> */}
-
+              <div className="p-4 md:p-6 lg:p-8">
                 {/* Content Area */}
                 {showIframe ? (
-                  // IFRAME VIEW
-                  <div className="w-full h-[calc(100vh-350px)] border rounded-xl overflow-hidden">
-                    <div className="bg-gray-50 px-4 py-2 border-b flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                        <span className="text-xs text-gray-600 ml-2 truncate">
-                          {selectedArticle.link}
+                  // IFRAME VIEW - Full screen iframe
+                  <div className="w-full h-[calc(100vh-250px)] border rounded-lg overflow-hidden">
+                    {/* Compact Header */}
+                    <div className="bg-gray-50 px-3 py-1.5 border-b flex items-center justify-between">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                        <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                        <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                        <span className="text-xs text-gray-600 ml-1.5 truncate max-w-[200px] md:max-w-[300px]">
+                          {selectedArticle.link ? new URL(selectedArticle.link).hostname : 'Original Source'}
                         </span>
                       </div>
-                      <button
-                        onClick={() => window.open(selectedArticle.link, '_blank')}
-                        className="text-xs px-3 py-1 bg-orange-500 text-white rounded hover:bg-orange-600"
-                      >
-                        Open in New Tab
-                      </button>
                     </div>
                     <iframe
                       src={iframeUrl}
@@ -606,91 +565,123 @@ export default function Home3() {
                       sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
                       loading="lazy"
                     />
+                    {/* See Original Article Button - Grey color, bottom right */}
+                    <div className="absolute bottom-4 right-4">
+                      <a
+                        href={selectedArticle.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+                      >
+                        See Original Article
+                        <ExternalLink size={14} />
+                      </a>
+                    </div>
                   </div>
                 ) : (
-                  // ARTICLE CONTENT VIEW
+                  // ARTICLE CONTENT VIEW - Updated layout matching the image
                   <>
-                    {/* Article Image */}
-                    {selectedArticle.image_url && (
-                      <div className="mb-8 rounded-xl overflow-hidden">
-                        <img
-                          src={selectedArticle.image_url}
-                          alt={selectedArticle.title}
-                          className="w-full h-auto max-h-[500px] object-cover rounded-xl"
-                        />
-                      </div>
-                    )}
-
-                    {/* Article Summary */}
-                    {selectedArticle.summary && (
-                      <div className="mb-10 p-6 bg-gradient-to-r from-orange-50 to-amber-50 border-l-4 border-orange-500 rounded-r-xl">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                          <span className="text-orange-600">•</span> Article Summary
-                        </h3>
-                        <p className="text-gray-700 leading-relaxed text-base md:text-lg">
-                          {selectedArticle.summary}
-                        </p>
-                      </div>
-                    )}
-
-                    {/* Full Article Content */}
-                    <div className="mb-10">
-                      <div className="flex items-center justify-between mb-6 pb-4 border-b">
-                        <h2 className="text-xl font-bold text-gray-900">Full Article</h2>
-                        <div className="flex items-center gap-2 text-sm text-gray-500">
-                          <Clock size={14} />
-                          <span>{calculateReadingTime(selectedArticle.content)} min read</span>
+                    {/* Top Section: Newspaper-style layout */}
+                    <div className="mb-8">
+                      <div className="flex flex-col md:flex-row gap-6">
+                        {/* Left Column: Text content */}
+                        <div className="md:w-2/3">
+                          {/* Article Summary - Styled like the image */}
+                          {selectedArticle.summary && (
+                            <div className="mb-6 p-4 bg-orange-50 border-l-4 border-orange-500">
+                              <div className="flex items-start">
+                                <div className="mr-4">
+                                  <div className="w-3 h-3 rounded-full bg-orange-500 mt-1"></div>
+                                </div>
+                                <div>
+                                  <h3 className="text-base font-bold text-gray-900 mb-1">Article Summary</h3>
+                                  <p className="text-sm text-gray-700 leading-relaxed mb-4">
+                                    {selectedArticle.summary}
+                                  </p>
+                                  {/* Photo Source Section */}
+                                  <div className="flex items-center text-xs text-gray-500 mt-4 pt-4 border-t border-gray-200">
+                                    <span className="font-medium mr-2">Photo Source:</span>
+                                    <span>{getSourceName(selectedArticle)}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
                         </div>
-                      </div>
-                      
-                      <div className="prose max-w-none">
-                        {selectedArticle.content ? (
-                          <div className="text-gray-800 leading-relaxed space-y-6 text-base md:text-lg">
-                            {selectedArticle.content.split('\n').map((paragraph, index) => (
-                              paragraph.trim() && (
-                                <p key={index} className="mb-6 last:mb-0 text-gray-800 leading-7">
-                                  {paragraph}
-                                </p>
-                              )
-                            ))}
-                          </div>
-                        ) : (
-                          <div className="text-center py-12">
-                            <div className="text-gray-400 mb-4 text-4xl">📄</div>
-                            <p className="text-gray-500 text-lg">Full content not available in the API response.</p>
-                            <p className="text-sm text-gray-400 mt-2">
-                              Try viewing the original article using the "View Original Source" tab.
-                            </p>
+
+                        {/* Right Column: Image */}
+                        {selectedArticle.image_url && (
+                          <div className="md:w-1/3">
+                            <div className="sticky top-6">
+                              <div className="rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+                                <img
+                                  src={selectedArticle.image_url}
+                                  alt={selectedArticle.title}
+                                  className="w-full h-auto max-h-[300px] object-cover"
+                                />
+                              </div>
+                            </div>
                           </div>
                         )}
                       </div>
                     </div>
+
+                    {/* Bottom Section: Full Article Content */}
+                    <div className="border-t pt-6">
+                      <div className="mb-6">
+                        <div className="flex items-center justify-between mb-4 pb-3 border-b">
+                          <h2 className="text-lg md:text-xl font-bold text-gray-900">Full Article</h2>
+                          <div className="flex items-center gap-2 text-sm text-gray-500">
+                            <Clock size={14} />
+                            <span>{calculateReadingTime(selectedArticle.content)} min read</span>
+                          </div>
+                        </div>
+                        
+                        <div className="prose max-w-none">
+                          {selectedArticle.content ? (
+                            <div className="text-gray-800 leading-relaxed">
+                              {selectedArticle.content.split('\n').map((paragraph, index) => (
+                                paragraph.trim() && (
+                                  <div key={index} className="mb-6 last:mb-0">
+                                    <p className="text-gray-800 leading-7">
+                                      {paragraph}
+                                    </p>
+                                  </div>
+                                )
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="text-center py-12">
+                              <div className="text-gray-400 mb-4 text-4xl">📄</div>
+                              <p className="text-gray-500 text-lg">Full content not available in the API response.</p>
+                              <p className="text-sm text-gray-400 mt-2">
+                                Try viewing the original article using the button below.
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Footer with View Original Article button */}
+                      <div className="pt-4 mt-6 border-t">
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                          <div className="text-sm text-gray-500">
+                            <p>Article source: <span className="font-medium">{getSourceName(selectedArticle)}</span></p>
+                          </div>
+                          <div className="flex gap-3">
+                            <button
+                              onClick={() => openIframe(selectedArticle.link)}
+                              className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors inline-flex items-center gap-2"
+                            >
+                              View Original Source
+                              <ExternalLink size={14} />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </>
                 )}
-
-                {/* Article Footer */}
-                <div className="pt-6 mt-8 border-t">
-                  <div className="flex justify-between items-center">
-                    {/* <div>
-                      {!showIframe && selectedArticle.link && (
-                        <button
-                          onClick={() => openIframe(selectedArticle.link)}
-                          className="px-4 py-2 text-sm font-medium text-orange-600 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors inline-flex items-center gap-2"
-                        >
-                          View Original Article
-                        </button>
-                      )}
-                    </div> */}
-                    <div className="flex gap-3">
-                      <button
-                        onClick={closeArticleModal}
-                        className="px-6 py-3 text-sm font-medium text-white bg-[#F25C05] rounded-lg hover:bg-[#e05504] transition-colors inline-flex items-center gap-2"
-                      >
-                        Close Article <X size={16} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -699,4 +690,3 @@ export default function Home3() {
     </>
   );
 }
-

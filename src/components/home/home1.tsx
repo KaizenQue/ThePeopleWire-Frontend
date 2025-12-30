@@ -403,7 +403,7 @@ const Home1: React.FC = () => {
               "
             >
               <a
-                href="https://apps.apple.com/"
+                href="/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block"
@@ -423,7 +423,7 @@ const Home1: React.FC = () => {
               </a>
 
               <a
-                href="https://play.google.com/store"
+                href="/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block"
@@ -558,7 +558,7 @@ const Home1: React.FC = () => {
                 "
               >
                 <a
-                  href="https://apps.apple.com/"
+                  href="/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block"
@@ -578,7 +578,7 @@ const Home1: React.FC = () => {
                 </a>
 
                 <a
-                  href="https://play.google.com/store"
+                  href="/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block"
