@@ -8,20 +8,18 @@ import Home4 from "@/components/home/home4";
 import Home5 from "@/components/home/home5";
 import Home6 from "@/components/home/home6";
 import Home8 from "@/components/home/home8";
-import HeaderAD from "@/components/Ads-Components/Header-Ad";
-import MidAd from "@/components/Ads-Components/Mid-Ad";
+
+
 export default function Home() {
  return (
   <main className="flex min-h-screen flex-col items-center justify-between">
-    <HeaderAD />
+    BUSINESS
     <Header />
     <Home1/>
     <Home2/>
-    <MidAd/>
     <Home3/>
     <Home4/>
     <Home6/>
-    <MidAd/>
     <Home5/>
     <Home8/>
     <Footer />

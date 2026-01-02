@@ -1,12 +1,5 @@
 "use client";
-
-import {
-  CopyrightIcon,
-  MailIcon,
-  MapPinIcon,
-  PhoneIcon,
-  ArrowUpIcon,
-} from "lucide-react";
+import {CopyrightIcon,MailIcon,MapPinIcon,PhoneIcon,ArrowUpIcon,} from "lucide-react";
 import Image from "next/image";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa6";
 import { Separator } from "./ui/separator";
