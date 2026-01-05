@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
+
 const nextConfig: NextConfig = {
-  output: "export",          // 🔥 REQUIRED for build / static deploy
-  images: {
-    unoptimized: true,       // 🔥 disables Next Image optimizer
+    images: {
+    unoptimized: true, // ✅ REQUIRED for static export / build upload
   },
+  /* config options here */
   reactCompiler: true,
 };
 
