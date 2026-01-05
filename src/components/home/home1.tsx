@@ -271,7 +271,7 @@ const Home1: React.FC = () => {
         };
         setFeaturedStory(featured);
 
-        /* ALL SMALL STORIES - First 7 articles after featured */
+        /* ALL SMALL STORIES - First 7 articles after featured (for desktop) */
         const mappedStories: Story[] = articles.slice(1, 8).map(
           (item, index) => ({
             id: index + 1,
@@ -333,7 +333,7 @@ const Home1: React.FC = () => {
 
             <div className="p-4 sm:p-5 md:p-6">
               <h3
-                className="text-[35px] font-bold text-[#262626] mb-6 hover:underline"
+                className="text-[28px] font-bold text-[#262626] mb-6 hover:underline"
               >
                 {featuredStory.title}
               </h3>
@@ -444,9 +444,9 @@ const Home1: React.FC = () => {
             </div>
           </div>
 
-          {/* ALL STORIES GRID - 7 stories total */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {allStories.map((story) => (
+          {/* ALL STORIES GRID - MOBILE: Only show 2 tiles, TABLET: Show 4 tiles in 2 columns */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {allStories.slice(0, 2).map((story) => (
               <SmallStoryCard 
                 key={story.id} 
                 story={story} 
@@ -617,87 +617,75 @@ const Home1: React.FC = () => {
         </section>
       </div>
 
-      {/* ARTICLE MODAL - Fixed with correct newspaper-style layout */}
+      {/* ARTICLE MODAL - Fixed with scrollable header */}
       {showArticleModal && selectedStory && (
         <div className="fixed inset-0 z-50 flex items-start justify-center p-0 bg-black/70 overflow-y-auto">
           <div className="relative w-full max-w-6xl my-4 md:my-8 bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[90vh]">
-            {/* Article Header - Not sticky, smaller */}
-            <div className="bg-white border-b">
-              <div className="p-4 md:p-6">
-                {/* Article Title - Smaller size */}
-                <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                  {selectedStory.title}
-                </h1>
-                
-                {/* Metadata Grid - More compact */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                  <div>
-                    <div className="flex items-center gap-1 mb-1">
-                      <User size={12} className="text-gray-500" />
-                      <span className="text-xs font-medium text-gray-500">Author</span>
-                    </div>
-                    <p className="text-sm font-medium text-gray-800">
-                      {getAuthorName(selectedStory) || "Unknown"}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-1 mb-1">
-                      <Calendar size={12} className="text-gray-500" />
-                      <span className="text-xs font-medium text-gray-500">Published</span>
-                    </div>
-                    <p className="text-sm font-medium text-gray-800">
-                      {selectedStory.publish_datetime ? formatDate(selectedStory.publish_datetime) : selectedStory.date}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-1 mb-1">
-                      <Tag size={12} className="text-gray-500" />
-                      <span className="text-xs font-medium text-gray-500">Source</span>
-                    </div>
-                    <p className="text-sm font-medium text-gray-800">
-                      {getSourceName(selectedStory)}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-1 mb-1">
-                      <Clock size={12} className="text-gray-500" />
-                      <span className="text-xs font-medium text-gray-500">Read Time</span>
-                    </div>
-                    <p className="text-sm font-medium text-gray-800">
-                      {calculateReadingTime(selectedStory.content)} min
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Close Button - Smaller */}
-              <button
-                onClick={closeArticleModal}
-                className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-gray-100 transition-colors"
-                aria-label="Close modal"
-              >
-                <X size={18} className="text-gray-700" />
-              </button>
-            </div>
-
-            {/* Article Content - Scrollable area */}
+            {/* Article Content - Entire content scrollable including header */}
             <div className="flex-1 overflow-y-auto">
               <div className="p-4 md:p-6 lg:p-8">
-                {/* NEWSPAPER STYLE SUMMARY SECTION - Float image inside summary */}
+                {/* Article Header - Now part of scrollable content */}
+                <div className="mb-6 md:mb-8">
+                  <button
+                    onClick={closeArticleModal}
+                    className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-gray-100 transition-colors z-10"
+                    aria-label="Close modal"
+                  >
+                    <X size={18} className="text-gray-700" />
+                  </button>
+                  
+                  {/* Article Title */}
+                  <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight pr-8">
+                    {selectedStory.title}
+                  </h1>
+                  
+                  {/* Metadata Grid */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                    <div>
+                      <div className="flex items-center gap-1 mb-1">
+                        <User size={12} className="text-gray-500" />
+                        <span className="text-xs font-medium text-gray-500">Author</span>
+                      </div>
+                      <p className="text-sm font-medium text-gray-800">
+                        {getAuthorName(selectedStory) || "Unknown"}
+                      </p>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-1 mb-1">
+                        <Calendar size={12} className="text-gray-500" />
+                        <span className="text-xs font-medium text-gray-500">Published</span>
+                      </div>
+                      <p className="text-sm font-medium text-gray-800">
+                        {selectedStory.publish_datetime ? formatDate(selectedStory.publish_datetime) : selectedStory.date}
+                      </p>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-1 mb-1">
+                        <Tag size={12} className="text-gray-500" />
+                        <span className="text-xs font-medium text-gray-500">Source</span>
+                      </div>
+                      <p className="text-sm font-medium text-gray-800">
+                        {getSourceName(selectedStory)}
+                      </p>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-1 mb-1">
+                        <Clock size={12} className="text-gray-500" />
+                        <span className="text-xs font-medium text-gray-500">Read Time</span>
+                      </div>
+                      <p className="text-sm font-medium text-gray-800">
+                        {calculateReadingTime(selectedStory.content)} min
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* NEWSPAPER STYLE SUMMARY SECTION */}
                 {selectedStory.summary && (
                   <div className="mb-8">
-                    {/* <div className="flex items-center justify-between mb-4 pb-2 border-b">
-                      <h2 className="text-lg font-bold text-gray-900">Article Summary</h2>
-                      <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <Clock size={12} />
-                        <span>{calculateReadingTime(selectedStory.content)} min read</span>
-                      </div>
-                    </div> */}
-                    
-                    {/* Newspaper layout - Float image inside summary */}
                     <div className="relative">
                       <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-4 md:p-6 rounded-lg border-l-4 border-orange-500">
                         {/* Float image to the right inside summary */}
@@ -717,8 +705,8 @@ const Home1: React.FC = () => {
                         )}
                         
                         <h3 className="text-lg font-semibold text-gray-900 mb-5 flex items-center gap-2">
-                        <span className="text-orange-600">•</span> Article Summary
-                      </h3>
+                          <span className="text-orange-600">•</span> Article Summary
+                        </h3>
                         
                         <div className="text-gray-700 leading-relaxed text-sm md:text-base">
                           <p className="mb-4">
@@ -728,9 +716,7 @@ const Home1: React.FC = () => {
                           {/* Additional description if available */}
                           {selectedStory.description && selectedStory.description !== selectedStory.summary && (
                             <div className="">
-                              {/* <p className="italic text-gray-600">
-                                {selectedStory.description}
-                              </p> */}
+                              {/* Additional description content */}
                             </div>
                           )}
                         </div>
@@ -742,7 +728,7 @@ const Home1: React.FC = () => {
                   </div>
                 )}
 
-                {/* Full Article Content */}
+                {/* Full Article Content or Iframe */}
                 {selectedStory.content ? (
                   <div className="mb-8">
                     <h2 className="text-lg font-bold text-gray-900 mb-4">Full Article</h2>
@@ -758,7 +744,7 @@ const Home1: React.FC = () => {
                   </div>
                 ) : (
                   <div className="mb-8">
-                    {/* IFRAME SECTION - Smaller header, reduced height */}
+                    {/* IFRAME SECTION */}
                     <div className="mb-4">
                       <h2 className="text-lg font-bold text-gray-900">Original Article</h2>
                       <p className="text-sm text-gray-500 mt-1">
@@ -766,7 +752,7 @@ const Home1: React.FC = () => {
                       </p>
                     </div>
                     
-                    {/* IFRAME - Reduced height */}
+                    {/* IFRAME */}
                     <div className="rounded-lg overflow-hidden shadow border border-gray-200">
                       <iframe
                         src={selectedStory.link}
@@ -784,7 +770,7 @@ const Home1: React.FC = () => {
                   </div>
                 )}
 
-                {/* Article Footer - Compact */}
+                {/* Article Footer */}
                 <div className="pt-4 mt-6 border-t">
                   <div className="flex justify-end">
                     <button
