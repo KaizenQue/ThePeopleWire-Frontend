@@ -39,7 +39,7 @@ const Footer = () => {
         {/* Mobile + Tablet */}
         <div className="block lg:hidden w-full">
           <Image
-            src="/footer-qr-mobile.png"
+            src="/Footer-QR-Mobile.png"
             alt="Scan to explore The People Wire"
             width={1200}
             height={400}
@@ -48,17 +48,18 @@ const Footer = () => {
           />
         </div>
 
-        {/* Desktop */}
-        <div className="hidden lg:flex justify-center w-full">
-          <Image
-            src="/footer-qr.png"
-            alt="Scan to explore The People Wire"
-            width={1950}
-            height={1450}
-            className="block object-contain"
-            priority
-          />
-        </div>
+        {/* Desktop + Laptop – Larger QR */}
+<div className="hidden lg:flex justify-center w-full">
+  <Image
+    src="/Footer-QR.png"
+    alt="Scan to explore The People Wire"
+    width={1950}
+    height={1450}
+    className="block object-contain"
+    priority
+  />
+</div>
+
       </div>
 
       {/* ================= PADDED FOOTER CONTENT ================= */}
