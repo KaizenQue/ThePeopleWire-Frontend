@@ -55,15 +55,19 @@ const Footer = () => {
 
         {/* Desktop + Laptop – Larger QR */}
 <div className="hidden lg:flex justify-center w-full">
-  <Image
-    src="/Footer-QR.png"
-    alt="Scan to explore The People Wire"
-    width={1950}
-    height={1450}
-    className="block object-contain"
-    priority
-    unoptimized
-  />
+<img
+  src="/Footer-QR.png"
+  alt="Scan to explore The People Wire"
+  className="
+    block
+    w-full
+    max-w-[1950px]
+    h-auto
+    object-contain
+    mx-auto
+  "
+/>
+
 </div>
 
       </div>
