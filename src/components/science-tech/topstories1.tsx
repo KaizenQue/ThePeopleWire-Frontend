@@ -119,16 +119,17 @@ const getSourceName = (story: Story) => {
 };
 
 // Fetch all news without country filter
-const fetchAllNews = async () => {
+const fetchAllNews = async (): Promise<ApiArticle[]> => {
   try {
     const res = await fetch(`/api/news?category=science`);
     const json = await res.json();
-    return json.data || [];
+    return json.data as ApiArticle[];
   } catch (err) {
     console.error("Failed to fetch news", err);
     return [];
   }
 };
+
 
 /* ------------------ COMPONENTS ------------------ */
 
@@ -295,7 +296,8 @@ const Home1: React.FC = () => {
     const fetchNews = async () => {
       setIsLoading(true);
       try {
-        const articles = await fetchAllNews();
+        const articles: ApiArticle[] = await fetchAllNews();
+
         
         if (!articles.length) {
           setIsLoading(false);
@@ -401,6 +403,12 @@ const Home1: React.FC = () => {
         className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-32 py-8 sm:py-10 md:py-12"
         style={{ fontFamily: "var(--font-albert-sans)" }}
       >
+         <div className="flex justify-between items-center mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-black">
+            Science & Technology
+          </h2>
+        </div>
+
         <div className="max-w-8xl mx-auto">
           {/* Top Row: Big Card + Bullet Points */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">

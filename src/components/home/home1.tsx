@@ -209,16 +209,17 @@ const getSourceName = (story: Story) => {
 };
 
 // Fetch global news (without country filter)
-const fetchGlobalNews = async () => {
+const fetchGlobalNews = async (): Promise<ApiArticle[]> => {
   try {
     const res = await fetch(`/api/news`);
     const json = await res.json();
-    return json.data || [];
+    return json.data as ApiArticle[];
   } catch (err) {
     console.error("Failed to fetch global news", err);
     return [];
   }
 };
+
 
 /* ------------------ MAIN ------------------ */
 
@@ -262,7 +263,8 @@ const Home1: React.FC = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const articles = await fetchGlobalNews();
+        const articles: ApiArticle[] = await fetchGlobalNews();
+
         
         if (!articles.length) {
           setIsLoading(false);
