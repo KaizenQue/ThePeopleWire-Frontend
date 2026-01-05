@@ -7,10 +7,6 @@ import {
   PhoneIcon,
   ArrowUpIcon,
 } from "lucide-react";
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 import Image from "next/image";
 import Link from "next/link";
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa6";

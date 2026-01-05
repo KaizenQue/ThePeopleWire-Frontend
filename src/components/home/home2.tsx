@@ -59,11 +59,7 @@ export default function Home4() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-<<<<<<< Updated upstream
-        const res = await fetch("/api/news?country=india&limit=8");
-=======
         const res = await fetch("/api/news?language=english&limit=15&category=top");
->>>>>>> Stashed changes
         const json = await res.json();
         const fetchedArticles: ApiArticle[] = json.data || [];
 

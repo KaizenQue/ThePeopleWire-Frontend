@@ -35,10 +35,7 @@ type Story = {
   description?: string;
   source?: string;
   publish_datetime?: string;
-<<<<<<< Updated upstream
-=======
   country?: string[];
->>>>>>> Stashed changes
 };
 
 function timeLatest(dateString: string): string {
@@ -98,12 +95,9 @@ const SmallStoryCard: React.FC<SmallStoryCardProps> = ({ story, onReadMore }) =>
           src={story.image}
           alt={story.title}
           className="w-full h-[180px] object-cover"
-<<<<<<< Updated upstream
-=======
           onError={(e) => {
             e.currentTarget.src = "/home41.png";
           }}
->>>>>>> Stashed changes
         />
         <span className="absolute top-3 left-3 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
           {story.category}
@@ -214,8 +208,6 @@ const getSourceName = (story: Story) => {
   return "Unknown Source";
 };
 
-<<<<<<< Updated upstream
-=======
 // Fetch global news (without country filter)
 const fetchGlobalNews = async () => {
   try {
@@ -228,7 +220,6 @@ const fetchGlobalNews = async () => {
   }
 };
 
->>>>>>> Stashed changes
 /* ------------------ MAIN ------------------ */
 
 const Home1: React.FC = () => {
@@ -236,10 +227,7 @@ const Home1: React.FC = () => {
   const [allStories, setAllStories] = useState<Story[]>([]);
   const [selectedStory, setSelectedStory] = useState<Story | null>(null);
   const [showArticleModal, setShowArticleModal] = useState(false);
-<<<<<<< Updated upstream
-=======
   const [isLoading, setIsLoading] = useState(true);
->>>>>>> Stashed changes
 
   // Handle reading article
   const handleReadMore = (story: Story) => {
@@ -270,27 +258,16 @@ const Home1: React.FC = () => {
     };
   }, [showArticleModal]);
 
-<<<<<<< Updated upstream
-=======
   // Fetch global news
->>>>>>> Stashed changes
   useEffect(() => {
     const fetchNews = async () => {
       try {
-<<<<<<< Updated upstream
-        const res = await fetch("/api/news");
-        const json = await res.json();
-        const articles: ApiArticle[] = json.data || [];
-
-        if (!articles.length) return;
-=======
         const articles = await fetchGlobalNews();
         
         if (!articles.length) {
           setIsLoading(false);
           return;
         }
->>>>>>> Stashed changes
 
         /* FEATURED STORY */
         const first = articles[0];
@@ -300,15 +277,9 @@ const Home1: React.FC = () => {
           image: first.image_url || "/home41.png",
           category: first.category?.[0] || "Top",
           author: first.author?.[0] || "Unknown",
-<<<<<<< Updated upstream
-          prf_img: "/profile.png",
-          date: new Date(first.publish_datetime).toDateString(),
-          readTime: timeLatest(first.publish_datetime),
-=======
           prf_img: "/home41.png", // No profile image
           date: timeLatest(first.publish_datetime),
           readTime: `${calculateReadingTime(first.content || first.description || first.summary)} min`,
->>>>>>> Stashed changes
           link: first.link,
           summary: first.summary || first.description || first.title,
           content: first.content || first.description || first.summary || first.title,
@@ -327,15 +298,9 @@ const Home1: React.FC = () => {
             image: item.image_url || "/home41.png",
             category: item.category?.[0] || "Top",
             author: item.author?.[0] || "Unknown",
-<<<<<<< Updated upstream
-            prf_img: "",
-            date: new Date(item.publish_datetime).toDateString(),
-            readTime: timeLatest(item.publish_datetime),
-=======
             prf_img: "/home41.png", // No profile image
             date: timeLatest(item.publish_datetime),
             readTime: `${calculateReadingTime(item.content || item.description || item.summary)} min`,
->>>>>>> Stashed changes
             link: item.link,
             summary: item.summary || item.description || item.title,
             content: item.content || item.description || item.summary || item.title,
@@ -364,17 +329,11 @@ const Home1: React.FC = () => {
         className="w-full px-4 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12 lg:hidden"
         style={{ fontFamily: "var(--font-albert-sans)" }}
       >
-<<<<<<< Updated upstream
-        <h2 className="text-2xl sm:text-3xl font-bold text-black mb-6 sm:mb-8">
-          Top Stories
-        </h2>
-=======
         <div className="flex justify-between items-center mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-black">
             Top Stories
           </h2>
         </div>
->>>>>>> Stashed changes
 
         <div className="flex flex-col gap-6 sm:gap-8">
           {/* FEATURED */}
@@ -387,12 +346,9 @@ const Home1: React.FC = () => {
                 src={featuredStory.image}
                 alt={featuredStory.title}
                 className="w-full h-[220px] sm:h-[260px] md:h-[300px] object-cover"
-<<<<<<< Updated upstream
-=======
                 onError={(e) => {
                   e.currentTarget.src = "/home41.png";
                 }}
->>>>>>> Stashed changes
               />
               <span className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-orange-500 text-[11px] sm:text-[12px] font-semibold text-white px-3 py-1 rounded-full">
                 {featuredStory.category}
@@ -512,13 +468,8 @@ const Home1: React.FC = () => {
             </div>
           </div>
 
-<<<<<<< Updated upstream
-          {/* ALL STORIES GRID - MOBILE: Only show 2 tiles, TABLET: Show 4 tiles in 2 columns */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-=======
           {/* ALL STORIES GRID - Show only 2 stories below App Launch tile */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
->>>>>>> Stashed changes
             {allStories.slice(0, 2).map((story) => (
               <SmallStoryCard 
                 key={story.id} 
@@ -536,13 +487,9 @@ const Home1: React.FC = () => {
           className="w-full px-8 lg:px-32 py-12"
           style={{ fontFamily: "var(--font-albert-sans)" }}
         >
-<<<<<<< Updated upstream
-          <h2 className="text-3xl font-bold text-black mb-8">Top Stories</h2>
-=======
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold text-black">Top Stories</h2>
           </div>
->>>>>>> Stashed changes
 
           {/* TOP SECTION - Featured + 3 small + CTA */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -556,12 +503,9 @@ const Home1: React.FC = () => {
                   src={featuredStory.image}
                   alt={featuredStory.title}
                   className="w-full h-[360px] object-cover"
-<<<<<<< Updated upstream
-=======
                   onError={(e) => {
                     e.currentTarget.src = "/home41.png";
                   }}
->>>>>>> Stashed changes
                 />
                 <span className="absolute top-4 left-4 bg-orange-500 text-[12px] font-semibold text-white px-3 py-1 rounded-full">
                   {featuredStory.category}
@@ -774,23 +718,16 @@ const Home1: React.FC = () => {
                     <div className="relative">
                       <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-4 md:p-6 rounded-lg border-l-4 border-orange-500">
                         {/* Float image to the right inside summary */}
-<<<<<<< Updated upstream
-                        {selectedStory.image && (
-=======
                         {selectedStory.image && selectedStory.image !== "/home41.png" && (
->>>>>>> Stashed changes
                           <div className="float-right ml-4 md:ml-6 mb-4 w-full md:w-2/5 lg:w-2/5">
                             <div className="rounded-lg overflow-hidden shadow">
                               <img
                                 src={selectedStory.image}
                                 alt={selectedStory.title}
                                 className="w-full h-auto max-h-[300px] object-cover"
-<<<<<<< Updated upstream
-=======
                                 onError={(e) => {
                                   e.currentTarget.src = "/home41.png";
                                 }}
->>>>>>> Stashed changes
                               />
                               <div className="bg-black/80 text-white text-xs p-2 text-center">
                                 Photo Source: {getSourceName(selectedStory)}

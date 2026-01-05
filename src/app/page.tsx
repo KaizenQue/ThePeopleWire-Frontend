@@ -8,36 +8,23 @@ import Home4 from "@/components/home/home4";
 import Home5 from "@/components/home/home5";
 import Home6 from "@/components/home/home6";
 import Home8 from "@/components/home/home8";
-<<<<<<< Updated upstream
-
-
-=======
 import HeaderAD from "@/components/Ads-Components/Header-Ad";
 import MidAd from "@/components/Ads-Components/Mid-Ad";
 import MidAd2 from "@/components/Ads-Components/Mid-Ad2";
->>>>>>> Stashed changes
 export default function Home() {
  return (
   <main className="flex min-h-screen flex-col items-center justify-between">
+    <HeaderAD />
     <Header />
 
+
     <Home1/>
+    <MidAd />
     <Home2/>
-<<<<<<< Updated upstream
     <Home3/>
     <Home4/>
+    <MidAd2 />
     <Home6/>
-=======
-
-    <MidAd/>
-
-    <Home3/>
-    <Home4/>
-    <Home6/>
-
-    <MidAd2/>
-
->>>>>>> Stashed changes
     <Home5/>
     <Home8/>
     

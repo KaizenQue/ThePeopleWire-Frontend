@@ -8,13 +8,13 @@ import { cn } from "@/lib/utils";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Top Stories", href: "/top-stories" },
-  { name: "Latest", href: "/latest" },
-  { name: "International", href: "/international" },
-  { name: "Business", href: "/business" },
-  { name: "Entertainment", href: "/entertainment" },
-  { name: "Science & Tech", href: "/science-tech" },
-  { name: "Sports", href: "/sports" },
+  { name: "Top Stories", href: "/Top-Stories" },
+  { name: "Latest", href: "/Latest" },
+  { name: "International", href: "/International" },
+  { name: "Business", href: "/Business" },
+  { name: "Entertainment", href: "/Entertainment" },
+  { name: "Science & Tech", href: "/Science-Tech" },
+  { name: "Sports", href: "/Sports" },
 ];
 
 const AppNavbar = () => {
