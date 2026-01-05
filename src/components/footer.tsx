@@ -38,15 +38,19 @@ const Footer = () => {
       <div className="w-full">
         {/* Mobile + Tablet */}
         <div className="block lg:hidden w-full">
-          <Image
-            src="/Footer-QR-Mobile.png"
-            alt="Scan to explore The People Wire"
-            width={1200}
-            height={400}
-            className="w-full h-auto object-cover block"
-            priority
-            unoptimized
-          />
+      <img
+  src="/Footer-QR-Mobile.png"
+  alt="Scan to explore The People Wire"
+  className="
+    w-full
+    max-w-full
+    h-auto
+    object-cover
+    block
+    mx-auto
+  "
+/>
+
         </div>
 
         {/* Desktop + Laptop – Larger QR */}
