@@ -45,6 +45,7 @@ const Footer = () => {
             height={400}
             className="w-full h-auto object-cover block"
             priority
+            unoptimized
           />
         </div>
 
@@ -57,6 +58,7 @@ const Footer = () => {
     height={1450}
     className="block object-contain"
     priority
+    unoptimized
   />
 </div>
 
