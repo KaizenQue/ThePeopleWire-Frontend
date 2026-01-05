@@ -59,7 +59,7 @@ export default function Home4() {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const res = await fetch("/api/news?country=india&limit=8&category=sports");
+        const res = await fetch("/api/news?language=english&limit=15&category=sports");
         const json = await res.json();
         const fetchedArticles: ApiArticle[] = json.data || [];
 
@@ -558,16 +558,20 @@ export default function Home4() {
                 </div>
 
                 {/* Article Footer */}
-                <div className="pt-6 mt-8 border-t">
-                  <div className="flex justify-end">
-                    <button
-                      onClick={closeArticleModal}
-                      className="px-6 py-3 text-sm font-medium text-white bg-[#F25C05] rounded-lg hover:bg-[#e05504] transition-colors inline-flex items-center gap-2"
-                    >
-                      Close Article <X size={16} />
-                    </button>
-                  </div>
-                </div>
+                {/* Article Footer */}
+{/* Article Footer */}
+<div className="pt-6 mt-8 border-t">
+  <div className="flex justify-end">
+    {/* NEW: Gray button to open original article in new tab */}
+    <button
+      onClick={() => window.open(selectedArticle.link, '_blank')}
+      className="px-6 py-3 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors inline-flex items-center gap-2"
+    >
+      <ArrowUpRight size={16} />
+      View Original Article
+    </button>
+  </div>
+</div>
               </div>
             </div>
           </div>
