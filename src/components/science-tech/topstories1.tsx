@@ -118,18 +118,21 @@ const getSourceName = (story: Story) => {
   return "Unknown Source";
 };
 
-// Fetch all news without country filter
+// Fetch all news and take first 10
 const fetchAllNews = async (): Promise<ApiArticle[]> => {
   try {
-    const res = await fetch(`/api/news?category=science`);
+    const res = await fetch(`/api/news?category=science&language=english`);
     const json = await res.json();
-    return json.data as ApiArticle[];
+    
+    // Get first 10 articles
+    const articles = json.data as ApiArticle[];
+    return articles.slice(0, 10);
+    
   } catch (err) {
     console.error("Failed to fetch news", err);
     return [];
   }
 };
-
 
 /* ------------------ COMPONENTS ------------------ */
 

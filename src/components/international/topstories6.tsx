@@ -67,7 +67,7 @@ const getSourceName = (story: Story) =>
 
 const fetchAllNews = async (): Promise<ApiArticle[]> => {
   try {
-    const res = await fetch("/api/news?category=world&language=english");
+    const res = await fetch("/api/news?from=20&to=35&category=world");
     const json = await res.json();
     return json.data || [];
   } catch {

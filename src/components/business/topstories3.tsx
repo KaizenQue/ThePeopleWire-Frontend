@@ -78,43 +78,42 @@ export default function Home3() {
     setActiveArrow(dir);
   };
 
-  /* ---------------- DATA RETRIEVAL ---------------- */
-  useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const res = await fetch("/api/news?category=world&limit=8");
-        const json = await res.json();
-        const fetchedArticles: ApiArticle[] = json.data || [];
+useEffect(() => {
+  const fetchNews = async () => {
+    try {
+      const res = await fetch("/api/news?from=10&to=19&category=business");
+      const json = await res.json();
 
-        if (!fetchedArticles.length) return;
+      const fetchedArticles: ApiArticle[] = json.data || [];
+      if (!fetchedArticles.length) return;
 
-        /* SMALL STORIES */
-        const mappedArticles: ApiArticle[] = fetchedArticles.map(
-          (item, index) =>
-            ({
-              id: item.id,
-              title: item.title,
-              image_url: item.image_url || "/home41.png",
-              category: item.category,
-              author: item.author,
-              publish_datetime: new Date(item.publish_datetime).toDateString(),
-              summary: item.summary || item.title,
-              content: item.content || item.description || item.summary || item.title,
-              description: item.description,
-              link: item.link,
-              country: item.country,
-              source_id: item.source_id,
-            } as ApiArticle)
-        );
+      const mappedArticles: ApiArticle[] = fetchedArticles.map((item) => ({
+        id: item.id,
+        title: item.title,
+        image_url: item.image_url || "/home41.png",
+        category: item.category,
+        author: item.author,
+        publish_datetime: item.publish_datetime, // ✅ keep raw
+        summary: item.summary || item.title,
+        content:
+          item.content ||
+          item.description ||
+          item.summary ||
+          item.title,
+        description: item.description,
+        link: item.link,
+        country: item.country,
+        source_id: item.source_id,
+      }));
 
-        setApiArticles(mappedArticles);
-      } catch (err) {
-        console.error("Failed to fetch news", err);
-      }
-    };
+      setApiArticles(mappedArticles);
+    } catch (err) {
+      console.error("Failed to fetch news", err);
+    }
+  };
 
-    fetchNews();
-  }, []);
+  fetchNews();
+}, []);
 
   /* ---------------- ARTICLE MODAL HANDLERS ---------------- */
   const handleReadMore = (article: ApiArticle, e: React.MouseEvent) => {
