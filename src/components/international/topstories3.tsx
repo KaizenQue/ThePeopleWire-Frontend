@@ -78,42 +78,150 @@ export default function Home3() {
     setActiveArrow(dir);
   };
 
-useEffect(() => {
-  const fetchNews = async () => {
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await fetch("/api/news?from=10&to=19&category=world");
+        const json = await res.json();
+
+        const fetchedArticles: ApiArticle[] = json.data || [];
+        if (!fetchedArticles.length) return;
+
+        const mappedArticles: ApiArticle[] = fetchedArticles.map((item) => ({
+          id: item.id,
+          title: item.title,
+          image_url: item.image_url || "/home41.png",
+          category: item.category,
+          author: item.author,
+          publish_datetime: item.publish_datetime, // ✅ keep raw
+          summary: item.summary || item.title,
+          content:
+            item.content ||
+            item.description ||
+            item.summary ||
+            item.title,
+          description: item.description,
+          link: item.link,
+          country: item.country,
+          source_id: item.source_id,
+        }));
+
+        setApiArticles(mappedArticles);
+      } catch (err) {
+        console.error("Failed to fetch news", err);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
+  /* ---------------- DATE FORMATTING FUNCTIONS ---------------- */
+  // Format date for display (e.g., "Monday, January 6, 2026")
+  const formatDate = (dateString: string) => {
     try {
-      const res = await fetch("/api/news?from=10&to=19&category=world");
-      const json = await res.json();
-
-      const fetchedArticles: ApiArticle[] = json.data || [];
-      if (!fetchedArticles.length) return;
-
-      const mappedArticles: ApiArticle[] = fetchedArticles.map((item) => ({
-        id: item.id,
-        title: item.title,
-        image_url: item.image_url || "/home41.png",
-        category: item.category,
-        author: item.author,
-        publish_datetime: item.publish_datetime, // ✅ keep raw
-        summary: item.summary || item.title,
-        content:
-          item.content ||
-          item.description ||
-          item.summary ||
-          item.title,
-        description: item.description,
-        link: item.link,
-        country: item.country,
-        source_id: item.source_id,
-      }));
-
-      setApiArticles(mappedArticles);
-    } catch (err) {
-      console.error("Failed to fetch news", err);
+      const date = new Date(dateString);
+      
+      // Check if date is valid
+      if (isNaN(date.getTime())) {
+        // Try parsing the date string directly
+        const dateMatch = dateString.match(/\d{4}-\d{2}-\d{2}/);
+        if (dateMatch) {
+          return new Date(dateMatch[0]).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          });
+        }
+        return dateString; // Return original if can't parse
+      }
+      
+      return date.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return dateString;
     }
   };
 
-  fetchNews();
-}, []);
+  // Format time for display (e.g., "12:50 PM GMT")
+  const formatTime = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      
+      if (isNaN(date.getTime())) {
+        const timeMatch = dateString.match(/\d{2}:\d{2}/);
+        return timeMatch ? timeMatch[0] : dateString;
+      }
+      
+      return date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZoneName: 'short',
+      });
+    } catch (error) {
+      console.error('Error formatting time:', error);
+      return dateString;
+    }
+  };
+
+  // Format date and time together in a shorter format for cards
+  const formatDateTimeShort = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      
+      if (isNaN(date.getTime())) {
+        // Extract just the date part if it's in ISO format
+        const dateMatch = dateString.match(/\d{4}-\d{2}-\d{2}/);
+        if (dateMatch) {
+          const [year, month, day] = dateMatch[0].split('-');
+          return `${new Date(parseInt(year), parseInt(month)-1, parseInt(day)).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+        }
+        return dateString;
+      }
+      
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
+    } catch (error) {
+      console.error('Error formatting date time short:', error);
+      return dateString;
+    }
+  };
+
+  // Format date with time for detailed view
+  const formatDateTimeFull = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      
+      if (isNaN(date.getTime())) {
+        return dateString;
+      }
+      
+      const datePart = date.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+      
+      const timePart = date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZoneName: 'short',
+      });
+      
+      return `${datePart} at ${timePart}`;
+    } catch (error) {
+      console.error('Error formatting date time full:', error);
+      return dateString;
+    }
+  };
 
   /* ---------------- ARTICLE MODAL HANDLERS ---------------- */
   const handleReadMore = (article: ApiArticle, e: React.MouseEvent) => {
@@ -153,26 +261,6 @@ useEffect(() => {
       window.removeEventListener('keydown', handleEscape);
     };
   }, [showArticleModal]);
-
-  // Format date for display
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  };
-
-  // Format time for display
-  const formatTime = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
 
   // Calculate reading time with detailed logic
   const calculateReadingTime = (text: string | undefined): number => {
@@ -273,20 +361,21 @@ useEffect(() => {
                   <div className="relative z-10 flex h-full flex-col justify-between p-6 text-white">
                     {!isActive && (
                       <>
-                        <div className="flex items-center gap-2 text-xs opacity-90 mt-40">
+                        <div className="flex items-center gap-2 text-xs opacity-90 mt-32"> {/* Changed from mt-40 to mt-32 */}
                           <div className="flex items-center gap-1">
                             <Tag size={12} className="text-white" />
                             <span>Source: {getSourceName(article)}</span>
                           </div>
                         </div>
 
-                        <div>
-                          <h3 className="mt-2 text-lg font-semibold leading-snug mb-28">
+                        <div className="mb-4"> {/* Added margin-bottom to give more space */}
+                          <h3 className="mt-2 text-lg font-semibold leading-snug mb-4"> {/* Changed from mb-28 to mb-4 */}
                             {article.title}
                           </h3>
 
-                          <p className="mt-3 text-xs text-gray-300">
-                            {article.publish_datetime}
+                          <p className="mt-3 text-xs text-gray-300 absolute bottom-6 left-6 right-6"> {/* Positioned at bottom */}
+                            {/* Updated date display */}
+                            {formatDateTimeShort(article.publish_datetime)}
                           </p>
                         </div>
                       </>
@@ -294,17 +383,17 @@ useEffect(() => {
 
                     {isActive && (
                       <>
-                        <div>
+                        <div className="mt-auto"> {/* Changed: Added mt-auto to push content to bottom when active */}
                           {/* Removed author avatar image, kept only author name */}
                           <div className="mb-4 flex items-center gap-2 text-xs">
                             <span>By {authorName || "Unknown"}</span>
                           </div>
 
-                          <h3 className="text-lg font-semibold leading-snug">
+                          <h3 className="text-lg font-semibold leading-snug mb-3">
                             {article.title}
                           </h3>
 
-                          <p className="mt-3 text-sm text-gray-200">
+                          <p className="text-sm text-gray-200 mb-4">
                             {truncatedSummary}
                             {truncatedSummary !== article.summary && (
                               <button
@@ -320,9 +409,10 @@ useEffect(() => {
                           </p>
                         </div>
 
-                        <div>
+                        <div className="mt-auto pt-4"> {/* Added padding top */}
+                          {/* Updated date display */}
                           <p className="mb-4 text-xs text-gray-300">
-                            {article.publish_datetime}
+                            {formatDateTimeShort(article.publish_datetime)}
                           </p>
 
                           {/* Read More — Opens Modal */}
@@ -382,6 +472,7 @@ useEffect(() => {
                       <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">Published</span>
                     </div>
                     <p className="text-sm font-semibold text-gray-800">
+                      {/* Updated date display */}
                       {formatDate(selectedArticle.publish_datetime)}
                     </p>
                   </div>
@@ -404,6 +495,16 @@ useEffect(() => {
                     <p className="text-sm font-semibold text-gray-800">
                       {calculateReadingTime(selectedArticle.content)} min
                     </p>
+                  </div>
+                </div>
+
+                {/* Time information below the grid */}
+                <div className="mt-4 pt-4 border-t border-gray-100">
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <Clock size={14} />
+                    <span>Published at {formatTime(selectedArticle.publish_datetime)}</span>
+                    <span className="text-gray-400">•</span>
+                    <span>{formatDateTimeFull(selectedArticle.publish_datetime)}</span>
                   </div>
                 </div>
               </div>
@@ -484,6 +585,9 @@ useEffect(() => {
                                   <p className="text-xs text-gray-500">
                                     <span className="font-medium">Photo Source:</span> {getSourceName(selectedArticle)}
                                   </p>
+                                  <p className="text-xs text-gray-400 mt-1">
+                                    Published: {formatDateTimeShort(selectedArticle.publish_datetime)}
+                                  </p>
                                 </div>
                               </div>
                             </div>
@@ -500,6 +604,8 @@ useEffect(() => {
                           <div className="flex items-center gap-2 text-sm text-gray-500">
                             <Clock size={14} />
                             <span>{calculateReadingTime(selectedArticle.content)} min read</span>
+                            <span className="text-gray-400">•</span>
+                            <span>Published: {formatTime(selectedArticle.publish_datetime)}</span>
                           </div>
                         </div>
                         
@@ -531,6 +637,9 @@ useEffect(() => {
                       {/* Footer with View Original Article button - Removed "Article source:" line */}
                       <div className="pt-4 mt-6 border-t">
                         <div className="flex flex-col md:flex-row justify-end items-center gap-4">
+                          <div className="text-sm text-gray-500">
+                            <p>Article published on {formatDate(selectedArticle.publish_datetime)}</p>
+                          </div>
                           <div className="flex gap-3">
                             <a
                               href={selectedArticle.link}

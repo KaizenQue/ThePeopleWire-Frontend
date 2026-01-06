@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { X, Calendar, User, Tag, Clock } from "lucide-react";
+import { X, Calendar, User, Tag, Clock,ExternalLink } from "lucide-react";
 
 /* ------------------ TYPES ------------------ */
 
@@ -113,14 +113,6 @@ const SmallStoryCard: React.FC<SmallStoryCardProps> = ({ story, onReadMore }) =>
 
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-[#727272] tracking-[-0.28px] flex-shrink-0">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            {story.prf_img && (
-              <img
-                src={story.prf_img}
-                alt={story.author}
-                className="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover flex-shrink-0"
-              />
-            )}
-
             <span
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-[10px] font-normal leading-[12px] text-[#231F18] truncate"
@@ -207,7 +199,9 @@ const getSourceName = (story: Story) => {
   }
   return "Unknown Source";
 };
-
+  const handleOpenOriginal = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
 // Fetch global news (without country filter)
 const fetchGlobalNews = async (): Promise<ApiArticle[]> => {
   try {
@@ -808,10 +802,12 @@ const Home1: React.FC = () => {
                 <div className="pt-4 mt-6 border-t">
                   <div className="flex justify-end">
                     <button
-                      onClick={closeArticleModal}
-                      className="px-4 py-2 text-xs font-medium text-white bg-[#F25C05] rounded-lg hover:bg-[#e05504] transition-colors inline-flex items-center gap-1.5"
+                      onClick={() => selectedStory.link && handleOpenOriginal(selectedStory.link)}
+                      className="px-4 py-2 text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 rounded-lg transition-colors inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={!selectedStory.link}
                     >
-                      Close Article <X size={14} />
+                      <ExternalLink size={16} />
+                      View Original Source
                     </button>
                   </div>
                 </div>
