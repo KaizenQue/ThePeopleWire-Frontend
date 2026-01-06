@@ -39,7 +39,7 @@ const Footer = () => {
         {/* Mobile + Tablet */}
         <div className="block lg:hidden w-full">
       <img
-  src="/Footer-QR-Mobile.png"
+  src="/footer-qr-mobile.png"
   alt="Scan to explore The People Wire"
   className="
     w-full
@@ -56,7 +56,7 @@ const Footer = () => {
         {/* Desktop + Laptop – Larger QR */}
 <div className="hidden lg:flex justify-center w-full">
 <img
-  src="/Footer-QR.png"
+  src="/footer-qr.png"
   alt="Scan to explore The People Wire"
   className="
     block
