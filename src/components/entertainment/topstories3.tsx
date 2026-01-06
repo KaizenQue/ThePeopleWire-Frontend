@@ -498,15 +498,7 @@ export default function Home3() {
                   </div>
                 </div>
 
-                {/* Time information below the grid */}
-                <div className="mt-4 pt-4 border-t border-gray-100">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Clock size={14} />
-                    <span>Published at {formatTime(selectedArticle.publish_datetime)}</span>
-                    <span className="text-gray-400">•</span>
-                    <span>{formatDateTimeFull(selectedArticle.publish_datetime)}</span>
-                  </div>
-                </div>
+             
               </div>
               
               {/* Close Button in top-right corner */}
@@ -585,9 +577,7 @@ export default function Home3() {
                                   <p className="text-xs text-gray-500">
                                     <span className="font-medium">Photo Source:</span> {getSourceName(selectedArticle)}
                                   </p>
-                                  <p className="text-xs text-gray-400 mt-1">
-                                    Published: {formatDateTimeShort(selectedArticle.publish_datetime)}
-                                  </p>
+                                  
                                 </div>
                               </div>
                             </div>
@@ -601,12 +591,7 @@ export default function Home3() {
                       <div className="mb-6">
                         <div className="flex items-center justify-between mb-4 pb-3 border-b">
                           <h2 className="text-lg md:text-xl font-bold text-gray-900">Full Article</h2>
-                          <div className="flex items-center gap-2 text-sm text-gray-500">
-                            <Clock size={14} />
-                            <span>{calculateReadingTime(selectedArticle.content)} min read</span>
-                            <span className="text-gray-400">•</span>
-                            <span>Published: {formatTime(selectedArticle.publish_datetime)}</span>
-                          </div>
+                        
                         </div>
                         
                         <div className="prose max-w-none">
@@ -637,9 +622,7 @@ export default function Home3() {
                       {/* Footer with View Original Article button - Removed "Article source:" line */}
                       <div className="pt-4 mt-6 border-t">
                         <div className="flex flex-col md:flex-row justify-end items-center gap-4">
-                          <div className="text-sm text-gray-500">
-                            <p>Article published on {formatDate(selectedArticle.publish_datetime)}</p>
-                          </div>
+                          
                           <div className="flex gap-3">
                             <a
                               href={selectedArticle.link}
