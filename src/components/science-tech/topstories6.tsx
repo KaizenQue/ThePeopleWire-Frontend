@@ -264,9 +264,9 @@ export default function Home4() {
           {/* MOBILE */}
           <div className="md:hidden">
             <div
-              ref={scrollRef}
-              className="flex gap-4 overflow-x-auto pb-4"
-            >
+  className="flex flex-col gap-4"
+>
+
               {stories.map((s) => (
                 <NewsTile
                   key={s.id}

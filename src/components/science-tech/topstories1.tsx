@@ -491,25 +491,22 @@ const Home1: React.FC = () => {
                 />
               ))}
               
-              {/* 4th Card - Ad Banner */}
-              <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl overflow-hidden flex flex-col justify-between p-6 h-full min-h-[280px] hover:shadow-lg transition-shadow duration-200">
-                <div>
-                  <div className="mb-4">
-                    <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium">
-                      ADVERTISEMENT
-                    </span>
-                  </div>
-                  
-                  <h4 className="text-2xl font-bold text-white mb-2">Banner</h4>
-                  <p className="text-white/90 mb-4">Premium advertising space available</p>
-                </div>
-                
-                <div>
-                  <button className="w-full py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors">
-                    Learn More
-                  </button>
-                </div>
-              </div>
+             <a
+  href="https://connect2attorney.com/"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="block h-full min-h-[280px] rounded-2xl overflow-hidden hover:shadow-lg transition-shadow duration-200"
+>
+  <img
+    src="/hero-leftad.png"  // ⬅️ replace with your ad image
+    alt="Advertisement"
+    className="w-full h-full object-cover"
+    loading="lazy"
+    onError={(e) => {
+      e.currentTarget.src = "/home41.png";
+    }}
+  />
+</a>
             </div>
           </div>
         </div>
