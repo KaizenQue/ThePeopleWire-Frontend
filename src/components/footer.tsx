@@ -38,37 +38,31 @@ const Footer = () => {
       <div className="w-full">
         {/* Mobile + Tablet */}
         <div className="block lg:hidden w-full">
-      <img
-  src="/footer-qr-mobile.png"
-  alt="Scan to explore The People Wire"
-  className="
-    w-full
-    max-w-full
-    h-auto
-    object-cover
-    block
-    mx-auto
-  "
-/>
-
+          <div className="relative w-full h-[300px] md:h-[400px]">
+            <Image
+              src="/mobqrfooter.png"
+              alt="Scan to explore The People Wire"
+              fill
+              className="object-cover"
+              sizes="100vw"
+              priority
+            />
+          </div>
         </div>
 
         {/* Desktop + Laptop – Larger QR */}
-<div className="hidden lg:flex justify-center w-full">
-<img
-  src="/footer-qr.png"
-  alt="Scan to explore The People Wire"
-  className="
-    block
-    w-full
-    max-w-[1950px]
-    h-auto
-    object-contain
-    mx-auto
-  "
-/>
-
-</div>
+        <div className="hidden lg:flex justify-center w-full">
+          <div className="relative w-full h-[500px] max-w-[1950px]">
+            <Image
+              src="/qrfooter.png"
+              alt="Scan to explore The People Wire"
+              fill
+              className="object-contain"
+              sizes="1950px"
+              priority
+            />
+          </div>
+        </div>
 
       </div>
 
