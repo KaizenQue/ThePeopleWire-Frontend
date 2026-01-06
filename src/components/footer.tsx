@@ -52,7 +52,7 @@ const Footer = () => {
 
         {/* Desktop + Laptop – Larger QR */}
         <div className="hidden lg:flex justify-center w-full">
-          <div className="relative w-full h-[500px] max-w-[1950px]">
+          <div className="relative w-full h-[700px] max-w-[2150px]">
             <Image
               src="/qrfooter.png"
               alt="Scan to explore The People Wire"
