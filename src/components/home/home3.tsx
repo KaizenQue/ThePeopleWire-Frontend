@@ -412,13 +412,9 @@ export default function Home3() {
                       <>
                         <div>
                           <div className="mb-4 flex items-center gap-2 text-xs">
-                            <Image
-                              src={"/author.png"}
-                              alt={authorName || "Unknown"}
-                              width={18}
-                              height={18}
-                              className="w-[30px] h-[30px] rounded-full object-cover"
-                            />
+                            <div className="w-7 h-7 bg-orange-100 rounded-full flex items-center justify-center">
+                                <User size={14} className="text-orange-600" />
+                              </div>
                             <span>By {authorName || "Unknown"}</span>
                           </div>
 

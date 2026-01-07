@@ -1,4 +1,6 @@
 "use client";
+import MidAd from "@/components/Ads-Components/Mid-Ad";
+import MidAd2 from "@/components/Ads-Components/Mid-Ad2";
 
 import "./topstories2.css";
 import { useEffect, useRef, useState } from "react";
@@ -212,7 +214,7 @@ const NewsTile = ({
 }) => (
   <div
     onClick={() => onClick(story)}
-    className="bg-white rounded-2xl overflow-hidden border hover:shadow-lg cursor-pointer transition"
+    className="bg-gray-100 rounded-2xl overflow-hidden border hover:shadow-lg cursor-pointer transition"
   >
     <div className="h-[180px] w-full overflow-hidden">
       <img
@@ -229,6 +231,7 @@ const NewsTile = ({
       <h3 className="text-lg font-bold leading-snug mb-3 line-clamp-3">
         {story.title}
       </h3>
+      
       <p className="text-sm text-gray-600 font-medium uppercase">
         BY {story.author}
       </p>
@@ -258,44 +261,53 @@ export default function Home4() {
   return (
     <>
       <section className="bg-white py-10">
-        <div className="max-w-8xl mx-auto px-4">
+        <div className="max-w-8xl mx-auto px-4 md:pl-16 xl:pl-30">
           <h2 className="text-3xl font-bold mb-6">More News</h2>
 
           {/* MOBILE */}
-          <div className="md:hidden">
-            <div
-  className="flex flex-col gap-4"
->
+        {/* MOBILE */}
+<div className="md:hidden">
+  <div className="flex flex-col gap-4">
+    {stories.map((s, index) => (
+      <div key={s.id}>
+        <NewsTile story={s} onClick={setActiveStory} />
 
-              {stories.map((s) => (
-                <NewsTile
-                  key={s.id}
-                  story={s}
-                  onClick={setActiveStory}
-                />
-              ))}
-            </div>
+        {/* ADS INSERTION */}
+        {(index + 1) % 4 === 0 && (
+          <>
+            {(index + 1) % 8 === 0 ? (
+              <MidAd2 />
+            ) : (
+              <MidAd />
+            )}
+          </>
+        )}
+      </div>
+    ))}
+  </div>
+</div>
 
-            <div className="flex justify-center gap-4 mt-4">
-              <button onClick={() => scroll("left")}>
-                <ChevronLeft />
-              </button>
-              <button onClick={() => scroll("right")}>
-                <ChevronRight />
-              </button>
-            </div>
-          </div>
 
-          {/* DESKTOP */}
-          <div className="hidden md:grid grid-cols-4 gap-6">
-            {stories.map((s) => (
-              <NewsTile
-                key={s.id}
-                story={s}
-                onClick={setActiveStory}
-              />
-            ))}
-          </div>
+   {/* DESKTOP */}
+<div className="hidden md:grid grid-cols-4 gap-6">
+  {stories.map((s, index) => (
+    <div key={s.id} className="contents">
+      {/* NEWS TILE */}
+      <div>
+        <NewsTile story={s} onClick={setActiveStory} />
+      </div>
+
+      {/* FULL-WIDTH AD AFTER 8 TILES */}
+      {index === 7 && (
+        <div className="col-span-4">
+          <MidAd />
+        </div>
+      )}
+    </div>
+  ))}
+</div>
+
+
         </div>
       </section>
 
