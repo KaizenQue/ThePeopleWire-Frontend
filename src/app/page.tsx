@@ -11,22 +11,16 @@ import Home8 from "@/components/home/home8";
 import HeaderAD from "@/components/Ads-Components/Header-Ad";
 import MidAd from "@/components/Ads-Components/Mid-Ad";
 import MidAd2 from "@/components/Ads-Components/Mid-Ad2";
-
-
-  import CommingSoon from "@/components/commingsoon";
+import CommingSoon from "@/components/commingsoon";
 
 
 export default function Home() {
  return (
-
-
-
-  <main className="">
-    <CommingSoon />
-    {/* <HeaderAD />
+   <main className="flex min-h-screen flex-col items-center justify-between">
+  {/* // <main className=""> */}
+  {/* //   <CommingSoon /> */}
+     <HeaderAD />
     <Header />
-
-
     <Home1/>
     <MidAd />
     <Home2/>
@@ -36,8 +30,7 @@ export default function Home() {
     <Home6/>
     <Home5/>
     <Home8/>
-    
-    <Footer /> */}
+    <Footer /> 
   </main>
  );
 }
