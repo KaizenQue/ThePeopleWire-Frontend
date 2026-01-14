@@ -127,7 +127,7 @@ const fetchAllNews = async (): Promise<ApiArticle[]> => {
     
     // Get first 10 articles
     const articles = json.data as ApiArticle[];
-    return articles.slice(0, 10);
+    return articles.slice(0, 11);
     
   } catch (err) {
     console.error("Failed to fetch news", err);
@@ -330,7 +330,7 @@ const Home1: React.FC = () => {
         setFeaturedStory(featured);
 
         /* BOTTOM STORIES - 2nd, 3rd, 4th articles for small cards */
-        const bottomStoriesData: Story[] = articles.slice(1, 4).map(
+        const bottomStoriesData: Story[] = articles.slice(1, 5).map(
           (item, index) => ({
             id: index + 1,
             title: item.title,
