@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaLinkedin, FaX, FaYoutube } from "react-icons/fa6";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 
@@ -86,12 +86,48 @@ const Footer = () => {
               Your Next-Gen News Destination
             </p>
 
-            <div className="flex gap-8 text-[#F25C05] pt-2">
-              <FaFacebook className="size-7 cursor-pointer hover:opacity-80" />
-              <FaYoutube className="size-7 cursor-pointer hover:opacity-80" />
-              <FaInstagram className="size-7 cursor-pointer hover:opacity-80" />
-              <FaLinkedin className="size-7 cursor-pointer hover:opacity-80" />
-            </div>
+           <div className="flex gap-8 text-[#F25C05] pt-2">
+  <a
+    href="https://www.facebook.com/people/The-People-Wire/61585716711421/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <FaFacebook className="size-7 cursor-pointer hover:opacity-80" />
+  </a>
+
+  <a
+    href="https://www.youtube.com/@thepeoplewire"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <FaYoutube className="size-7 cursor-pointer hover:opacity-80" />
+  </a>
+
+  <a
+    href="https://www.instagram.com/thepeoplewire/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <FaInstagram className="size-7 cursor-pointer hover:opacity-80" />
+  </a>
+
+  <a
+    href="https://www.linkedin.com/company/the-people-wire/about/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <FaLinkedin className="size-7 cursor-pointer hover:opacity-80" />
+  </a>
+
+  <a
+    href="https://x.com/thepeoplewire"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <FaX className="size-7 cursor-pointer hover:opacity-80" />
+  </a>
+</div>
+
           </div>
 
           {/* Categories (LINKED) */}
@@ -206,12 +242,12 @@ const Footer = () => {
           </div>
 
           <div className="flex gap-8">
-            <Link href="/About-Us" className="hover:text-[#F25C05]">
+            {/* <Link href="/About-Us" className="hover:text-[#F25C05]">
               About Us
             </Link>
             <Link href="/Contact-Us" className="hover:text-[#F25C05]">
               Contact Us
-            </Link>
+            </Link> */}
             <Link href="/Privacy-Policy" className="hover:text-[#F25C05]">
               Privacy Policy
             </Link>
