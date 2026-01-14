@@ -11,11 +11,11 @@ import Home4 from "@/components/entertainment/topstories6";
 export default function topstories() {
  return (
   <main className="flex min-h-screen flex-col items-center justify-between">
-     <HeaderAD />
+     {/* <HeaderAD /> */}
     <Header />
     <Home1/>
     <Home3/>
-    <MidAd/>
+    {/* <MidAd/> */}
     <Home4/>
     <Footer />
   </main>

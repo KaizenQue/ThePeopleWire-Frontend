@@ -19,14 +19,14 @@ export default function Home() {
    <main className="flex min-h-screen flex-col items-center justify-between">
   {/* // <main className=""> */}
   {/* //   <CommingSoon /> */}
-     <HeaderAD />
+     {/* <HeaderAD /> */}
     <Header />
     <Home1/>
-    <MidAd />
+    {/* <MidAd /> */}
     <Home2/>
     <Home3/>
     <Home4/>
-    <MidAd2 />
+    {/* <MidAd2 /> */}
     <Home6/>
     <Home5/>
     <Home8/>

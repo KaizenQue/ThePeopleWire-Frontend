@@ -275,11 +275,11 @@ export default function Home4() {
         {/* ADS INSERTION */}
         {(index + 1) % 4 === 0 && (
           <>
-            {(index + 1) % 8 === 0 ? (
+            {/* {(index + 1) % 8 === 0 ? (
               <MidAd2 />
             ) : (
               <MidAd />
-            )}
+            )} */}
           </>
         )}
       </div>
@@ -300,7 +300,7 @@ export default function Home4() {
       {/* FULL-WIDTH AD AFTER 8 TILES */}
       {index === 7 && (
         <div className="col-span-4">
-          <MidAd />
+          {/* <MidAd /> */}
         </div>
       )}
     </div>

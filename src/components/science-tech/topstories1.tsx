@@ -491,7 +491,7 @@ const Home1: React.FC = () => {
                 />
               ))}
               
-             <a
+             {/* <a
   href="https://connect2attorney.com/"
   target="_blank"
   rel="noopener noreferrer"
@@ -506,7 +506,7 @@ const Home1: React.FC = () => {
       e.currentTarget.src = "/home41.png";
     }}
   />
-</a>
+</a> */}
             </div>
           </div>
         </div>
