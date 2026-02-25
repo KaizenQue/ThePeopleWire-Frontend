@@ -75,7 +75,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="flex flex-col gap-5">
             <Image
-              src="/icon-white.svg"
+              src="/footerlogo2.png"
               alt="The People Wire Logo"
               width={180}
               height={60}
@@ -86,7 +86,7 @@ const Footer = () => {
               Your Next-Gen News Destination
             </p>
 
-           <div className="flex gap-8 text-[#F25C05] pt-2">
+           {/* <div className="flex gap-8 text-[#F25C05] pt-2">
   <a
     href="https://www.facebook.com/people/The-People-Wire/61585716711421/"
     target="_blank"
@@ -126,7 +126,7 @@ const Footer = () => {
   >
     <FaX className="size-7 cursor-pointer hover:opacity-80" />
   </a>
-</div>
+</div> */}
 
           </div>
 
@@ -160,20 +160,23 @@ const Footer = () => {
             <div className="flex flex-col gap-5 text-sm text-gray-300">
               <div className="flex items-start gap-3">
                 <MapPinIcon size={18} />
-                <span>23 Main Street, 12345</span>
+                <span>
+K-201, Purva Panorama
+Kalena Agrahara, Bannerghatta Road
+Bangalore,Karnataka, India - 560076</span>
               </div>
 
               <div className="flex items-start gap-3">
                 <MailIcon size={18} />
                 <a
-                  href="mailto:thepeoplewire@gmail.com"
+                  href="mailto:info@thepeoplewire.com"
                   className="hover:text-[#F25C05]"
                 >
-                  thepeoplewire@gmail.com
+                  info@thepeoplewire.com
                 </a>
               </div>
 
-              <div className="flex items-start gap-3">
+              {/* <div className="flex items-start gap-3">
                 <PhoneIcon size={18} />
                 <a
                   href="tel:1234567890"
@@ -181,7 +184,7 @@ const Footer = () => {
                 >
                   1234567890
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

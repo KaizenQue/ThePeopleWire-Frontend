@@ -31,10 +31,10 @@ const AppNavbar = () => {
             {/* Logo — Left */}
             <Link href="/" className="flex items-center shrink-0">
               <Image
-                src="/icon.svg"
+                src="/tpw.png"
                 alt="The People Wire"
-                width={105}
-                height={30}
+                width={95}
+                height={25}
                 priority
               />
             </Link>
@@ -86,10 +86,10 @@ const AppNavbar = () => {
           {/* Top bar */}
           <div className="flex items-center justify-between px-4 h-16">
             <Image
-              src="/icon.svg"
+              src="/tpw.png"
               alt="The People Wire"
-              width={100}
-              height={30}
+              width={95}
+              height={25}
             />
             <button
               onClick={() => setMenuOpen(false)}
