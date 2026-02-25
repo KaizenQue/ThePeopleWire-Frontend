@@ -41,7 +41,91 @@ const articles: Article[] = [
     authorAvatar: "/author.png",
     date: "December 03, 2025",
   },
-  // ... rest of the articles array remains the same
+  {
+    id: 2,
+    title: "Inside Modern Architecture",
+    image: "/2.png",
+    excerpt:
+      "A deep dive into contemporary design trends shaping the future of architecture worldwide.",
+    author: "Amal Neerad",
+    authorAvatar: "/author.png",
+    date: "December 05, 2025",
+  },
+  {
+    id: 3,
+    title: "Human Stories from Across the Globe",
+    image: "/3.png",
+    excerpt:
+      "Powerful portraits and stories capturing emotion, culture, and human resilience.",
+    author: "Amal Neerad",
+    authorAvatar: "/author.png",
+    date: "December 07, 2025",
+  },
+  {
+    id: 4,
+    title: "Travel Beyond the Obvious",
+    image: "/4.png",
+    excerpt:
+      "Exploring destinations that rarely make it to travel brochures but leave lasting impressions.",
+    author: "Amal Neerad",
+    authorAvatar: "/author.png",
+    date: "December 09, 2025",
+  },
+  {
+    id: 5,
+    title: "Hidden Cities of Europe",
+    image: "/1.png",
+    excerpt:
+      "A visual journey through Europe's most underrated urban landscapes.",
+    author: "Amal Neerad",
+    authorAvatar: "/author.png",
+    date: "December 11, 2025",
+  },
+  {
+    id: 6,
+    title: "The Art of Slow Living",
+    image: "/2.png",
+    excerpt: "Why slowing down might be the most powerful productivity hack.",
+    author: "Amal Neerad",
+    authorAvatar: "/author.png",
+    date: "December 13, 2025",
+  },
+  {
+    id: 7,
+    title: "Designing for Humans",
+    image: "/3.png",
+    excerpt: "Great design starts with empathy, not pixels.",
+    author: "Amal Neerad",
+    authorAvatar: "/author.png",
+    date: "December 14, 2025",
+  },
+  {
+    id: 8,
+    title: "Inside Digital Newsrooms",
+    image: "/4.png",
+    excerpt: "How modern newsrooms operate in a 24/7 digital world.",
+    author: "Amal Neerad",
+    authorAvatar: "/author.png",
+    date: "December 15, 2025",
+  },
+  {
+    id: 9,
+    title: "The Power of Visual Storytelling",
+    image: "/1.png",
+    excerpt: "Images don't just support stories — they are the story.",
+    author: "Amal Neerad",
+    authorAvatar: "/author.png",
+    date: "December 16, 2025",
+  },
+  {
+    id: 10,
+    title: "Where Journalism Meets Tech",
+    image: "/2.png",
+    excerpt: "AI, automation, and the future of storytelling.",
+    author: "Amal Neerad",
+    authorAvatar: "/author.png",
+    date: "December 17, 2025",
+  },
 ];
 
 export default function Home3() {
@@ -327,8 +411,10 @@ export default function Home3() {
                     {isActive && (
                       <>
                         <div>
-                          {/* Removed author avatar image, kept only author name */}
                           <div className="mb-4 flex items-center gap-2 text-xs">
+                            <div className="w-7 h-7 bg-orange-100 rounded-full flex items-center justify-center">
+                                <User size={14} className="text-orange-600" />
+                              </div>
                             <span>By {authorName || "Unknown"}</span>
                           </div>
 
@@ -475,48 +561,60 @@ export default function Home3() {
                       sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
                       loading="lazy"
                     />
+                    {/* See Original Article Button - Grey color, bottom right */}
+                    <div className="absolute bottom-4 right-4">
+                      <a
+                        href={selectedArticle.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+                      >
+                        See Original Article
+                        <ExternalLink size={14} />
+                      </a>
+                    </div>
                   </div>
                 ) : (
-                  // ARTICLE CONTENT VIEW - Updated layout with side-by-side summary and image
+                  // ARTICLE CONTENT VIEW - Updated layout matching the image
                   <>
-                    {/* Top Section: Side-by-side layout for summary and image */}
+                    {/* Top Section: Newspaper-style layout */}
                     <div className="mb-8">
-                      <div className="flex flex-col lg:flex-row gap-6">
-                        {/* Left Column: Article Summary */}
-                        <div className="lg:w-2/3">
-                          <div className="p-5 bg-white border border-gray-200 rounded-lg">
-                            <h3 className="text-lg font-bold text-gray-900 mb-4">Article Summary</h3>
-                            <div className="text-gray-700 leading-relaxed">
-                              {selectedArticle.summary && selectedArticle.summary.split('\n').map((paragraph, index) => (
-                                paragraph.trim() && (
-                                  <p key={index} className="mb-4 last:mb-0">
-                                    {paragraph}
+                      <div className="flex flex-col md:flex-row gap-6">
+                        {/* Left Column: Text content */}
+                        <div className="md:w-2/3">
+                          {/* Article Summary - Styled like the image */}
+                          {selectedArticle.summary && (
+                            <div className="mb-6 p-4 bg-orange-50 border-l-4 border-orange-500">
+                              <div className="flex items-start">
+                                <div className="mr-4">
+                                  <div className="w-3 h-3 rounded-full bg-orange-500 mt-1"></div>
+                                </div>
+                                <div>
+                                  <h3 className="text-base font-bold text-gray-900 mb-1">Article Summary</h3>
+                                  <p className="text-sm text-gray-700 leading-relaxed mb-4">
+                                    {selectedArticle.summary}
                                   </p>
-                                )
-                              ))}
-                              {!selectedArticle.summary && (
-                                <p className="text-gray-500">No summary available for this article.</p>
-                              )}
+                                  {/* Photo Source Section */}
+                                  <div className="flex items-center text-xs text-gray-500 mt-4 pt-4 border-t border-gray-200">
+                                    <span className="font-medium mr-2">Photo Source:</span>
+                                    <span>{getSourceName(selectedArticle)}</span>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
 
-                        {/* Right Column: Image with source mention */}
+                        {/* Right Column: Image */}
                         {selectedArticle.image_url && (
-                          <div className="lg:w-1/3">
+                          <div className="md:w-1/3">
                             <div className="sticky top-6">
                               <div className="rounded-lg overflow-hidden border border-gray-200 shadow-sm">
                                 <img
                                   src={selectedArticle.image_url}
                                   alt={selectedArticle.title}
-                                  className="w-full h-auto max-h-[250px] object-cover"
+                                  className="w-full h-auto max-h-[300px] object-cover"
                                 />
-                                {/* Photo Source mention at bottom of image */}
-                                <div className="bg-gray-50 px-4 py-2 border-t border-gray-200">
-                                  <p className="text-xs text-gray-500">
-                                    <span className="font-medium">Photo Source:</span> {getSourceName(selectedArticle)}
-                                  </p>
-                                </div>
                               </div>
                             </div>
                           </div>
@@ -560,26 +658,20 @@ export default function Home3() {
                         </div>
                       </div>
 
-                      {/* Footer with View Original Article button - Removed "Article source:" line */}
+                      {/* Footer with View Original Article button */}
                       <div className="pt-4 mt-6 border-t">
-                        <div className="flex flex-col md:flex-row justify-end items-center gap-4">
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                          <div className="text-sm text-gray-500">
+                            <p>Article source: <span className="font-medium">{getSourceName(selectedArticle)}</span></p>
+                          </div>
                           <div className="flex gap-3">
-                            <a
-                              href={selectedArticle.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="px-5 py-2.5 text-sm font-medium text-white bg-gray-400 rounded-lg hover:bg-gray-500 transition-colors inline-flex items-center gap-2"
-                            >
-                              View Original Source
-                              <ExternalLink size={14} />
-                            </a>
-                            {/* <button
+                            <button
                               onClick={() => openIframe(selectedArticle.link)}
                               className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors inline-flex items-center gap-2"
                             >
-                              View in App
+                              View Original Source
                               <ExternalLink size={14} />
-                            </button> */}
+                            </button>
                           </div>
                         </div>
                       </div>

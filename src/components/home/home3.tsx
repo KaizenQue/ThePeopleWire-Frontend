@@ -329,6 +329,9 @@ export default function Home3() {
                         <div>
                           {/* Removed author avatar image, kept only author name */}
                           <div className="mb-4 flex items-center gap-2 text-xs">
+                            <div className="w-7 h-7 bg-orange-100 rounded-full flex items-center justify-center">
+                                <User size={14} className="text-orange-600" />
+                              </div>
                             <span>By {authorName || "Unknown"}</span>
                           </div>
 

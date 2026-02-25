@@ -10,21 +10,26 @@ import Home6 from "@/components/home/home6";
 import Home8 from "@/components/home/home8";
 import HeaderAD from "@/components/Ads-Components/Header-Ad";
 import MidAd from "@/components/Ads-Components/Mid-Ad";
+import MidAd2 from "@/components/Ads-Components/Mid-Ad2";
+import CommingSoon from "@/components/commingsoon";
+
+
 export default function Home() {
  return (
   <main className="flex min-h-screen flex-col items-center justify-between">
-    <HeaderAD />
     <Header />
     <Home1/>
+    {/* <MidAd /> */}
     <Home2/>
     <MidAd/>
     <Home3/>
     <Home4/>
+    {/* <MidAd2 /> */}
     <Home6/>
     <MidAd/>
     <Home5/>
     <Home8/>
-    <Footer />
+    <Footer /> 
   </main>
  );
 }

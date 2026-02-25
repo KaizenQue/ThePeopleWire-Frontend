@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { X, Calendar, User, Tag, Clock, ExternalLink } from "lucide-react";
+import { X, Calendar, User, Tag, Clock,ExternalLink } from "lucide-react";
 
 /* ------------------ TYPES ------------------ */
 
@@ -36,279 +36,6 @@ type Story = {
   source?: string;
   publish_datetime?: string;
   country?: string[];
-};
-
-type CountryCode = {
-  [key: string]: string;
-};
-
-const COUNTRY_CODES: CountryCode = {
-  "UNITED STATES": "united states of america",
-  "UNITED KINGDOM": "united kingdom", 
-  "UNITED ARAB EMIRATES": "united arab emirates",
-  "AFGHANISTAN": "afghanistan",
-  "ALBANIA": "albania",
-  "ALGERIA": "algeria",
-  "AMERICAN SAMOA": "american samoa",
-  "ANDORRA": "andorra",
-  "ANGOLA": "angola",
-  "ANGUILLA": "anguilla",
-  "ANTARCTICA": "antarctica",
-  "ANTIGUA AND BARBUDA": "antigua and barbuda",
-  "ARGENTINA": "argentina",
-  "ARMENIA": "armenia",
-  "ARUBA": "aruba",
-  "AUSTRALIA": "australia",
-  "AUSTRIA": "austria",
-  "AZERBAIJAN": "azerbaijan",
-  "BAHAMAS": "bahamas",
-  "BAHRAIN": "bahrain",
-  "BANGLADESH": "bangladesh",
-  "BARBADOS": "barbados",
-  "BELARUS": "belarus",
-  "BELGIUM": "belgium",
-  "BELIZE": "belize",
-  "BENIN": "benin",
-  "BERMUDA": "bermuda",
-  "BHUTAN": "bhutan",
-  "BOLIVIA": "bolivia",
-  "BOSNIA AND HERZEGOVINA": "bosnia and herzegovina",
-  "BOTSWANA": "botswana",
-  "BOUVET ISLAND": "bouvet island",
-  "BRAZIL": "brazil",
-  "BRITISH INDIAN OCEAN TERRITORY": "british indian ocean territory",
-  "BRUNEI DARUSSALAM": "brunei darussalam",
-  "BULGARIA": "bulgaria",
-  "BRUNEI": "brunei",
-  "BURKINA FASCO": "burkina fasco",
-  "BURUNDI": "burundi",
-  "CAMBODIA": "cambodia",
-  "CAMEROON": "cameroon",
-  "CANADA": "canada",
-  "CAPE VERDE": "cape verde",
-  "CAYMAN ISLANDS": "cayman islands",
-  "CENTRAL AFRICAN REPUBLIC": "central african republic",
-  "CHAD": "chad",
-  "CHILE": "chile",
-  "CHINA": "china",
-  "CHRISTMAS ISLAND": "christmas island",
-  "COLOMBIA": "colombia",
-  "COMOROS": "comoros",
-  "CONGO": "congo",
-  "CONGO, THE DEMOCRATIC REPUBLIC OF THE": "congo, the democratic republic of the",
-  "COOK ISLANDS": "cook islands",
-  "COSTA RICA": "costa rica",
-  "DR CONGO": "dr congo",
-  "COTE D IVOIRE": "cote d ivoire",
-  "IVORY COAST": "ivory coast",
-  "CROATIA": "croatia",
-  "JERSEY": "jersey",
-  "CUBA": "cuba",
-  "CYPRUS": "cyprus",
-  "CURAÇAO": "curaçao",
-  "CZECH REPUBLIC": "czech republic",
-  "DENMARK": "denmark",
-  "DJIBOUTI": "djibouti",
-  "DOMINICA": "dominica",
-  "DOMINICAN REPUBLIC": "dominican republic",
-  "EAST TIMOR": "east timor",
-  "ECUADOR": "ecuador",
-  "EGYPT": "egypt",
-  "EL SALVADOR": "el salvador",
-  "EQUATORIAL GUINEA": "equatorial guinea",
-  "ERITREA": "eritrea",
-  "ESTONIA": "estonia",
-  "ETHIOPIA": "ethiopia",
-  "FALK": "falk",
-  "FAROE ISLANDS": "faroe islands",
-  "FIJI": "fiji",
-  "FINLAND": "finland",
-  "FRANCE": "france",
-  "FRENCH GUIANA": "french guiana",
-  "FRENCH POLYNESIA": "french polynesia",
-  "FRENCH SOUTHERN TERRITORIES": "french southern territories",
-  "GABON": "gabon",
-  "GAMBIA": "gambia",
-  "GEORGIA": "georgia",
-  "GERMANY": "germany",
-  "GHANA": "ghana",
-  "GIBRALTAR": "gibraltar",
-  "GREECE": "greece",
-  "GREENLAND": "greenland",
-  "GRENADA": "grenada",
-  "GUADELOUPE": "guadeloupe",
-  "GUAM": "guam",
-  "GUATEMALA": "guatemala",
-  "GUINEA": "guinea",
-  "GUINEA-BISSAU": "guinea-bissau",
-  "GUYANA": "guyana",
-  "HAITI": "haiti",
-  "HEARD ISLAND AND MCDONALD ISLANDS": "heard island and mcdonald islands",
-  "HOLY": "holy",
-  "VATICAN": "vatican",
-  "HONDURAS": "honduras",
-  "TIMOR": "timor",
-  "TIMOR LESTE": "timor leste",
-  "HONG KONG": "hong kong",
-  "HUNGARY": "hungary",
-  "ICELAND": "iceland",
-  "INDIA": "india",
-  "INDONESIA": "indonesia",
-  "IRAN, ISLAMIC REPUBLIC OF": "iran, islamic republic of",
-  "IRAQ": "iraq",
-  "IRAN": "iran",
-  "IRELAND": "ireland",
-  "ISRAEL": "israel",
-  "ITALY": "italy",
-  "JAMAICA": "jamaica",
-  "JAPAN": "japan",
-  "JORDAN": "jordan",
-  "KAZAKHSTAN": "kazakhstan",
-  "KENYA": "kenya",
-  "KIRIBATI": "kiribati",
-  "KOSOVO": "kosovo",
-  "KOREA DEMOCRATIC PEOPLES REPUBLIC OF": "korea democratic peoples republic of",
-  "KOREA REPUBLIC OF": "korea republic of",
-  "KUWAIT": "kuwait",
-  "NORTH KOREA": "north korea",
-  "SOUTH KOREA": "south korea",
-  "KYRGYZSTAN": "kyrgyzstan",
-  "LAO PEOPLES DEMOCRATIC REPUBLIC": "lao peoples democratic republic",
-  "LATVIA": "latvia",
-  "LAOS": "laos",
-  "LEBANON": "lebanon",
-  "LESOTHO": "lesotho",
-  "LIBERIA": "liberia",
-  "LIBYAN ARAB JAMAHIRIYA": "libyan arab jamahiriya",
-  "LIECHTENSTEIN": "liechtenstein",
-  "LIBYA": "libya",
-  "LITHUANIA": "lithuania",
-  "LUXEMBOURG": "luxembourg",
-  "MACAU": "macau",
-  "MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF": "macedonia, the former yugoslav republic of",
-  "MADAGASCAR": "madagascar",
-  "MACEDONIA": "macedonia",
-  "MALAWI": "malawi",
-  "MALAYSIA": "malaysia",
-  "MALDIVES": "maldives",
-  "MALI": "mali",
-  "MALTA": "malta",
-  "MARSHALL ISLANDS": "marshall islands",
-  "MARTINIQUE": "martinique",
-  "MAURITANIA": "mauritania",
-  "MAURITIUS": "mauritius",
-  "MAYOTTE": "mayotte",
-  "MEXICO": "mexico",
-  "MICRONESIA, FEDERATED STATES OF": "micronesia, federated states of",
-  "MOLDOVA, REPUBLIC OF": "moldova, republic of",
-  "MONACO": "monaco",
-  "MOLDOVA": "moldova",
-  "MICRONESIA": "micronesia",
-  "MONGOLIA": "mongolia",
-  "MONTSERRAT": "montserrat",
-  "MOROCCO": "morocco",
-  "MOZAMBIQUE": "mozambique",
-  "MYANMAR": "myanmar",
-  "MONTENEGRO": "montenegro",
-  "NAMIBIA": "namibia",
-  "NAURU": "nauru",
-  "NEPAL": "nepal",
-  "NETHERLAND": "netherland",
-  "NETHERLANDS ANTILLES": "netherlands antilles",
-  "NEW CALEDONIA": "new caledonia",
-  "NEW ZEALAND": "new zealand",
-  "NICARAGUA": "nicaragua",
-  "NIGER": "niger",
-  "NIGERIA": "nigeria",
-  "NIUE": "niue",
-  "NORFOLK ISLAND": "norfolk island",
-  "NORTHERN MARIANA ISLANDS": "northern mariana islands",
-  "NORWAY": "norway",
-  "OMAN": "oman",
-  "PAKISTAN": "pakistan",
-  "PALAU": "palau",
-  "PALESTINIAN TERRITORY, OCCUPIED": "palestinian territory, occupied",
-  "PANAMA": "panama",
-  "PALESTINE": "palestine",
-  "PAPUA NEW GUINEA": "papua new guinea",
-  "PARAGUAY": "paraguay",
-  "PERU": "peru",
-  "PHILIPPINES": "philippines",
-  "PITCAIRN": "pitcairn",
-  "POLAND": "poland",
-  "PORTUGAL": "portugal",
-  "PUERTO RICO": "puerto rico",
-  "QATAR": "qatar",
-  "REUNION": "reunion",
-  "ROMANIA": "romania",
-  "RUSSIAN FEDERATION": "russian federation",
-  "RWANDA": "rwanda",
-  "RUSSIA": "russia",
-  "SAINT HELENA": "saint helena",
-  "SAINT KITTS AND NEVIS": "saint kitts and nevis",
-  "SAINT LUCIA": "saint lucia",
-  "SAINT PIERRE AND MIQUELON": "saint pierre and miquelon",
-  "SAINT VINCENT AND THE GRENADINES": "saint vincent and the grenadines",
-  "SAMOA": "samoa",
-  "SAN MARINO": "san marino",
-  "SAO TOME AND PRINCIPE": "sao tome and principe",
-  "SAUDI ARABIA": "saudi arabia",
-  "SENEGAL": "senegal",
-  "SEYCHELLES": "seychelles",
-  "SIERRA LEONE": "sierra leone",
-  "SINGAPORE": "singapore",
-  "SLOVAKIA": "slovakia",
-  "SLOVENIA": "slovenia",
-  "SOLOMON ISLANDS": "solomon islands",
-  "SOMALIA": "somalia",
-  "SOUTH AFRICA": "south africa",
-  "SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS": "south georgia and the south sandwich islands",
-  "SPAIN": "spain",
-  "SRI LANKA": "sri lanka",
-  "SUDAN": "sudan",
-  "SURINAME": "suriname",
-  "SVALBARD AND JAN MAYEN": "svalbard and jan mayen",
-  "SWAZILAND": "swaziland",
-  "ESWATINI": "eswatini",
-  "SWEDEN": "sweden",
-  "SWITZERLAND": "switzerland",
-  "SYRIAN ARAB REPUBLIC": "syrian arab republic",
-  "SYRIA": "syria",
-  "TAIWAN, PROVINCE OF CHINA": "taiwan, province of china",
-  "TAJIKISTAN": "tajikistan",
-  "TANZANIA, UNITED REPUBLIC OF": "tanzania, united republic of",
-  "TANZANIA": "tanzania",
-  "THAILAND": "thailand",
-  "TOGO": "togo",
-  "TOKELAU": "tokelau",
-  "TONGA": "tonga",
-  "TAIWAN": "taiwan",
-  "TRINIDAD AND TOBAGO": "trinidad and tobago",
-  "TUNISIA": "tunisia",
-  "TURKEY": "turkey",
-  "TURKMENISTAN": "turkmenistan",
-  "TURKS AND CAICOS ISLANDS": "turks and caicos islands",
-  "TUVALU": "tuvalu",
-  "UGANDA": "uganda",
-  "UKRAINE": "ukraine",
-  "UNITED STATES OF AMERICA": "united states of america",
-  "URUGUAY": "uruguay",
-  "UZBEKISTAN": "uzbekistan",
-  "VANUATU": "vanuatu",
-  "VENEZUELA": "venezuela",
-  "VIETNAM": "vietnam",
-  "VIRGIN ISLANDS, BRITISH": "virgin islands, british",
-  "VIRGIN ISLANDS (BRITISH)": "virgin islands (british)",
-  "VIRGIN ISLANDS, U.S.": "virgin islands, u.s.",
-  "WALLIS AND FUTUNA": "wallis and futuna",
-  "WESTERN SAHARA": "western sahara",
-  "YEMEN": "yemen",
-  "YUGOSLAVIA": "yugoslavia",
-  "ZAMBIA": "zambia",
-  "ZIMBABWE": "zimbabwe",
-  "SERBIA": "serbia",
-  "SAINT MARTIN(DUTCH)": "saint martin(dutch)",
-  "WORLD": "world"
 };
 
 function timeLatest(dateString: string): string {
@@ -369,7 +96,7 @@ const SmallStoryCard: React.FC<SmallStoryCardProps> = ({ story, onReadMore }) =>
           alt={story.title}
           className="w-full h-[180px] object-cover"
           onError={(e) => {
-            e.currentTarget.src = "/placeholder.jpg";
+            e.currentTarget.src = "/home41.png";
           }}
         />
         <span className="absolute top-3 left-3 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
@@ -386,10 +113,6 @@ const SmallStoryCard: React.FC<SmallStoryCardProps> = ({ story, onReadMore }) =>
 
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-[#727272] tracking-[-0.28px] flex-shrink-0">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0">
-              <User size={12} className="text-gray-600" />
-            </div>
-
             <span
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-[10px] font-normal leading-[12px] text-[#231F18] truncate"
@@ -410,7 +133,7 @@ const SmallStoryCard: React.FC<SmallStoryCardProps> = ({ story, onReadMore }) =>
               style={{ fontFamily: "var(--font-dm-sans)" }}
               className="text-[10px] font-normal text-black"
             >
-              {story.readTime}
+              {story.readTime} read
             </span>
           </div>
         </div>
@@ -476,62 +199,21 @@ const getSourceName = (story: Story) => {
   }
   return "Unknown Source";
 };
-
-// Get country code from IP
-const getCountryCodeFromIP = async (): Promise<string> => {
-  try {
-    const response = await fetch('https://ipapi.co/json/');
-    const data = await response.json();
-    const countryName = data.country_name?.toUpperCase();
-    
-    if (countryName && COUNTRY_CODES[countryName]) {
-      return COUNTRY_CODES[countryName];
-    }
-    
-    return 'in'; // Default to India if not found
-  } catch (error) {
-    console.error('Error fetching country from IP:', error);
-    return 'in'; // Default to India on error
-  }
-};
-
-// Fetch news without country filter
-const fetchNewsWithoutCountry = async () => {
+  const handleOpenOriginal = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+// Fetch global news (without country filter)
+const fetchGlobalNews = async (): Promise<ApiArticle[]> => {
   try {
     const res = await fetch(`/api/news`);
     const json = await res.json();
-    return json.data || [];
+    return json.data as ApiArticle[];
   } catch (err) {
-    console.error("Failed to fetch news without country filter", err);
+    console.error("Failed to fetch global news", err);
     return [];
   }
 };
 
-// Fetch news with country filter, fallback to without country
-const fetchNewsWithFallback = async (countryCode: string) => {
-  try {
-    // First try with country filter
-    const res = await fetch(`/api/news?country=${countryCode}`);
-    const json = await res.json();
-    const articles = json.data || [];
-    
-    if (articles.length > 0) {
-      return { articles, usedCountryFilter: true };
-    }
-    
-    // If no data with country filter, fetch without filter
-    console.log(`No data found for country ${countryCode}, fetching without country filter...`);
-    const allArticles = await fetchNewsWithoutCountry();
-    
-    return { articles: allArticles, usedCountryFilter: false };
-    
-  } catch (err) {
-    console.error("Failed to fetch news with fallback", err);
-    // Try without country filter as last resort
-    const allArticles = await fetchNewsWithoutCountry();
-    return { articles: allArticles, usedCountryFilter: false };
-  }
-};
 
 /* ------------------ MAIN ------------------ */
 
@@ -540,18 +222,7 @@ const Home1: React.FC = () => {
   const [allStories, setAllStories] = useState<Story[]>([]);
   const [selectedStory, setSelectedStory] = useState<Story | null>(null);
   const [showArticleModal, setShowArticleModal] = useState(false);
-  const [countryCode, setCountryCode] = useState<string>('in');
   const [isLoading, setIsLoading] = useState(true);
-  const [usedCountryFilter, setUsedCountryFilter] = useState(true);
-
-  // Get country code from IP
-  useEffect(() => {
-    const fetchCountryCode = async () => {
-      const code = await getCountryCodeFromIP();
-      setCountryCode(code);
-    };
-    fetchCountryCode();
-  }, []);
 
   // Handle reading article
   const handleReadMore = (story: Story) => {
@@ -587,13 +258,13 @@ const Home1: React.FC = () => {
     };
   }, [showArticleModal]);
 
-  // Fetch news with country parameter and fallback
+  // Fetch global news
   useEffect(() => {
     const fetchNews = async () => {
       setIsLoading(true);
       try {
-        const { articles, usedCountryFilter } = await fetchNewsWithFallback(countryCode);
-        setUsedCountryFilter(usedCountryFilter);
+        const articles: ApiArticle[] = await fetchGlobalNews();
+
         
         if (!articles.length) {
           setIsLoading(false);
@@ -605,10 +276,10 @@ const Home1: React.FC = () => {
         const featured: Story = {
           id: 0,
           title: first.title,
-          image: first.image_url || "/placeholder.jpg",
+          image: first.image_url || "/home41.png",
           category: first.category?.[0] || "Top",
           author: first.author?.[0] || "Unknown",
-          prf_img: "/placeholder.jpg", // No profile image
+          prf_img: "/home41.png", // No profile image
           date: timeLatest(first.publish_datetime),
           readTime: `${calculateReadingTime(first.content || first.description || first.summary)} min`,
           link: first.link,
@@ -620,15 +291,15 @@ const Home1: React.FC = () => {
         };
         setFeaturedStory(featured);
 
-        /* ALL SMALL STORIES - First 7 articles after featured */
+        /* ALL SMALL STORIES - First 7 articles after featured (for desktop) */
         const mappedStories: Story[] = articles.slice(1, 8).map(
           (item, index) => ({
             id: index + 1,
             title: item.title,
-            image: item.image_url || "/placeholder.jpg",
+            image: item.image_url || "/home41.png",
             category: item.category?.[0] || "Top",
             author: item.author?.[0] || "Unknown",
-            prf_img: "/placeholder.jpg", // No profile image
+            prf_img: "/home41.png", // No profile image
             date: timeLatest(item.publish_datetime),
             readTime: `${calculateReadingTime(item.content || item.description || item.summary)} min`,
             link: item.link,
@@ -682,11 +353,6 @@ const Home1: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl font-bold text-black">
             Top Stories
           </h2>
-          {!usedCountryFilter && (
-            <span className="text-xs text-gray-600 bg-gray-100 px-2 py-1 rounded">
-              Global News
-            </span>
-          )}
         </div>
 
         <div className="flex flex-col gap-6 sm:gap-8">
@@ -701,7 +367,7 @@ const Home1: React.FC = () => {
                 alt={featuredStory.title}
                 className="w-full h-[220px] sm:h-[260px] md:h-[300px] object-cover"
                 onError={(e) => {
-                  e.currentTarget.src = "/placeholder.jpg";
+                  e.currentTarget.src = "/home41.png";
                 }}
               />
               <span className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-orange-500 text-[11px] sm:text-[12px] font-semibold text-white px-3 py-1 rounded-full">
@@ -711,7 +377,7 @@ const Home1: React.FC = () => {
 
             <div className="p-4 sm:p-5 md:p-6">
               <h3
-                className="text-[35px] font-bold text-[#262626] mb-6 hover:underline"
+                className="text-[28px] font-bold text-[#262626] mb-6 hover:underline"
               >
                 {featuredStory.title}
               </h3>
@@ -721,7 +387,7 @@ const Home1: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <span>{featuredStory.date}</span>
                   <span>|</span>
-                  <span>{featuredStory.readTime}</span>
+                  <span>{featuredStory.readTime} read</span>
                 </div>
               </div>
             </div>
@@ -822,7 +488,7 @@ const Home1: React.FC = () => {
             </div>
           </div>
 
-                 {/* ALL STORIES GRID - Show only 2 stories below App Launch tile */}
+          {/* ALL STORIES GRID - Show only 2 stories below App Launch tile */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {allStories.slice(0, 2).map((story) => (
               <SmallStoryCard 
@@ -843,7 +509,6 @@ const Home1: React.FC = () => {
         >
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold text-black">Top Stories</h2>
-            {!usedCountryFilter}
           </div>
 
           {/* TOP SECTION - Featured + 3 small + CTA */}
@@ -859,7 +524,7 @@ const Home1: React.FC = () => {
                   alt={featuredStory.title}
                   className="w-full h-[360px] object-cover"
                   onError={(e) => {
-                    e.currentTarget.src = "/placeholder.jpg";
+                    e.currentTarget.src = "/home41.png";
                   }}
                 />
                 <span className="absolute top-4 left-4 bg-orange-500 text-[12px] font-semibold text-white px-3 py-1 rounded-full">
@@ -877,7 +542,7 @@ const Home1: React.FC = () => {
                   <div className="flex gap-3">
                     <span>{featuredStory.date}</span>
                     <span>|</span>
-                    <span>{featuredStory.readTime}</span>
+                    <span>{featuredStory.readTime} read</span>
                   </div>
                 </div>
               </div>
@@ -1000,82 +665,79 @@ const Home1: React.FC = () => {
         </section>
       </div>
 
-      {/* ARTICLE MODAL - Fixed with correct newspaper-style layout */}
+      {/* ARTICLE MODAL - Fixed with scrollable header */}
       {showArticleModal && selectedStory && (
         <div className="fixed inset-0 z-50 flex items-start justify-center p-0 bg-black/70 overflow-y-auto">
           <div className="relative w-full max-w-6xl my-4 md:my-8 bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[90vh]">
-            {/* Article Header - Not sticky, smaller */}
-            <div className="bg-white border-b">
-              <div className="p-4 md:p-6">
-                {/* Article Title - Smaller size */}
-                <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                  {selectedStory.title}
-                </h1>
-                
-                {/* Metadata Grid - More compact */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                  <div>
-                    <div className="flex items-center gap-1 mb-1">
-                      <User size={12} className="text-gray-500" />
-                      <span className="text-xs font-medium text-gray-500">Author</span>
-                    </div>
-                    <p className="text-sm font-medium text-gray-800">
-                      {getAuthorName(selectedStory) || "Unknown"}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-1 mb-1">
-                      <Calendar size={12} className="text-gray-500" />
-                      <span className="text-xs font-medium text-gray-500">Published</span>
-                    </div>
-                    <p className="text-sm font-medium text-gray-800">
-                      {selectedStory.publish_datetime ? formatDate(selectedStory.publish_datetime) : selectedStory.date}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-1 mb-1">
-                      <Tag size={12} className="text-gray-500" />
-                      <span className="text-xs font-medium text-gray-500">Source</span>
-                    </div>
-                    <p className="text-sm font-medium text-gray-800">
-                      {getSourceName(selectedStory)}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-1 mb-1">
-                      <Clock size={12} className="text-gray-500" />
-                      <span className="text-xs font-medium text-gray-500">Read Time</span>
-                    </div>
-                    <p className="text-sm font-medium text-gray-800">
-                      {calculateReadingTime(selectedStory.content)} min
-                    </p>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Close Button - Smaller */}
-              <button
-                onClick={closeArticleModal}
-                className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-gray-100 transition-colors"
-                aria-label="Close modal"
-              >
-                <X size={18} className="text-gray-700" />
-              </button>
-            </div>
-
-            {/* Article Content - Scrollable area */}
+            {/* Article Content - Entire content scrollable including header */}
             <div className="flex-1 overflow-y-auto">
               <div className="p-4 md:p-6 lg:p-8">
-                {/* NEWSPAPER STYLE SUMMARY SECTION - Float image inside summary */}
+                {/* Article Header - Now part of scrollable content */}
+                <div className="mb-6 md:mb-8">
+                  <button
+                    onClick={closeArticleModal}
+                    className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-gray-100 transition-colors z-10"
+                    aria-label="Close modal"
+                  >
+                    <X size={18} className="text-gray-700" />
+                  </button>
+                  
+                  {/* Article Title */}
+                  <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight pr-8">
+                    {selectedStory.title}
+                  </h1>
+                  
+                  {/* Metadata Grid */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                    <div>
+                      <div className="flex items-center gap-1 mb-1">
+                        <User size={12} className="text-gray-500" />
+                        <span className="text-xs font-medium text-gray-500">Author</span>
+                      </div>
+                      <p className="text-sm font-medium text-gray-800">
+                        {getAuthorName(selectedStory) || "Unknown"}
+                      </p>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-1 mb-1">
+                        <Calendar size={12} className="text-gray-500" />
+                        <span className="text-xs font-medium text-gray-500">Published</span>
+                      </div>
+                      <p className="text-sm font-medium text-gray-800">
+                        {selectedStory.publish_datetime ? formatDate(selectedStory.publish_datetime) : selectedStory.date}
+                      </p>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-1 mb-1">
+                        <Tag size={12} className="text-gray-500" />
+                        <span className="text-xs font-medium text-gray-500">Source</span>
+                      </div>
+                      <p className="text-sm font-medium text-gray-800">
+                        {getSourceName(selectedStory)}
+                      </p>
+                    </div>
+
+                    <div>
+                      <div className="flex items-center gap-1 mb-1">
+                        <Clock size={12} className="text-gray-500" />
+                        <span className="text-xs font-medium text-gray-500">Read Time</span>
+                      </div>
+                      <p className="text-sm font-medium text-gray-800">
+                        {calculateReadingTime(selectedStory.content)} min
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* NEWSPAPER STYLE SUMMARY SECTION */}
                 {selectedStory.summary && (
                   <div className="mb-8">
                     <div className="relative">
                       <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-4 md:p-6 rounded-lg border-l-4 border-orange-500">
                         {/* Float image to the right inside summary */}
-                        {selectedStory.image && selectedStory.image !== "/placeholder.jpg" && (
+                        {selectedStory.image && selectedStory.image !== "/home41.png" && (
                           <div className="float-right ml-4 md:ml-6 mb-4 w-full md:w-2/5 lg:w-2/5">
                             <div className="rounded-lg overflow-hidden shadow">
                               <img
@@ -1083,7 +745,7 @@ const Home1: React.FC = () => {
                                 alt={selectedStory.title}
                                 className="w-full h-auto max-h-[300px] object-cover"
                                 onError={(e) => {
-                                  e.currentTarget.src = "/placeholder.jpg";
+                                  e.currentTarget.src = "/home41.png";
                                 }}
                               />
                               <div className="bg-black/80 text-white text-xs p-2 text-center">
@@ -1101,6 +763,13 @@ const Home1: React.FC = () => {
                           <p className="mb-4">
                             {selectedStory.summary}
                           </p>
+                          
+                          {/* Additional description if available */}
+                          {selectedStory.description && selectedStory.description !== selectedStory.summary && (
+                            <div className="">
+                              {/* Additional description content */}
+                            </div>
+                          )}
                         </div>
                         
                         {/* Clear float for following content */}
@@ -1110,7 +779,7 @@ const Home1: React.FC = () => {
                   </div>
                 )}
 
-                {/* Full Article Content */}
+                {/* Full Article Content or Iframe */}
                 {selectedStory.content ? (
                   <div className="mb-8">
                     <h2 className="text-lg font-bold text-gray-900 mb-4">Full Article</h2>
@@ -1159,7 +828,7 @@ const Home1: React.FC = () => {
                   </div>
                 )}
 
-                {/* Article Footer - Compact with View Original Source on right */}
+                {/* Article Footer */}
                 <div className="pt-4 mt-6 border-t">
                   <div className="flex justify-end">
                     <button
