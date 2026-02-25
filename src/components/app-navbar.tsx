@@ -31,7 +31,7 @@ const AppNavbar = () => {
             {/* Logo — Left */}
             <Link href="/" className="flex items-center shrink-0">
               <Image
-                src="/tpw.png"
+                src="/tpw1.png"
                 alt="The People Wire"
                 width={95}
                 height={25}
@@ -86,7 +86,7 @@ const AppNavbar = () => {
           {/* Top bar */}
           <div className="flex items-center justify-between px-4 h-16">
             <Image
-              src="/tpw.png"
+              src="/tpw1.png"
               alt="The People Wire"
               width={95}
               height={25}
