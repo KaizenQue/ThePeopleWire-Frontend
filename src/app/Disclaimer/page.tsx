@@ -9,6 +9,14 @@ export default function DisclaimerPage() {
             <h1 className="text-3xl sm:text-4xl font-light tracking-tight text-gray-900">
               Disclaimer
             </h1>
+             <p className="text-sm text-gray-500 font-medium">
+              The People Wire 
+            </p>
+             <p className="text-sm text-gray-500 font-medium">
+              Operated by STAR1IT CARAVAN PRIVATE LIMITED
+            </p>
+            
+
             <p className="text-sm text-gray-500 font-medium">
               Last Updated: 25 February 2026
             </p>
@@ -80,20 +88,7 @@ export default function DisclaimerPage() {
             <p className="text-gray-700 font-medium">Use of the Platform is at your own risk.</p>
           </section>
 
-          {/* Contact Information */}
-          <section className="mt-12 pt-6 border-t border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
-              Contact Information
-            </h2>
-            <div className="bg-gray-50 p-4 font-mono text-sm text-gray-800">
-              STAR1IT CARAVAN PRIVATE LIMITED<br />
-              K-201, Purva Panorama<br />
-              Kalena Agrahara, Bannerghatta Road<br />
-              Bangalore, Bangalore South<br />
-              Karnataka, India - 560076<br />
-              Email: info@thepeoplewire.com
-            </div>
-          </section>
+      
         </div>
       </div>
     </main>
