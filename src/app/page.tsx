@@ -14,6 +14,10 @@ import MidAd2 from "@/components/Ads-Components/Mid-Ad2";
 import CommingSoon from "@/components/commingsoon";
 
 
+
+
+
+
 export default function Home() {
  return (
    <main className="flex min-h-screen flex-col items-center justify-between">
