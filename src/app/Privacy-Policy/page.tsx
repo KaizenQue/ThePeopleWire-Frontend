@@ -36,11 +36,20 @@ export default function PrivacyPolicyPage() {
                 Email: info@thepeoplewire.com
               </div>
               <p>This Privacy Policy explains how we collect, use, process, disclose, and safeguard your information when you use:</p>
-              <ul className="list-disc pl-6 space-y-1">
-                <li>www.thepeoplewire.com</li>
-                <li>The People Wire mobile application (when launched)</li>
-                <li>Any related digital services</li>
-              </ul>
+             <ul className="list-disc pl-6 space-y-1">
+  <li>
+    <a 
+      href="https://www.thepeoplewire.com" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      className="text-blue-600 underline"
+    >
+      www.thepeoplewire.com
+    </a>
+  </li>
+  <li>The People Wire mobile application (when launched)</li>
+  <li>Any related digital services</li>
+</ul>
               <p className="font-medium">By accessing or using the Platform, you agree to this Privacy Policy.</p>
             </div>
           </section>
