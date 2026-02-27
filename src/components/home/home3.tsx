@@ -4,6 +4,7 @@ import "./home3.css";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
 import { ChevronRight, ChevronLeft, ArrowUpRight, X, Calendar, User, Tag, Clock, ExternalLink } from "lucide-react";
+import { useFetchOnVisible } from "../utils/useFetchOnVisible";
 
 type Article = {
   id: number;
@@ -567,7 +568,7 @@ export default function Home3() {
                         href={selectedArticle.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-gray-700 transition-colors"
                       >
                         See Original Article
                         <ExternalLink size={14} />
@@ -667,7 +668,7 @@ export default function Home3() {
                           <div className="flex gap-3">
                             <button
                               onClick={() => openIframe(selectedArticle.link)}
-                              className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors inline-flex items-center gap-2"
+                              className="px-5 py-2.5 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-gray-700 transition-colors inline-flex items-center gap-2"
                             >
                               View Original Source
                               <ExternalLink size={14} />

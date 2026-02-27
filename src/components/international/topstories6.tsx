@@ -108,7 +108,7 @@ const ArticleModal = ({
         {/* CLOSE */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 rounded-full p-2"
+          className="absolute top-4 right-4 bg-gray-100 hover:bg-gray-700 rounded-full p-2"
         >
           <X size={18} />
         </button>
@@ -194,7 +194,7 @@ const ArticleModal = ({
             href={story.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium flex items-center gap-2"
+            className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg text-sm font-medium flex items-center gap-2"
           >
             View Original Source <ExternalLink size={14} />
           </a>

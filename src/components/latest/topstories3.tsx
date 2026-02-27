@@ -628,14 +628,14 @@ export default function Home3() {
                               href={selectedArticle.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="px-5 py-2.5 text-sm font-medium text-white bg-gray-400 rounded-lg hover:bg-gray-500 transition-colors inline-flex items-center gap-2"
+                              className="px-5 py-2.5 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-gray-700 transition-colors inline-flex items-center gap-2"
                             >
                               View Original Source
                               <ExternalLink size={14} />
                             </a>
                             {/* <button
                               onClick={() => openIframe(selectedArticle.link)}
-                              className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors inline-flex items-center gap-2"
+                              className="px-5 py-2.5 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-gray-700 transition-colors inline-flex items-center gap-2"
                             >
                               View in App
                               <ExternalLink size={14} />

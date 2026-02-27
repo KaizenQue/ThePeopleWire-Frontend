@@ -565,7 +565,7 @@ export default function Home4() {
     {/* NEW: Gray button to open original article in new tab */}
     <button
       onClick={() => window.open(selectedArticle.link, '_blank')}
-      className="px-6 py-3 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors inline-flex items-center gap-2"
+      className="px-6 py-3 text-sm font-medium text-white bg-gray-600 rounded-lg hover:bg-gray-700 transition-colors inline-flex items-center gap-2"
     >
       <ArrowUpRight size={16} />
       View Original Article

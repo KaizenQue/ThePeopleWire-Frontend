@@ -1,5 +1,24 @@
 // app/disclaimer/page.tsx
+"use client";
+
+import { useState, useEffect } from "react";
+import LoadingGif from "@/components/LoadingGif";
+
 export default function DisclaimerPage() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingGif />;
+  }
+
   return (
     <main className="min-h-screen bg-white">
       {/* Header */}

@@ -373,7 +373,7 @@ const Home1: React.FC = () => {
           <div className="bg-black rounded-2xl p-5 sm:p-6 md:p-7 md:flex md:justify-around">
             <div className="flex gap-4 items-start">
               <img
-                src="/footerLogo.png"
+                src="/appiconn.png"
                 alt="App Logo"
                 className="
                   w-[72px] h-[72px] 
@@ -545,7 +545,7 @@ const Home1: React.FC = () => {
               {/* CONTENT */}
               <div className="w-full max-w-full">
                 <img
-                  src="/logo-yellow.png"
+                  src="/appiconn.png"
                   alt="App Logo"
                   className="w-[clamp(36px,3vw,44px)] h-[clamp(36px,3vw,44px)] mb-3 object-contain"
                 />

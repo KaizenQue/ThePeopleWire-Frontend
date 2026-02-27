@@ -194,7 +194,7 @@ Bangalore,Karnataka, India - 560076</span>
 
           <div className="w-full md:max-w-4xl border border-[#F3CB04] rounded-2xl p-6 flex flex-col md:flex-row items-center gap-6">
             <Image
-              src="/footerLogo.png"
+              src="/appiconn.png"
               alt="The People Wire App"
               width={64}
               height={64}
