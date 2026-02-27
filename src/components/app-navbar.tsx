@@ -127,7 +127,7 @@ const AppNavbar = () => {
             <div className="rounded-2xl bg-black p-6 text-white">
               <div className="flex items-center gap-4">
                 <Image
-                  src="/footerLogo.png"
+                  src="/appiconn.png"
                   alt="App Icon"
                   width={56}
                   height={56}
