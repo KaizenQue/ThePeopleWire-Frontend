@@ -6,6 +6,9 @@ import { useRef, useState, useEffect } from "react";
 import { ChevronRight, ChevronLeft, ArrowUpRight, X, Calendar, User, Tag, Clock, ExternalLink } from "lucide-react";
 import { useFetchOnVisible } from "../utils/useFetchOnVisible";
 
+// Single fallback image
+const FALLBACK_IMAGE = "/home41.png";
+
 type Article = {
   id: number;
   title: string;
@@ -175,11 +178,14 @@ export default function Home3() {
 
         /* SMALL STORIES */
         const mappedArticles: ApiArticle[] = fetchedArticles.map(
-          (item, index) =>
-            ({
+          (item, index) => {
+            // Use FALLBACK_IMAGE if no image_url is provided
+            const imageUrl = item.image_url || FALLBACK_IMAGE;
+            
+            return {
               id: item.id,
               title: item.title,
-              image_url: item.image_url || "/home41.png",
+              image_url: imageUrl,
               category: item.category,
               author: item.author,
               publish_datetime: new Date(item.publish_datetime).toDateString(),
@@ -189,7 +195,8 @@ export default function Home3() {
               link: item.link,
               country: item.country,
               source_id: item.source_id,
-            } as ApiArticle)
+            } as ApiArticle;
+          }
         );
 
         setApiArticles(mappedArticles);
@@ -304,6 +311,11 @@ export default function Home3() {
     return words.slice(0, maxWords).join(' ') + '...';
   };
 
+  // Handle image error for card images - use single fallback
+  const handleCardImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = FALLBACK_IMAGE;
+  };
+
   return (
     <>
       <section className="w-full bg-white py-10 lg:pl-30">
@@ -376,11 +388,12 @@ export default function Home3() {
                     }
                   `}
                 >
-                  {/* Image */}
+                  {/* Image with error handling */}
                   <img
-                    src={article.image_url || "/home41.png"}
+                    src={article.image_url || FALLBACK_IMAGE}
                     alt={article.title}
                     className="absolute inset-0 w-full h-full object-cover"
+                    onError={handleCardImageError}
                   />
 
                   {/* Gradient */}
@@ -615,6 +628,9 @@ export default function Home3() {
                                   src={selectedArticle.image_url}
                                   alt={selectedArticle.title}
                                   className="w-full h-auto max-h-[300px] object-cover"
+                                  onError={(e) => {
+                                    e.currentTarget.src = FALLBACK_IMAGE;
+                                  }}
                                 />
                               </div>
                             </div>

@@ -9,7 +9,7 @@ import HeaderAD from "@/components/Ads-Components/Header-Ad";
 import MidAd from "@/components/Ads-Components/Mid-Ad";
 import Home3 from "@/components/entertainment/topstories3";
 import Home4 from "@/components/entertainment/topstories6";
-
+import Latest from "@/components/entertainment/latest";
 export default function topstories() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,7 +30,9 @@ export default function topstories() {
       {/* <HeaderAD /> */}
       <Header />
       <Home1/>
+
       <Home3/>
+            <Latest/>
       {/* <MidAd/> */}
       <Home4/>
       <Footer />

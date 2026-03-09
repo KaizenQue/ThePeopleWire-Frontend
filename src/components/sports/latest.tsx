@@ -1,6 +1,6 @@
 "use client";
 
-import "./home2.css";
+import "../home/home2.css";
 import { useRef, useState, useEffect } from "react";
 import { ChevronRight, ChevronLeft, ArrowUpRight, X, Calendar, User, Tag, Clock } from "lucide-react";
 
@@ -155,14 +155,14 @@ console.log("Detected country:", countryCode);
         console.log(`Fetching news for country: ${countryName}`);
 
         // Try fetching with country filter first
-        let res = await fetch(`/api/news?language=english&country=${countryName}&from=9&to=18`);
+        let res = await fetch(`/api/news?language=english&country=${countryName}&category=sports&from=9&to=18`);
         let json = await res.json();
         let fetchedArticles: ApiArticle[] = json.data || [];
 
         // If no articles found for the country, fetch without country filter
         if (!fetchedArticles.length) {
           console.log(`No articles found for ${countryName}, fetching general news`);
-          res = await fetch(`/api/news?language=english&category=top&from=9&to=18`);
+          res = await fetch(`/api/news?language=english&category=top&category=sports&from=9&to=18`);
           json = await res.json();
           fetchedArticles = json.data || [];
         }
@@ -321,7 +321,7 @@ console.log("Detected country:", countryCode);
           <div className="mb-6 md:mb-8 flex items-center justify-between">
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                Latest Regional News
+                Sports Latest News
               </h2>
 
             </div>

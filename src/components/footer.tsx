@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaFacebook, FaInstagram, FaLinkedin, FaX, FaYoutube } from "react-icons/fa6";
+import { FaFacebook, FaInstagram, FaLinkedin, FaX, FaYoutube, FaTwitter } from "react-icons/fa6";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
 
@@ -25,6 +25,18 @@ const navLinks = [
   { name: "Science & Tech", href: "/Science-Tech" },
   { name: "Sports", href: "/Sports" },
 ];
+
+
+const XIcon = ({ className = "w-4 h-4" }) => (
+  <svg
+    viewBox="0 0 1200 1227"
+    fill="currentColor"
+    className={className}
+  >
+    <path d="M714.163 519.284L1160.89 0H1054.32L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H106.574L515.518 750.417L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 620.539L134.93 74.5158H296.267L608.39 515.87L655.858 583.159L1065.11 1152.09H903.775L569.165 687.828Z"/>
+  </svg>
+);
+
 
 const Footer = () => {
   const handleBackToTop = () => {
@@ -86,9 +98,9 @@ const Footer = () => {
               Your Next-Gen News Destination
             </p>
 
-           {/* <div className="flex gap-8 text-[#F25C05] pt-2">
+           <div className="flex gap-8 text-[#F25C05] pt-2">
   <a
-    href="https://www.facebook.com/people/The-People-Wire/61585716711421/"
+    href="https://www.facebook.com/profile.php?id=61552399950156"
     target="_blank"
     rel="noopener noreferrer"
   >
@@ -96,7 +108,7 @@ const Footer = () => {
   </a>
 
   <a
-    href="https://www.youtube.com/@thepeoplewire"
+    href="https://www.youtube.com/@ThePeopleWire"
     target="_blank"
     rel="noopener noreferrer"
   >
@@ -104,7 +116,7 @@ const Footer = () => {
   </a>
 
   <a
-    href="https://www.instagram.com/thepeoplewire/"
+    href=" https://www.instagram.com/thepeoplewire/"
     target="_blank"
     rel="noopener noreferrer"
   >
@@ -112,7 +124,7 @@ const Footer = () => {
   </a>
 
   <a
-    href="https://www.linkedin.com/company/the-people-wire/about/"
+    href="https://www.linkedin.com/company/the-people-wire/"
     target="_blank"
     rel="noopener noreferrer"
   >
@@ -124,9 +136,9 @@ const Footer = () => {
     target="_blank"
     rel="noopener noreferrer"
   >
-    <FaX className="size-7 cursor-pointer hover:opacity-80" />
+    <XIcon className="size-7 cursor-pointer hover:opacity-80" />
   </a>
-</div> */}
+</div>
 
           </div>
 
@@ -158,8 +170,8 @@ const Footer = () => {
             </h3>
 
             <div className="flex flex-col gap-5 text-sm text-gray-300">
-              <div className="flex items-start gap-3">
-                <MapPinIcon size={18} />
+              <div className="flex items-start gap-2">
+                <MapPinIcon size={30} />
                 <span>
 K-201, Purva Panorama
 Kalena Agrahara, Bannerghatta Road
