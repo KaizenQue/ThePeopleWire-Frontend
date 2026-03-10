@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { X, Calendar, User, Tag, Clock,ExternalLink } from "lucide-react";
+import { X, Calendar, User, Tag, Clock, ExternalLink } from "lucide-react";
+import NotifyForm from "@/components/notifyform";
 
 /* ------------------ TYPES ------------------ */
 
@@ -37,6 +38,9 @@ type Story = {
   publish_datetime?: string;
   country?: string[];
 };
+
+// Single fallback image
+const FALLBACK_IMAGE = "/home41.png";
 
 function timeLatest(dateString: string): string {
   const now = new Date();
@@ -79,10 +83,16 @@ interface SmallStoryCardProps {
 }
 
 const SmallStoryCard: React.FC<SmallStoryCardProps> = ({ story, onReadMore }) => {
+  const [imgSrc, setImgSrc] = useState(story.image);
+  
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     onReadMore(story);
+  };
+
+  const handleImageError = () => {
+    setImgSrc(FALLBACK_IMAGE);
   };
 
   return (
@@ -92,12 +102,10 @@ const SmallStoryCard: React.FC<SmallStoryCardProps> = ({ story, onReadMore }) =>
     >
       <div className="relative flex-shrink-0">
         <img
-          src={story.image}
+          src={imgSrc}
           alt={story.title}
           className="w-full h-[180px] object-cover"
-          onError={(e) => {
-            e.currentTarget.src = "/home41.png";
-          }}
+          onError={handleImageError}
         />
         <span className="absolute top-3 left-3 bg-orange-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
           {story.category}
@@ -155,15 +163,6 @@ const formatDate = (dateString: string) => {
   });
 };
 
-// Format time for display
-const formatTime = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-};
-
 // Calculate reading time with detailed logic
 const calculateReadingTime = (text: string | undefined): number => {
   if (!text) return 1;
@@ -199,9 +198,11 @@ const getSourceName = (story: Story) => {
   }
   return "Unknown Source";
 };
-  const handleOpenOriginal = (url: string) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
-  };
+
+const handleOpenOriginal = (url: string) => {
+  window.open(url, '_blank', 'noopener,noreferrer');
+};
+
 // Fetch global news (without country filter)
 const fetchGlobalNews = async (): Promise<ApiArticle[]> => {
   try {
@@ -214,7 +215,6 @@ const fetchGlobalNews = async (): Promise<ApiArticle[]> => {
   }
 };
 
-
 /* ------------------ MAIN ------------------ */
 
 const Home1: React.FC = () => {
@@ -222,7 +222,7 @@ const Home1: React.FC = () => {
   const [allStories, setAllStories] = useState<Story[]>([]);
   const [selectedStory, setSelectedStory] = useState<Story | null>(null);
   const [showArticleModal, setShowArticleModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [notifyFormOpen, setNotifyFormOpen] = useState(false);
 
   // Handle reading article
   const handleReadMore = (story: Story) => {
@@ -259,9 +259,7 @@ const Home1: React.FC = () => {
       try {
         const articles: ApiArticle[] = await fetchGlobalNews();
 
-        
         if (!articles.length) {
-          setIsLoading(false);
           return;
         }
 
@@ -270,10 +268,10 @@ const Home1: React.FC = () => {
         const featured: Story = {
           id: 0,
           title: first.title,
-          image: first.image_url || "/home41.png",
+          image: first.image_url || FALLBACK_IMAGE,
           category: first.category?.[0] || "Top",
           author: first.author?.[0] || "Unknown",
-          prf_img: "/home41.png", // No profile image
+          prf_img: "/home41.png",
           date: timeLatest(first.publish_datetime),
           readTime: `${calculateReadingTime(first.content || first.description || first.summary)} min`,
           link: first.link,
@@ -286,15 +284,15 @@ const Home1: React.FC = () => {
         };
         setFeaturedStory(featured);
 
-        /* ALL SMALL STORIES - First 7 articles after featured (for desktop) */
-        const mappedStories: Story[] = articles.slice(1, 8).map(
+        /* ALL SMALL STORIES - First 8 articles after featured (for desktop) */
+        const mappedStories: Story[] = articles.slice(1, 9).map(
           (item, index) => ({
             id: index + 1,
             title: item.title,
-            image: item.image_url || "/home41.png",
+            image: item.image_url || FALLBACK_IMAGE,
             category: item.category?.[0] || "Top",
             author: item.author?.[0] || "Unknown",
-            prf_img: "/home41.png", // No profile image
+            prf_img: "/home41.png",
             date: timeLatest(item.publish_datetime),
             readTime: `${calculateReadingTime(item.content || item.description || item.summary)} min`,
             link: item.link,
@@ -326,7 +324,7 @@ const Home1: React.FC = () => {
         style={{ fontFamily: "var(--font-albert-sans)" }}
       >
         <div className="flex justify-between items-center mb-6 sm:mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-black">
+          <h2 className="text-3xl sm:text-4xl font-bold text-black">
             Top Stories
           </h2>
         </div>
@@ -343,7 +341,7 @@ const Home1: React.FC = () => {
                 alt={featuredStory.title}
                 className="w-full h-[220px] sm:h-[260px] md:h-[300px] object-cover"
                 onError={(e) => {
-                  e.currentTarget.src = "/home41.png";
+                  e.currentTarget.src = FALLBACK_IMAGE;
                 }}
               />
               <span className="absolute top-3 sm:top-4 left-3 sm:left-4 bg-orange-500 text-[11px] sm:text-[12px] font-semibold text-white px-3 py-1 rounded-full">
@@ -369,104 +367,63 @@ const Home1: React.FC = () => {
             </div>
           </div>
 
-          {/* CTA */}
-          <div className="bg-black rounded-2xl p-5 sm:p-6 md:p-7 md:flex md:justify-around">
-            <div className="flex gap-4 items-start">
-              <img
-                src="/appiconn.png"
-                alt="App Logo"
-                className="
-                  w-[72px] h-[72px] 
-                  sm:w-[80px] sm:h-[80px]
-                  md:w-[88px] md:h-[88px]
-                  flex-shrink-0 object-contain
-                "
-              />
-              <div className="flex-1 min-w-0">
-                <h3
-                  style={{ fontFamily: "var(--font-albert-sans)" }}
-                  className="
-                    mb-2
-                    text-[24px] font-bold leading-normal tracking-[-0.48px] 
-                    sm:text-[26px]
-                    md:text-[28px]
-                    text-[#FFD200]
-                  "
-                >
-                  App Launching Soon... 
-                </h3>
-
-                <p
-                  style={{ fontFamily: "var(--font-dm-sans)" }}
-                  className="
-                    text-[15px] font-normal leading-normal text-[#CCC]
-                    sm:text-[16px]
-                  "
-                >
-                  Get all things membership,
-                  <br />
-                  straight to your inbox.
-                </p>
+          {/* UPDATED APP LAUNCH TILE - Mobile/Tablet with #F5F5F5 background */}
+          <div className="bg-[#F5F5F5] rounded-2xl overflow-hidden">
+            <div className="p-6 sm:p-8">
+              {/* Logo - Centered and Bigger */}
+              <div className="flex justify-center mb-6">
+                <img
+                  src="/tpw-black.png"
+                  alt="THE PEOPLE WIRE"
+                  className="w-24 h-24 sm:w-28 sm:h-28 object-contain"
+                />
               </div>
-            </div>
 
-            {/* APP STORE BUTTONS */}
-            <div
-              className="
-                mt-5 sm:mt-6
-                flex flex-row
-                gap-3
-                items-center
-                justify-center
-                flex-wrap
-                md:flex-col
-              "
-            >
-              <a
-                href="/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block"
+              {/* Offer Text - Black color, Albert Sans Bold */}
+              <p 
+                className="text-black text-center text-base sm:text-3xl lg:text-3xl mb-6"
+                style={{ fontFamily: "var(--font-albert-sans)", fontWeight: 700 }}
               >
-                <img
-                  src="/App-Store-CommingSoon.png"
-                  alt="Download on App Store"
-                  className="
-                    w-[110px] h-[34px]
-                    sm:w-[120px] sm:h-[38px]
-                    md:w-[130px] md:h-[40px]
-                    object-contain
-                    flex-shrink-0
-                    cursor-pointer
-                  "
-                />
-              </a>
-
-              <a
-                href="/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block"
+                Free Lifetime Premium News
+                <br />
+                For The First 1,000 Readers.
+              </p>
+            <p className="text-center text-black-800 text-l font-bold mb-2">
+  Join the waitlist
+</p>
+              
+              {/* App Store Buttons */}
+              <div className="flex flex-row gap-3 justify-center items-center mb-6">
+                <div className="w-28 sm:w-32">
+                  <img
+                    src="/App-Store-CommingSoon.png"
+                    alt="App Store"
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+                <div className="w-28 sm:w-32">
+                  <img
+                    src="/Play-Store-CommingSoon.png"
+                    alt="Google Play"
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              </div>
+              
+              {/* Join Waitlist Button - White text */}
+              <button
+                onClick={() => setNotifyFormOpen(true)}
+                className="w-full bg-[#ED6618] text-white font-bold py-3 sm:py-4 rounded-lg hover:bg-[#d4550c] transition-colors text-sm sm:text-base"
+                style={{ fontFamily: "var(--font-albert-sans)" }}
               >
-                <img
-                  src="/Play-Store-CommingSoon.png"
-                  alt="Get it on Google Play"
-                  className="
-                    w-[110px] h-[34px]
-                    sm:w-[120px] sm:h-[38px]
-                    md:w-[130px] md:h-[40px]
-                    object-contain
-                    flex-shrink-0
-                    cursor-pointer
-                  "
-                />
-              </a>
+                Notify Me →
+              </button>
             </div>
           </div>
 
-          {/* ALL STORIES GRID - Show only 2 stories below App Launch tile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {allStories.slice(0, 2).map((story) => (
+          {/* ALL STORIES GRID - Show 4 stories below App Launch tile */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {allStories.slice(0, 4).map((story) => (
               <SmallStoryCard 
                 key={story.id} 
                 story={story} 
@@ -484,23 +441,23 @@ const Home1: React.FC = () => {
           style={{ fontFamily: "var(--font-albert-sans)" }}
         >
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold text-black">Top Stories</h2>
+            <h2 className="text-4xl font-bold text-black">Top Stories</h2>
           </div>
 
-          {/* TOP SECTION - Featured + 3 small + CTA */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* FEATURED - Takes 6 columns */}
+          {/* TOP SECTION - Responsive: 60/40 on small laptops, 70/30 on larger displays */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 xl:grid-cols-10 gap-6 mb-6">
+            {/* FEATURED - Responsive columns */}
             <div 
-              className="lg:col-span-6 lg:row-span-2 bg-[#F5F5F5] rounded-2xl overflow-hidden flex flex-col h-full cursor-pointer"
+              className="lg:col-span-3 xl:col-span-7 bg-[#F5F5F5] rounded-2xl overflow-hidden flex flex-col h-full cursor-pointer"
               onClick={() => handleReadMore(featuredStory)}
             >
               <div className="relative flex-shrink-0">
                 <img
                   src={featuredStory.image}
                   alt={featuredStory.title}
-                  className="w-full h-[360px] object-cover"
+                  className="w-full h-[360px] xl:h-[400px] object-cover"
                   onError={(e) => {
-                    e.currentTarget.src = "/home41.png";
+                    e.currentTarget.src = FALLBACK_IMAGE;
                   }}
                 />
                 <span className="absolute top-4 left-4 bg-orange-500 text-[12px] font-semibold text-white px-3 py-1 rounded-full">
@@ -509,7 +466,7 @@ const Home1: React.FC = () => {
               </div>
 
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="text-[35px] font-bold text-[#262626] mb-6 flex-grow hover:underline">
+                <h3 className="text-[28px] xl:text-[32px] font-bold text-[#262626] mb-6 flex-grow hover:underline leading-tight">
                   {featuredStory.title}
                 </h3>
 
@@ -524,117 +481,63 @@ const Home1: React.FC = () => {
               </div>
             </div>
 
-            {/* FIRST ROW OF SMALL STORIES */}
-            {/* Story 1 - Top right */}
-            {allStories.slice(0, 1).map((story) => (
-              <div key={story.id} className="lg:col-span-3">
-                <SmallStoryCard story={story} onReadMore={handleReadMore} />
-              </div>
-            ))}
+            {/* UPDATED APP LAUNCH TILE - Responsive columns */}
+            <div className="lg:col-span-2 xl:col-span-3 bg-[#F5F5F5] rounded-2xl overflow-hidden">
+              <div className="p-6 xl:p-8 h-full flex flex-col">
+                {/* Logo - Centered */}
+                <div className="flex justify-center mb-5 xl:mb-6">
+                  <img
+                    src="/tpw-black.png"
+                    alt="THE PEOPLE WIRE"
+                    className="w-24 xl:w-28 h-24 xl:h-28 object-contain"
+                  />
+                </div>
 
-            {/* CTA - Top row */}
-            <div
-            
-              className="
-                lg:col-span-3
-                bg-black rounded-2xl
-                p-[clamp(16px,2vw,28px)]
-                flex flex-col justify-between
-              "
-            >
-              {/* CONTENT */}
-              <div className="w-full max-w-full">
-                <img
-                  src="/appiconn.png"
-                  alt="App Logo"
-                  className="w-[clamp(36px,3vw,44px)] h-[clamp(36px,3vw,44px)] mb-3 object-contain"
-                />
-
-                <h3
-                  style={{
-                    fontFamily: "var(--font-albert-sans)",
-                    fontSize: "clamp(20px, 2.1vw, 28px)",
-                  }}
-                  className="mb-2 font-extrabold leading-[1.15] tracking-[-0.52px] te text-[#FFD200]"
+                {/* Offer Text */}
+                <p 
+                  className="text-black text-center text-lg xl:text-2xl mb-2"
+                  style={{ fontFamily: "var(--font-albert-sans)", fontWeight: 700 }}
                 >
-                  App Launching Soon... 
-                </h3>
-
-                <p
-                  style={{ fontFamily: "var(--font-albert-sans)" }}
-                  className="text-[clamp(13px,1.15vw,16px)] leading-[1.45] text-white"
-                >
-                  Your Next-Gen News Destination
+                  Free Lifetime Premium News
+                  <br />
+                  For The First 1,000 Readers.
                 </p>
-              </div>
+                <p className="text-center text-black-900 text-xl font-bold mb-5 xl:mb-6">Join the waitlist</p>
 
-              {/* STORE BUTTONS */}
-              <div
-                className="
-                  mt-[clamp(12px,2vw,24px)]
-                  flex
-                  flex-row
-                  md:flex-col
-                  lg:flex-col xl:flex-row
-                  gap-[10px]
-                  items-start
-                  md:items-end
-                  w-full
-                "
-              >
-                <a
-                  href="/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block"
-                >
-                  <img
-                    src="/App-Store-CommingSoon.png"
-                    alt="App Store"
-                    className="
-                      w-[96px]
-                      md:w-[88px]
-                      lg:w-[162px]
-                      h-[50px]
-                      object-contain
-                      cursor-pointer
-                    "
-                  />
-                </a>
+                {/* Store Buttons */}
+                <div className="flex gap-3 xl:gap-4 mb-5 xl:mb-6">
+                  <div className="flex-1">
+                    <img
+                      src="/App-Store-CommingSoon.png"
+                      alt="App Store"
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <img
+                      src="/Play-Store-CommingSoon.png"
+                      alt="Google Play"
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
+                </div>
 
-                <a
-                  href="/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block"
+                {/* Join Waitlist Button */}
+                <button
+                  onClick={() => setNotifyFormOpen(true)}
+                  className="w-full bg-[#ED6618] text-white font-bold py-2.5 xl:py-3 rounded-lg hover:bg-[#d4550c] transition-colors text-xs xl:text-sm"
+                  style={{ fontFamily: "var(--font-albert-sans)" }}
                 >
-                  <img
-                    src="/Play-Store-CommingSoon.png"
-                    alt="Play Store"
-                    className="
-                      w-[px]
-                      md:w-[88px]
-                      lg:w-[162px]
-                      h-[50px]
-                      object-contain
-                      cursor-pointer
-                    "
-                  />
-                </a>
+                  Notify Me →
+                </button>
               </div>
             </div>
+          </div>
 
-            {/* Stories 2 & 3 - Bottom left */}
-            {allStories.slice(1, 3).map((story) => (
-              <div key={story.id} className="lg:col-span-3">
-                <SmallStoryCard story={story} onReadMore={handleReadMore} />
-              </div>
-            ))}
-
-            {/* SECOND ROW OF SMALL STORIES - 4 additional stories */}
-            {/* Stories 4, 5, 6, 7 - Full row of 4 columns */}
-            {allStories.slice(3, 7).map((story) => (
-              <div key={story.id} className="lg:col-span-3">
+          {/* BOTTOM SECTION - 4 Small Story Cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            {allStories.slice(0, 4).map((story) => (
+              <div key={story.id} className="lg:col-span-1">
                 <SmallStoryCard story={story} onReadMore={handleReadMore} />
               </div>
             ))}
@@ -642,7 +545,7 @@ const Home1: React.FC = () => {
         </section>
       </div>
 
-      {/* ARTICLE MODAL - Fixed with scrollable header */}
+      {/* ARTICLE MODAL */}
       {showArticleModal && selectedStory && (
         <div className="fixed inset-0 z-50 flex items-start justify-center p-0 bg-black/70 overflow-y-auto">
           <div className="relative w-full max-w-6xl my-4 md:my-8 bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col h-[90vh]">
@@ -714,7 +617,7 @@ const Home1: React.FC = () => {
                     <div className="relative">
                       <div className="bg-gradient-to-r from-orange-50 to-amber-50 p-4 md:p-6 rounded-lg border-l-4 border-orange-500">
                         {/* Float image to the right inside summary */}
-                        {selectedStory.image && selectedStory.image !== "/home41.png" && (
+                        {selectedStory.image && (
                           <div className="float-right ml-4 md:ml-6 mb-4 w-full md:w-2/5 lg:w-2/5">
                             <div className="rounded-lg overflow-hidden shadow">
                               <img
@@ -722,7 +625,7 @@ const Home1: React.FC = () => {
                                 alt={selectedStory.title}
                                 className="w-full h-auto max-h-[300px] object-cover"
                                 onError={(e) => {
-                                  e.currentTarget.src = "/home41.png";
+                                  e.currentTarget.src = FALLBACK_IMAGE;
                                 }}
                               />
                               <div className="bg-black/80 text-white text-xs p-2 text-center">
@@ -740,13 +643,6 @@ const Home1: React.FC = () => {
                           <p className="mb-4">
                             {selectedStory.summary}
                           </p>
-                          
-                          {/* Additional description if available */}
-                          {selectedStory.description && selectedStory.description !== selectedStory.summary && (
-                            <div className="">
-                              {/* Additional description content */}
-                            </div>
-                          )}
                         </div>
                         
                         {/* Clear float for following content */}
@@ -756,8 +652,8 @@ const Home1: React.FC = () => {
                   </div>
                 )}
 
-                {/* Full Article Content or Iframe */}
-                {selectedStory.content ? (
+                {/* Full Article Content */}
+                {selectedStory.content && (
                   <div className="mb-8">
                     <h2 className="text-lg font-bold text-gray-900 mb-4">Full Article</h2>
                     <div className="text-gray-800 leading-relaxed space-y-4 text-sm md:text-base">
@@ -768,32 +664,6 @@ const Home1: React.FC = () => {
                           </p>
                         )
                       ))}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="mb-8">
-                    {/* IFRAME SECTION */}
-                    <div className="mb-4">
-                      <h2 className="text-lg font-bold text-gray-900">Original Article</h2>
-                      <p className="text-sm text-gray-500 mt-1">
-                        Loading content from {getSourceName(selectedStory)}
-                      </p>
-                    </div>
-                    
-                    {/* IFRAME */}
-                    <div className="rounded-lg overflow-hidden shadow border border-gray-200">
-                      <iframe
-                        src={selectedStory.link}
-                        className="w-full h-[500px] border-0"
-                        title="Full Article"
-                        sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-                        loading="lazy"
-                      />
-                      <div className="bg-gray-50 p-2 text-center border-t">
-                        <p className="text-xs text-gray-600">
-                          Viewing external content. Some websites may restrict embedding.
-                        </p>
-                      </div>
                     </div>
                   </div>
                 )}
@@ -815,6 +685,11 @@ const Home1: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* NOTIFY ME FORM */}
+      {notifyFormOpen && (
+        <NotifyForm onClose={() => setNotifyFormOpen(false)} />
       )}
     </>
   );

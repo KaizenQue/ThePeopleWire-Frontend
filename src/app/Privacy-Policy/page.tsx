@@ -199,10 +199,23 @@ export default function PrivacyPolicyPage() {
             <p className="text-gray-700">Users may control cookies via browser settings.</p>
           </section>
 
-          {/* Data Sharing */}
+          {/* Do Not Track Signals (NEW SECTION) */}
           <section className="mb-10">
             <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-1 border-b border-gray-200">
-              7. Data Sharing
+              7. Do Not Track Signals
+            </h2>
+            <p className="text-gray-700 mb-4">
+              Some browsers offer a "Do Not Track" (DNT) feature that signals to websites that you do not want to be tracked.
+            </p>
+            <p className="text-gray-700">
+              Currently, there is no universally accepted standard for responding to Do Not Track signals. Therefore, The People Wire does not currently respond to such signals.
+            </p>
+          </section>
+
+          {/* Data Sharing (was section 7, now 8) */}
+          <section className="mb-10">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-1 border-b border-gray-200">
+              8. Data Sharing
             </h2>
             <p className="text-gray-700 mb-2">We may share information with:</p>
             <ul className="list-disc pl-6 text-gray-700 space-y-1 mb-4">
@@ -215,19 +228,19 @@ export default function PrivacyPolicyPage() {
             <p className="text-gray-700 font-medium">We do not sell personal data to third parties for independent marketing purposes.</p>
           </section>
 
-          {/* International Data Transfers */}
+          {/* International Data Transfers (was section 8, now 9) */}
           <section className="mb-10">
             <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-1 border-b border-gray-200">
-              8. International Data Transfers
+              9. International Data Transfers
             </h2>
             <p className="text-gray-700 mb-2">As a platform operated from India and accessible globally, your information may be processed in India or other countries where our service providers operate.</p>
             <p className="text-gray-700">By using the Platform, you consent to such transfers.</p>
           </section>
 
-          {/* Data Retention */}
+          {/* Data Retention (was section 9, now 10) */}
           <section className="mb-10">
             <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-1 border-b border-gray-200">
-              9. Data Retention
+              10. Data Retention
             </h2>
             <p className="text-gray-700 mb-2">We retain personal data only as long as necessary to:</p>
             <ul className="list-disc pl-6 text-gray-700 space-y-1">
@@ -238,10 +251,10 @@ export default function PrivacyPolicyPage() {
             </ul>
           </section>
 
-          {/* Your Rights */}
+          {/* Your Rights (was section 10, now 11) */}
           <section className="mb-10">
             <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-1 border-b border-gray-200">
-              10. Your Rights
+              11. Your Rights
             </h2>
             <p className="text-gray-700 mb-2">Depending on your jurisdiction, you may have the right to:</p>
             <ul className="list-disc pl-6 text-gray-700 space-y-1 mb-4">
@@ -255,43 +268,69 @@ export default function PrivacyPolicyPage() {
             <p className="text-gray-700">To exercise your rights, contact info@thepeoplewire.com</p>
           </section>
 
-          {/* Third-Party Links */}
+          {/* Third-Party Links (was section 11, now 12) */}
           <section className="mb-10">
             <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-1 border-b border-gray-200">
-              11. Third-Party Links
+              12. Third-Party Links
             </h2>
             <p className="text-gray-700 mb-2">The People Wire aggregates publicly available news content and links to third-party publishers.</p>
             <p className="text-gray-700">We are not responsible for the privacy practices or content of external websites.</p>
           </section>
 
-          {/* Children's Privacy */}
+          {/* Children's Privacy (was section 12, now 13) */}
           <section className="mb-10">
             <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-1 border-b border-gray-200">
-              12. Children's Privacy
+              13. Children's Privacy
             </h2>
             <p className="text-gray-700">The Platform is not intended for individuals under 13 years of age (or the applicable minimum age in your jurisdiction).</p>
           </section>
 
-          {/* Security */}
+          {/* Security (was section 13, now 14) */}
           <section className="mb-10">
             <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-1 border-b border-gray-200">
-              13. Security
+              14. Security
             </h2>
             <p className="text-gray-700">We implement reasonable security measures to protect personal data. However, no digital transmission is completely secure.</p>
           </section>
 
-          {/* Policy Updates */}
+          {/* Policy Updates (was section 14, now 15) */}
           <section className="mb-10">
             <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-1 border-b border-gray-200">
-              14. Policy Updates
+              15. Policy Updates
             </h2>
             <p className="text-gray-700">We may update this Privacy Policy at any time. Changes will be reflected with a revised "Last Updated" date.</p>
           </section>
 
-          {/* Contact Information */}
+          {/* California Privacy Rights (CCPA) (NEW SECTION - was section 15, now 16) */}
           <section className="mb-10">
             <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-1 border-b border-gray-200">
-              15. Contact Information
+              16. California Privacy Rights (CCPA)
+            </h2>
+            <p className="text-gray-700 mb-4">
+              If you are a resident of California, you may have the right under the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA) to:
+            </p>
+            <ul className="list-disc pl-6 text-gray-700 space-y-1 mb-4">
+              <li>Request access to personal information we collect about you</li>
+              <li>Request correction of inaccurate personal information</li>
+              <li>Request deletion of your personal information</li>
+              <li>Request information about how your data is used or shared</li>
+              <li>Opt out of the sale or sharing of personal information</li>
+            </ul>
+            <p className="text-gray-700 mb-2">
+              To exercise these rights, please contact us at:
+            </p>
+            <p className="text-gray-700 font-medium mb-2">
+              info@thepeoplewire.com
+            </p>
+            <p className="text-gray-700">
+              We will respond to verified requests within the time required by applicable law.
+            </p>
+          </section>
+
+          {/* Contact Information (was section 15, now 17) */}
+          <section className="mb-10">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4 pb-1 border-b border-gray-200">
+              17. Contact Information
             </h2>
             <div className="bg-gray-50 p-4 font-mono text-sm text-gray-800">
               STAR1IT CARAVAN PRIVATE LIMITED<br />
