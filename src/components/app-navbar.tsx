@@ -206,14 +206,14 @@ export default function AppNavbar() {
                 <div className="flex-1 min-w-0">
                   {/* Mobile: Two lines */}
                   <div className="block sm:hidden">
-                    <div className="text-sm font-bold text-gray-900 leading-tight truncate">Our App Is</div>
+                    <div className="text-sm font-bold text-gray-900 leading-tight truncate">Free Lifetime Premium News</div>
                     <div className="text-sm font-bold text-gray-900 leading-tight truncate">
-                      Launching Soon...
+                      For The First 1,000 Readers.
                     </div>
                   </div>
                   {/* Desktop: One line */}
                   <div className="hidden sm:block text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-gray-900 leading-tight truncate">
-                    Our App is Launching Soon...
+                    Free Lifetime Premium News For The First 1,000 Readers.
                   </div>
                 </div>
               </div>

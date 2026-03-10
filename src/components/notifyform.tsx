@@ -279,7 +279,7 @@ export default function NotifyForm({ onClose }: NotifyFormProps) {
                   />
                 </div>
               </div>
-              <h2 className="text-3xl font-bold text-gray-900">Our App Is <br />Launching Soon...</h2>
+              <h2 className="text-3xl font-bold text-gray-900">Free Lifetime Premium News <br />For The First 1,000 Readers.</h2>
             </div>
 
             {/* Form */}
