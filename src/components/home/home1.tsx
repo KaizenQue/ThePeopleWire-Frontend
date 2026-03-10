@@ -388,7 +388,9 @@ const Home1: React.FC = () => {
                 <br />
                 For The First 1,000 Readers.
               </p>
-              <p className="text-center text-gray-600 font-medium mb-2">Join the waitlist</p>
+            <p className="text-center text-black-800 text-l font-bold mb-2">
+  Join the waitlist
+</p>
               
               {/* App Store Buttons */}
               <div className="flex flex-row gap-3 justify-center items-center mb-6">
@@ -500,7 +502,7 @@ const Home1: React.FC = () => {
                   <br />
                   For The First 1,000 Readers.
                 </p>
-                <p className="text-center text-gray-600 font-medium mb-5 xl:mb-6">Join the waitlist</p>
+                <p className="text-center text-black-900 text-xl font-bold mb-5 xl:mb-6">Join the waitlist</p>
 
                 {/* Store Buttons */}
                 <div className="flex gap-3 xl:gap-4 mb-5 xl:mb-6">

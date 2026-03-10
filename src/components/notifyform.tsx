@@ -285,7 +285,9 @@ export default function NotifyForm({ onClose }: NotifyFormProps) {
             {/* Form */}
             <form ref={formRef} onSubmit={handleSubmit} className="p-6 space-y-4">
               {/* Join the waitlist text */}
-              <p className="text-center text-gray-600 font-medium mb-2">Join the waitlist</p>
+            <p className="text-center text-black-800 text-l font-bold mb-2">
+  Join the waitlist
+</p>
 
               {/* Full Name Field */}
               <div>
