@@ -107,7 +107,12 @@ export default function DisclaimerPage() {
             <p className="text-gray-700 font-medium">Use of the Platform is at your own risk.</p>
           </section>
 
-      
+          {/* API and Content Sourcing Disclaimer */}
+          <section className="mt-12 pt-6 border-t border-gray-300">
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Content displayed on this website is sourced through third-party news APIs and automated aggregation tools. While we strive to provide timely and relevant information, PeopleWire does not guarantee the accuracy, completeness, reliability, or availability of any content. All APIs and related data are provided "as is" and may change or become unavailable without notice. This platform is intended for informational and development purposes only, and users rely on the information at their own discretion.
+            </p>
+          </section>
         </div>
       </div>
     </main>
