@@ -248,30 +248,44 @@ Bangalore,Karnataka, India - 560076</span>
         <Separator className="my-10 bg-[#F25C05]" />
 
         {/* ================= BOTTOM ================= */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-400 mb-12">
-          <div className="flex items-center gap-1">
-            <CopyrightIcon size={12} color="#F25C05" />
-            <span className="font-['Albert_Sans']">
-              2026 The People Wire. All Rights Reserved.
-            </span>
-          </div>
+       <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 text-xs text-gray-400 mb-12">
 
-          <div className="flex gap-8">
-            {/* <Link href="/About-Us" className="hover:text-[#F25C05]">
-              About Us
-            </Link>
-            <Link href="/Contact-Us" className="hover:text-[#F25C05]">
-              Contact Us
-            </Link> */}
-            
-            <Link href="/Privacy-Policy" className="hover:text-[#F25C05]">
-              Privacy Policy
-            </Link>
-            <Link href="/Disclaimer" className="hover:text-[#F25C05]">
-              Disclaimer
-            </Link>
-          </div>
-        </div>
+  {/* Left - Copyright */}
+  <div className="flex items-center gap-2">
+    <CopyrightIcon size={12} color="#F25C05" />
+    <span className="font-['Albert_Sans']">
+      © 2026 The People Wire. All rights reserved.
+    </span>
+  </div>
+
+  {/* Right Section */}
+  <div className="flex flex-col gap-3 max-w-xl">
+
+    {/* Links */}
+    <div className="flex gap-6">
+      <Link href="/Privacy-Policy" className="hover:text-[#F25C05] transition">
+        Privacy Policy
+      </Link>
+      <Link href="/Disclaimer" className="hover:text-[#F25C05] transition">
+        Disclaimer
+      </Link>
+    </div>
+
+    {/* Disclaimer */}
+    <div className="leading-relaxed">
+      <p>
+        Content displayed on this website is sourced from third-party news APIs
+        and automated aggregation systems. While efforts are made to ensure
+        accuracy and timeliness, The People Wire makes no representations or
+        warranties regarding the completeness, reliability, or accuracy of the
+        information. All content is provided on an “as is” basis and may change
+        without notice. Users are advised to independently verify any information
+        before relying on it.
+      </p>
+    </div>
+
+  </div>
+</div>
 
       </div>
     </footer>
