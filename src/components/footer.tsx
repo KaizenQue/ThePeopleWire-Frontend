@@ -273,7 +273,7 @@ Bangalore,Karnataka, India - 560076</span>
 
     {/* Disclaimer */}
     <div className="leading-relaxed">
-      {/* <p>
+      <p>
         Content displayed on this website is sourced from third-party news APIs
         and automated aggregation systems. While efforts are made to ensure
         accuracy and timeliness, The People Wire makes no representations or
@@ -281,7 +281,7 @@ Bangalore,Karnataka, India - 560076</span>
         information. All content is provided on an “as is” basis and may change
         without notice. Users are advised to independently verify any information
         before relying on it.
-      </p> */}
+      </p>
     </div>
 
   </div>
